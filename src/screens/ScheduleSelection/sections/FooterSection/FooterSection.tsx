@@ -1,15 +1,17 @@
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FAQModal } from "../../../../components/FAQModal";
 import { Button } from "../../../../components/ui/button";
 
 export const FooterSection = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   // Footer links data
   const footerLinks = [
     { text: "Preguntas frecuentes", onClick: () => setIsFAQModalOpen(true) },
-    { text: "Privacidad y cookies", onClick: () => {} },
+    { text: "Privacidad y cookies", onClick: () => navigate('/privacy-cookies') },
     { text: "Términos y condiciones", onClick: () => {} },
     { text: "Soporte", onClick: () => {} },
     { text: "Contacto", onClick: () => {} },

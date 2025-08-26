@@ -10,6 +10,7 @@ import { SearchResults } from "./screens/SearchResults";
 import { Login } from "./screens/Login";
 import { ServiceDetails } from "./screens/ServiceDetails";
 import { PatientDashboard } from "./screens/PatientDashboard";
+import { PrivacyCookies } from "./screens/PrivacyCookies";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "/patient-dashboard",
     element: <PatientDashboard />,
+  },
+  {
+    path: "/privacy-cookies",
+    element: <PrivacyCookies />,
   },
 ]);
 
