@@ -1,10 +1,9 @@
-import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Home } from "./screens/Home";
 import { ScheduleSelection } from "./screens/ScheduleSelection";
 import { ServiceSelection } from "./screens/ServiceSelection";
 import { ConfirmationPayment } from "./screens/ConfirmationPayment";
-import { PatientForm } from "./screens/PatientForm";
+import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado"; 
 import { TherapistDashboard } from "./screens/TherapistDashboard";
 import { SearchResults } from "./screens/SearchResults";
 import { Login } from "./screens/Login";
@@ -29,8 +28,8 @@ const router = createBrowserRouter([
     element: <ConfirmationPayment />,
   },
   {
-    path: "/patient-form",
-    element: <PatientForm />,
+    path: "/VistaPrellenado",
+    element: <VistaPrellenado/>,
   },
   {
     path: "/therapist-dashboard",

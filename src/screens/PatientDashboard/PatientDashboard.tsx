@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GlobeIcon, MenuIcon, UserIcon, MapPinIcon, VideoIcon, ClockIcon } from "lucide-react";
-import { CancellationModal } from "../../components/CancellationModal";
+import { CancellationModal } from "../../components/CancellationModal"; 
 import { FAQModal } from "../../components/FAQModal";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
