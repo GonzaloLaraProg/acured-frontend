@@ -1,25 +1,32 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
+    "./index.html",
     "./src/**/*.{html,js,ts,jsx,tsx}",
-    "app/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
   ],
   theme: {
+    container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
     extend: {
       colors: {
         neutralswhite: "var(--neutralswhite)",
+        "primary-50": "var(--primary-50)",
         "primary-100": "var(--primary-100)",
         "primary-200": "var(--primary-200)",
         "primary-400": "var(--primary-400)",
-        "primary-50": "var(--primary-50)",
         "primary-500": "var(--primary-500)",
+        "primary-600": "var(--primary-600)", // <- NUEVO
         "primary-700": "var(--primary-700)",
         "primary-800": "var(--primary-800)",
         "primary-900": "var(--primary-900)",
-        "shadow-100": "var(--shadow-100)",
         "shadow-50": "var(--shadow-50)",
+        "shadow-100": "var(--shadow-100)",
         "shadow-800": "var(--shadow-800)",
         "shadow-900": "var(--shadow-900)",
+
+        // tokens hsl del theme base
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +82,8 @@ module.exports = {
       boxShadow: {
         "shadow-base": "var(--shadow-base)",
         "shadow-sm": "var(--shadow-sm)",
+        "shadow-xs": "var(--shadow-xs)", // <- NUEVO (lo usas en la UI)
+        "shadow-md": "var(--shadow-md)", // <- NUEVO (lo usas en la UI)
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -96,8 +105,6 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
-    container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
   },
   plugins: [],
-  darkMode: ["class"],
 };
