@@ -1,6 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronRightIcon, GlobeIcon, MenuIcon, UserIcon, ArrowRightIcon } from "lucide-react";
+import {
+  ChevronRightIcon,
+  GlobeIcon,
+  MenuIcon,
+  UserIcon,
+  ArrowRightIcon,
+} from "lucide-react";
 import { CheckCircleIcon, XIcon } from "lucide-react";
 import { FAQModal } from "../../components/FAQModal";
 import { Button } from "../../components/ui/button";
@@ -13,10 +19,20 @@ import {
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
 import { SupportModal } from "../../components/SupportModal";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "../../components/ui/input-otp";
 import { FooterSection } from "../Home/sections/FooterSection";
 
 export const Registration = (): JSX.Element => {
@@ -26,10 +42,16 @@ export const Registration = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
-  const [currentStep, setCurrentStep] = React.useState<
-  'choose-role' | 'create-account' | 'name-form' | 'basic-info' | 'verification-code' | 'sms-verification' | 'success-confirmation'
->('choose-role');
 
+  const [currentStep, setCurrentStep] = React.useState<
+    | "choose-role"
+    | "create-account"
+    | "name-form"
+    | "basic-info"
+    | "verification-code"
+    | "sms-verification"
+    | "success-confirmation"
+  >("choose-role");
 
   const monthOptions = [
     { value: "enero", label: "Enero" },
@@ -46,12 +68,6 @@ export const Registration = (): JSX.Element => {
     { value: "diciembre", label: "Diciembre" },
   ];
 
-  const genderOptions = [
-    { value: "masculino", label: "Masculino" },
-    { value: "femenino", label: "Femenino" },
-    { value: "otro", label: "Otro" },
-  ];
-
   const countryCodeOptions = [
     { value: "+569", label: "+569" },
     { value: "+56", label: "+56" },
@@ -66,58 +82,77 @@ export const Registration = (): JSX.Element => {
 
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [selectedOption, setSelectedOption] = React.useState<string>("");
+  const [expandedGender, setExpandedGender] = React.useState(false);
+  const [isGenderOpen, setIsGenderOpen] = React.useState(false);
+
+  const getGenderOptions = () => {
+    if (!expandedGender) {
+      return [
+        { value: "masculino", label: "Masculino" },
+        { value: "femenino", label: "Femenino" },
+        { value: "otro", label: "Otro" },
+      ];
+    }
+    return [
+      { value: "no-binario", label: "No binario" },
+      { value: "transfemenino", label: "Transfemenino" },
+      { value: "transmasculino", label: "Transmasculino" },
+      { value: "prefiero-no-informar", label: "Prefiero no informar" },
+      { value: "otro", label: "Otro" },
+    ];
+  };
 
   const handleVerificationOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
-    if (optionId === 'sms') {
-      setCurrentStep('sms-verification');
+    if (optionId === "sms") {
+      setCurrentStep("sms-verification");
     }
   };
 
   const verificationOptions = [
     {
-      id: "sms",
-      title: "Mensaje de texto",
-      description: "Enviaremos un código de 6 dígitos al +569 *** *** **"
+      id: "email",
+      title: "Email",
+      description:
+        "Te enviaremos un código de verificación a tu correo electrónico acu**@gmail.com.",
     },
     {
-      id: "email",
-      title: "Correo electrónico",
-      description: "Enviaremos un código de 6 dígitos a tu correo electrónico"
-    }
+      id: "sms",
+      title: "Mensaje de texto",
+      description:
+        "Te enviaremos un SMS con un código de verificación a tu teléfono terminado en +569 **** 8823.",
+    },
+    {
+      id: "Whatsapp",
+      title: "Whatsapp",
+      description:
+        "Te enviaremos un WhatsApp con un código de verificación a tu teléfono terminado en +569 **** 8823.",
+    },
   ];
-  
-  const handleChoosePatient = () => setCurrentStep('create-account');
-  const handleChooseTherapist = () => setCurrentStep('create-account');
 
-  const handleNameForm = () => {
-    setCurrentStep('name-form');
-  };
+  const handleChoosePatient = () => setCurrentStep("create-account");
+  const handleChooseTherapist = () => setCurrentStep("create-account");
 
-  const handleBasicInfo = () => {
-    setCurrentStep('basic-info');
-  };
-
-  const handleVerificationCode = () => {
-    setCurrentStep('verification-code');
-  };
+  const handleNameForm = () => setCurrentStep("name-form");
+  const handleBasicInfo = () => setCurrentStep("basic-info");
+  const handleVerificationCode = () => setCurrentStep("verification-code");
 
   const handleBack = () => {
     switch (currentStep) {
-      case 'name-form':
-        setCurrentStep('create-account');
+      case "name-form":
+        setCurrentStep("create-account");
         break;
-      case 'basic-info':
-        setCurrentStep('name-form');
+      case "basic-info":
+        setCurrentStep("name-form");
         break;
-      case 'verification-code':
-        setCurrentStep('basic-info');
+      case "verification-code":
+        setCurrentStep("basic-info");
         break;
-      case 'sms-verification':
-        setCurrentStep('verification-code');
+      case "sms-verification":
+        setCurrentStep("verification-code");
         break;
       default:
-        navigate('/login');
+        navigate("/login");
     }
   };
 
@@ -159,8 +194,8 @@ export const Registration = (): JSX.Element => {
 
         {/* Right side buttons */}
         <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
             onClick={() => setIsLanguageModalOpen(true)}
           >
@@ -168,9 +203,9 @@ export const Registration = (): JSX.Element => {
             <GlobeIcon className="w-4 h-4 text-gray-600" />
           </Button>
 
-          <Button 
+          <Button
             ref={menuButtonRef}
-            variant="ghost" 
+            variant="ghost"
             className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
             onClick={() => setIsMenuDropdownOpen(!isMenuDropdownOpen)}
           >
@@ -178,8 +213,8 @@ export const Registration = (): JSX.Element => {
             <MenuIcon className="w-4 h-4 text-gray-600" />
           </Button>
 
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
           >
             <span className="text-sm text-gray-700 font-medium">Nombre</span>
@@ -189,475 +224,457 @@ export const Registration = (): JSX.Element => {
 
         {/* Main Content */}
         <div className="flex min-h-screen">
-          {/* Left side - Registration form */}
+          {/* Left side - Registration or Success */}
           <div className="flex-1 flex items-center justify-center pt-32 pb-16 px-16">
-            <Card className="w-full max-w-[500px] bg-white rounded-2xl shadow-lg">
-              <CardContent className="p-8">
-                {/* Title */}
-                <h1 className="text-center mb-8 text-2xl font-normal text-primary-900">
-                  {currentStep === 'create-account' ? "Crea una cuenta o regístrate a través de google" :
-                   currentStep === 'name-form' ? "Crea una Cuenta en Acured" :
-                   currentStep === 'basic-info' ? "Información básica" :
-                   currentStep === 'verification-code' ? "Código de verificación" :
-                   currentStep === 'sms-verification' ? "Código de verificación" :
-                   "Registro"}
-                </h1>
-
-                {currentStep === 'name-form' && (
-                  <p className="text-center mb-6 text-sm text-gray-600">
-                    Ingresa tu nombre y apellido
-                  </p>
-                )}
-                {/* 👉 Paso inicial: elegir rol */}
-                {currentStep === 'choose-role' && (
-                  <div className="space-y-4">
-                    {/* Acured para pacientes */}
-                    <div
-                      className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                      onClick={handleChoosePatient}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="font-paragraph-p2-semi-bold text-primary-900">
-                            Acured para pacientes
-                          </span>
-                          <span className="font-paragraph-p3 text-gray-600">
-                            Soy paciente y quiero registrarme
-                          </span>
+            {currentStep === "success-confirmation" ? (
+              /* ✅ Success fuera del Card general */
+              <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
+                <Card className="w-96 shadow-shadow-md">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-terciary-50 rounded-[8px_8px_0px_0px]">
+                    <CheckCircleIcon className="w-7 h-7 text-terciary-600" />
+                    <div className="flex-1 font-heading-h7 text-terciary-600">
+                      Éxito
+                    </div>
+                    <XIcon className="w-4 h-4" />
+                  </div>
+                  <CardContent className="flex flex-col items-center justify-center gap-4 p-6 bg-otherswhite rounded-[0px_0px_8px_8px]">
+                    <div className="self-stretch text-gray-600">
+                      Tu cuenta ha sido creada con éxito
+                    </div>
+                    <div className="flex flex-col items-start gap-2 pt-3 w-full border-t border-solid border-[#d4d4d8]">
+                      <div className="flex items-center justify-end gap-2.5 w-full">
+                        <div className="inline-flex items-start gap-2">
+                          <Button
+                            className="h-auto px-4 py-2 bg-primary-800 rounded-3xl shadow-shadow-md"
+                            onClick={() => navigate("/")}
+                          >
+                            Agenda una cita
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="h-auto px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs"
+                            onClick={() => navigate("/patient-dashboard")}
+                          >
+                            Ir a mi perfil
+                          </Button>
                         </div>
-                        <ChevronRightIcon className="w-5 h-5 text-gray-400" />
                       </div>
                     </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              /* ✅ Todos los demás pasos dentro del Card general */
+              <Card className="w-full max-w-[500px] bg-white rounded-2xl shadow-lg">
+                <CardContent className="p-8">
+                  {/* Title */}
+                  <h1 className="text-center mb-8 text-2xl font-normal text-primary-900">
+                    {currentStep === "create-account"
+                      ? "Crea una cuenta o regístrate a través de google"
+                      : currentStep === "name-form"
+                      ? "Crea una Cuenta en Acured"
+                      : currentStep === "basic-info"
+                      ? "Información básica"
+                      : currentStep === "verification-code"
+                      ? "Código de verificación"
+                      : currentStep === "sms-verification"
+                      ? "Código de verificación"
+                      : "Registro"}
+                  </h1>
 
-                    {/* Acured para acupunturistas */}
-                    <div
-                      className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                      onClick={handleChooseTherapist}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="font-paragraph-p2-semi-bold text-primary-900">
-                            Acured para acupunturistas
-                          </span>
-                          <span className="font-paragraph-p3 text-gray-600">
-                            Soy acupunturista y me interesa administrar mis pacientes
-                          </span>
-                        </div>
-                        <ChevronRightIcon className="w-5 h-5 text-gray-400" />
-                      </div>
-                    </div>
-                  </div>
-                )}
+                  {currentStep === "name-form" && (
+                    <p className="text-center mb-6 text-sm text-gray-600">
+                      Ingresa tu nombre y apellido
+                    </p>
+                  )}
 
-
-                {currentStep === 'create-account' ? (
-                  /* Create Account Options */
-                  <div className="space-y-4">
-                    <Button 
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors"
-                      onClick={handleNameForm}
-                    >
-                      <span className="font-medium">Crear cuenta</span>
-                    </Button>
-                    
-                    <Button className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                      <span className="text-xl">G</span>
-                      <span className="font-medium">Continuar con google</span>
-                    </Button>
-                  </div>
-                ) : currentStep === 'name-form' ? (
-                  /* Name Form */
-                  <div className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Nombres"
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    
-                    <input
-                      type="text"
-                      placeholder="Apellidos"
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    
-                    <div className="flex items-center justify-between pt-4">
-                      <button 
-                        className="text-primary-900 text-sm hover:underline"
-                        onClick={handleBack}
+                  {/* Step: choose-role */}
+                  {currentStep === "choose-role" && (
+                    <div className="space-y-4">
+                      <div
+                        className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={handleChoosePatient}
                       >
-                        Atrás
-                      </button>
-                      <button 
-                        className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
-                        onClick={handleBasicInfo}
-                      >
-                        Siguiente
-                      </button>
-                    </div>
-                  </div>
-                ) : currentStep === 'basic-info' ? (
-                  /* Basic Info Form */
-                  <div className="flex flex-col items-center justify-center gap-2.5 relative flex-1 grow">
-                    <Card className="relative self-stretch w-full flex-[0_0_auto] bg-neutralswhite rounded-lg shadow-shadow-sm">
-                      <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
-                        <div className="flex flex-col items-start gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                          <div className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-                            <div className="flex flex-col items-center gap-3 relative self-stretch w-full flex-[0_0_auto]">
-                              <h2 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-                                Información básica
-                              </h2>
-                            </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="font-paragraph-p2-semi-bold text-primary-900">
+                              Acured para pacientes
+                            </span>
+                            <span className="font-paragraph-p3 text-gray-600">
+                              Soy paciente y quiero registrarme
+                            </span>
                           </div>
+                          <ChevronRightIcon className="w-5 h-5 text-gray-400" />
+                        </div>
+                      </div>
 
-                          <div className="flex flex-col items-center gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                            <div className="flex flex-col items-start gap-6 pt-0 pb-4 px-0 relative self-stretch w-full flex-[0_0_auto]">
-                              <div className="flex flex-col items-start gap-4 relative self-stretch w-full flex-[0_0_auto]">
-                                <h3 className="relative w-fit mt-[-1.00px] font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-shadow-900 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] whitespace-nowrap [font-style:var(--heading-h7-font-style)]">
-                                  Información personal
-                                </h3>
+                      <div
+                        className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={handleChooseTherapist}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="font-paragraph-p2-semi-bold text-primary-900">
+                              Acured para acupunturistas
+                            </span>
+                            <span className="font-paragraph-p3 text-gray-600">
+                              Soy acupunturista y me interesa administrar mis pacientes
+                            </span>
+                          </div>
+                          <ChevronRightIcon className="w-5 h-5 text-gray-400" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
-                                <div className="flex flex-col items-start gap-3 relative self-stretch w-full flex-[0_0_auto]">
-                                  <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                                    <Label className="relative w-fit mt-[-1.00px] font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
-                                      Rut
-                                    </Label>
+                  {/* Step: create-account */}
+                  {currentStep === "create-account" && (
+                    <div className="space-y-4">
+                      <Button
+                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors"
+                        onClick={handleNameForm}
+                      >
+                        <span className="font-medium">Crear cuenta</span>
+                      </Button>
 
+                      <Button className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                        <span className="text-xl">G</span>
+                        <span className="font-medium">Continuar con google</span>
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Step: name-form */}
+                  {currentStep === "name-form" && (
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        placeholder="Nombres"
+                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Apellidos"
+                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      />
+
+                      <div className="flex items-center justify-between pt-4">
+                        <button
+                          className="text-primary-900 text-sm hover:underline"
+                          onClick={handleBack}
+                        >
+                          Atrás
+                        </button>
+                        <button
+                          className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
+                          onClick={handleBasicInfo}
+                        >
+                          Siguiente
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step: basic-info */}
+                  {currentStep === "basic-info" && (
+                    <div className="flex flex-col items-center justify-center gap-2.5 relative flex-1 grow">
+                      <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
+                        <div className="flex flex-col items-center gap-6 w-full">
+                          <div className="flex flex-col items-start gap-6 pb-4 w-full">
+                            <div className="flex flex-col items-start gap-4 w-full">
+                              <h3 className="font-heading-h7 text-shadow-900">
+                                Información personal
+                              </h3>
+
+                              <div className="flex flex-col items-start gap-3 w-full">
+                                <div className="flex flex-col items-start gap-2 w-full">
+                                  <Label className="font-paragraph-p1-semi-bold text-shadow-600">
+                                    Rut
+                                  </Label>
+                                  <Input
+                                    className="p-2 bg-primary-50 rounded border-0"
+                                    placeholder="Sin puntos y sin guión"
+                                  />
+                                </div>
+
+                                <div className="flex flex-col items-start gap-2 w-full">
+                                  <Label className="font-paragraph-p1-semi-bold text-shadow-600">
+                                    Fecha de nacimiento
+                                  </Label>
+
+                                  <div className="inline-flex items-center gap-2.5">
                                     <Input
-                                      className="items-start self-stretch w-full flex-[0_0_auto] flex p-2 relative bg-primary-50 rounded border-0"
-                                      placeholder="Sin puntos y sin guión"
+                                      className="w-[130px] p-2 bg-primary-50 rounded border-0"
+                                      placeholder="Dia (ej: 04)"
                                     />
-                                  </div>
 
-                                  <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                                    <Label className="relative w-fit mt-[-1.00px] font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
-                                      Fecha de nacimiento
-                                    </Label>
-
-                                    <div className="inline-flex items-center gap-2.5 relative flex-[0_0_auto]">
-                                      <Input
-                                        className="flex w-[130px] items-center p-2 relative bg-primary-50 rounded border-0"
-                                        placeholder="Dia (ej: 04)"
-                                      />
-
-                                      <Select>
-                                        <SelectTrigger className="flex w-[130px] items-center justify-between p-2 relative bg-primary-50 rounded border-0">
-                                          <SelectValue placeholder="Mes" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          {monthOptions.map((month) => (
-                                            <SelectItem
-                                              key={month.value}
-                                              value={month.value}
-                                            >
-                                              {month.label}
-                                            </SelectItem>
-                                          ))}
-                                        </SelectContent>
-                                      </Select>
-
-                                      <Input
-                                        className="flex w-[130px] items-center p-2 relative bg-primary-50 rounded border-0"
-                                        placeholder="Año (ej: 1996)"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                                    <Select
-                                      value={selectedGender}
-                                      onValueChange={setSelectedGender}
-                                    >
-                                      <SelectTrigger className="flex-col self-stretch w-full flex-[0_0_auto] mb-[-1.00px] ml-[-1.00px] mr-[-1.00px] overflow-hidden border border-solid border-[#bbcac0] shadow-shadow-sm flex items-center relative bg-primary-50 rounded">
-                                        <div className="flex items-center justify-between p-2 relative self-stretch w-full flex-[0_0_auto]">
-                                          <SelectValue
-                                            placeholder="Género"
-                                            className="font-paragraph-p2-regular text-primary-800 text-[length:var(--paragraph-p2-regular-font-size)] relative w-fit font-[number:var(--paragraph-p2-regular-font-weight)] tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]"
-                                          />
-                                        </div>
-                                      </SelectTrigger>
-                                      <SelectContent className="flex flex-col items-center relative self-stretch w-full flex-[0_0_auto]">
-                                        {genderOptions.map((option) => (
-                                          <SelectItem
-                                            key={option.value}
-                                            value={option.value}
-                                            className="flex items-start relative self-stretch w-full flex-[0_0_auto] bg-neutralswhite border-t border-[#f3f3f5] px-2 py-1"
-                                          >
-                                            <span className="relative w-fit font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-regular-font-size)] tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
-                                              {option.label}
-                                            </span>
-                                          </SelectItem>
-                                        ))}
-                                      </SelectContent>
-                                    </Select>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="justify-center flex flex-col items-start gap-4 relative self-stretch w-full flex-[0_0_auto]">
-                                <div className="inline-flex flex-[0_0_auto] items-center relative">
-                                  <h3 className="relative w-fit mt-[-1.00px] font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-shadow-900 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] whitespace-nowrap [font-style:var(--heading-h7-font-style)]">
-                                    Información de contacto
-                                  </h3>
-                                </div>
-
-                                <div className="flex flex-col items-start gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                                  <div className="flex items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                                    <Select defaultValue="+569">
-                                      <SelectTrigger className="w-[87px] justify-between px-3 py-1.5 flex items-center relative bg-primary-50 rounded border-0">
-                                        <SelectValue />
+                                    <Select>
+                                      <SelectTrigger className="w-[130px] p-2 bg-primary-50 rounded border-0 justify-between">
+                                        <SelectValue placeholder="Mes" />
                                       </SelectTrigger>
                                       <SelectContent>
-                                        {countryCodeOptions.map((code) => (
-                                          <SelectItem key={code.value} value={code.value}>
-                                            {code.label}
+                                        {monthOptions.map((m) => (
+                                          <SelectItem key={m.value} value={m.value}>
+                                            {m.label}
                                           </SelectItem>
                                         ))}
                                       </SelectContent>
                                     </Select>
 
                                     <Input
-                                      className="items-center flex-1 grow flex p-2 relative bg-primary-50 rounded border-0"
-                                      placeholder="Numero de teléfono"
+                                      className="w-[130px] p-2 bg-primary-50 rounded border-0"
+                                      placeholder="Año (ej: 1996)"
                                     />
                                   </div>
                                 </div>
+
+                                <div className="flex flex-col items-start gap-2 w-full">
+                                  <Select
+                                    value={selectedGender}
+                                    open={isGenderOpen}
+                                    onOpenChange={setIsGenderOpen}
+                                    onValueChange={(value) => {
+                                      if (value === "otro" && !expandedGender) {
+                                        setExpandedGender(true);
+                                        setTimeout(() => setIsGenderOpen(true), 0);
+                                        setSelectedGender("");
+                                      } else {
+                                        setSelectedGender(value);
+                                        setIsGenderOpen(false);
+                                      }
+                                    }}
+                                  >
+                                    <SelectTrigger className="flex-col w-full border border-[#bbcac0] bg-primary-50 rounded">
+                                      <SelectValue placeholder="Género" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {getGenderOptions().map((option) => (
+                                        <SelectItem
+                                          key={option.value}
+                                          value={option.value}
+                                          onSelect={(e) => {
+                                            if (option.value === "otro" && !expandedGender) {
+                                              e.preventDefault();
+                                              setExpandedGender(true);
+                                              setIsGenderOpen(true);
+                                            }
+                                          }}
+                                        >
+                                          {option.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col items-start gap-4 w-full">
+                              <div className="inline-flex items-center">
+                                <h3 className="font-heading-h7 text-shadow-900">
+                                  Información de contacto
+                                </h3>
                               </div>
 
-                              <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                                <h3 className="relative w-fit mt-[-1.00px] font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-shadow-900 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] whitespace-nowrap [font-style:var(--heading-h7-font-style)]">
-                                  Email y contraseña
-                                </h3>
-
-                                <div className="flex flex-col items-start gap-3 relative self-stretch w-full flex-[0_0_auto]">
-                                  <p className="mt-[-1.00px] relative self-stretch font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
-                                    Recibirás un email con un código de confirmación
-                                  </p>
-
-                                  <Input
-                                    className="h-[33px] items-center self-stretch w-full flex p-2 relative bg-primary-50 rounded border-0"
-                                    placeholder="Email"
-                                  />
-
-                                  <p className="relative self-stretch font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
-                                    Tu contraseña debe tener mínimo 8 números o caracteres
-                                  </p>
+                              <div className="flex flex-col items-start gap-6 w-full">
+                                <div className="flex items-start gap-2 w-full">
+                                  <Select defaultValue="+569">
+                                    <SelectTrigger className="w-[87px] px-3 py-1.5 bg-primary-50 rounded border-0 justify-between">
+                                      <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {countryCodeOptions.map((code) => (
+                                        <SelectItem key={code.value} value={code.value}>
+                                          {code.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
 
                                   <Input
-                                    type="password"
-                                    className="h-[33px] items-center self-stretch w-full flex p-2 relative bg-primary-50 rounded border-0"
-                                    placeholder="Crea una contraseña"
-                                  />
-
-                                  <div className="inline-flex flex-col items-start pl-2 pr-0 py-0 relative flex-[0_0_auto]">
-                                    {passwordRequirements.map((requirement, index) => (
-                                      <div
-                                        key={index}
-                                        className="relative w-fit font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]"
-                                      >
-                                        {requirement}
-                                      </div>
-                                    ))}
-                                  </div>
-
-                                  <Input
-                                    type="password"
-                                    className="h-[33px] items-center self-stretch w-full flex p-2 relative bg-primary-50 rounded border-0"
-                                    placeholder="Confirma tu contraseña aquí"
+                                    className="flex-1 p-2 bg-primary-50 rounded border-0"
+                                    placeholder="Numero de teléfono"
                                   />
                                 </div>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col items-start gap-2 w-full">
+                              <h3 className="font-heading-h7 text-shadow-900">
+                                Email y contraseña
+                              </h3>
+
+                              <div className="flex flex-col items-start gap-3 w-full">
+                                <p className="font-paragraph-p1-semi-bold text-shadow-600">
+                                  Recibirás un email con un código de confirmación
+                                </p>
+
+                                <Input
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Email"
+                                />
+
+                                <p className="font-paragraph-p1-semi-bold text-shadow-600">
+                                  Tu contraseña debe tener mínimo 8 números o caracteres
+                                </p>
+
+                                <Input
+                                  type="password"
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Crea una contraseña"
+                                />
+
+                                <div className="inline-flex flex-col items-start pl-2">
+                                  {passwordRequirements.map((req, i) => (
+                                    <div
+                                      key={i}
+                                      className="font-paragraph-p1-semi-bold text-shadow-600"
+                                    >
+                                      {req}
+                                    </div>
+                                  ))}
+                                </div>
+
+                                <Input
+                                  type="password"
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Confirma tu contraseña aquí"
+                                />
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <Button 
-                          className="inline-flex px-4 py-2 flex-[0_0_auto] bg-primary-900 rounded-3xl items-center justify-center relative h-auto"
+                        <Button
+                          className="inline-flex px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center"
                           onClick={handleVerificationCode}
                         >
-                          <div className="inline-flex items-center gap-1 relative flex-[0_0_auto]">
-                            <span className="mt-[-1.00px] [font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm tracking-[0] leading-5 whitespace-nowrap relative w-fit text-right">
-                              Confirmar
-                            </span>
-                            <ArrowRightIcon className="relative w-5 h-5" />
-                          </div>
+                          <span className="font-semibold text-neutralswhite text-sm leading-5">
+                            Confirmar
+                          </span>
+                          <ArrowRightIcon className="w-5 h-5 ml-1" />
                         </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ) : currentStep === 'verification-code' ? (
-                  /* Verification Code Step */
-                  <section className="flex flex-col h-[735px] items-center justify-center gap-2.5 p-16 flex-1">
-                    <Card className="w-[480px] bg-neutralswhite shadow-shadow-sm">
-                      <CardContent className="flex flex-col items-start gap-8 p-8">
-                        <header className="flex flex-col items-center gap-6 w-full">
-                          <div className="flex flex-col items-center gap-3 w-full">
-                            <h1 className="font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
-                              Código de verificación
-                            </h1>
-                            <p className="font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-black text-[length:var(--heading-h7-font-size)] text-center tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
-                              Elige cómo quieres recibir tu código de verificación.
-                            </p>
-                          </div>
-                        </header>
+                      </div>
+                    </div>
+                  )}
 
-                        <div className="flex flex-col items-start gap-4 w-full">
-                          {verificationOptions.map((option) => (
-                            <button
-                              key={option.id}
-                              onClick={() => handleVerificationOptionSelect(option.id)}
-                              className={`flex items-center gap-3 p-6 w-full rounded border border-solid shadow-shadow-xs transition-colors ${
-                                selectedOption === option.id
-                                  ? "bg-primary-50 border-[#d3e0d7]"
-                                  : "bg-neutralswhite border-gray-200 hover:bg-gray-50"
-                              }`}
-                            >
-                              <div className="flex flex-col items-start justify-center gap-2 flex-1">
-                                <h3 className="font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-800 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
-                                  {option.title}
-                                </h3>
-                                <p className="font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-primary-800 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)] text-left">
-                                  {option.description}
-                                </p>
-                              </div>
-                              <ChevronRightIcon className="w-5 h-5 text-primary-800" />
-                            </button>
-                          ))}
+                  {/* Step: verification-code */}
+                  {currentStep === "verification-code" && (
+                    <div className="w-full">
+                      <header className="flex flex-col items-center gap-6 w-full">
+                        <div className="flex flex-col items-center gap-3 w-full">
+                          <p className="font-heading-h7 text-black text-center">
+                            Elige cómo quieres recibir tu código de verificación.
+                          </p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </section>
-                ) : currentStep === 'sms-verification' ? (
-                  /* SMS Verification Code Input */
-                  <Card className="w-[398px] bg-neutralswhite rounded-lg shadow-shadow-sm">
-                    <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
-                      <div className="flex flex-col items-center gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                        <div className="flex flex-col items-center gap-3 relative self-stretch w-full flex-[0_0_auto]">
-                          <h2 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-                            Código de verificación
-                          </h2>
+                      </header>
 
-                          <p className="relative self-stretch [font-family:'Inter',Helvetica] font-normal text-black text-sm text-center tracking-[0] leading-[14px]">
-                            <span className="[font-family:'Inter',Helvetica] font-normal text-black text-sm tracking-[0]">
-                              Ingrese el código de verificación de 6 dígitos enviado a{" "}
-                            </span>
+                      <div className="h-4" />
+
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        {verificationOptions.map((option) => (
+                          <button
+                            key={option.id}
+                            onClick={() => handleVerificationOptionSelect(option.id)}
+                            className={`flex items-center gap-3 p-6 w-full rounded border border-solid shadow-shadow-xs transition-colors ${
+                              selectedOption === option.id
+                                ? "bg-primary-50 border-[#d3e0d7]"
+                                : "bg-neutralswhite border-gray-200 hover:bg-gray-50"
+                            }`}
+                          >
+                            <div className="flex flex-col items-start justify-center gap-2 flex-1">
+                              <h3 className="font-heading-h6 text-primary-800">
+                                {option.title}
+                              </h3>
+                              <p className="font-paragraph-p1-semi-bold text-primary-800 text-left">
+                                {option.description}
+                              </p>
+                            </div>
+                            <ChevronRightIcon className="w-5 h-5 text-primary-800" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step: sms-verification */}
+                  {currentStep === "sms-verification" && (
+                    <div className="w-full">
+                      <div className="flex flex-col items-center gap-6 w-full">
+                        <div className="flex flex-col items-center gap-3 w-full">
+                          <p className="text-black text-sm text-center leading-[14px]">
+                            <span>Ingrese el código de verificación de 6 dígitos enviado a </span>
                             <span className="font-semibold">+569 ****8823</span>
                           </p>
                         </div>
 
-                        <div className="flex flex-col items-center gap-4 relative self-stretch w-full flex-[0_0_auto]">
+                        <div className="flex flex-col items-center gap-4 w-full">
                           <InputOTP
                             maxLength={6}
-                            className="flex items-start justify-center gap-2 relative self-stretch w-full flex-[0_0_auto]"
+                            className="flex items-start justify-center gap-2 w-full"
                           >
-                            <InputOTPGroup className="flex items-start justify-center gap-2 relative self-stretch w-full flex-[0_0_auto]">
+                            <InputOTPGroup className="flex items-start justify-center gap-2 w-full">
                               <InputOTPSlot
                                 index={0}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                               <InputOTPSlot
                                 index={1}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                               <InputOTPSlot
                                 index={2}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                               <InputOTPSlot
                                 index={3}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                               <InputOTPSlot
                                 index={4}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                               <InputOTPSlot
                                 index={5}
-                                className="flex items-center p-2 relative flex-1 grow bg-primary-50 rounded border border-solid border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
+                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
                               />
                             </InputOTPGroup>
                           </InputOTP>
 
-                          <div className="flex flex-col items-center gap-2.5 relative self-stretch w-full flex-[0_0_auto]">
-                            <div className="relative w-fit mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-xs tracking-[0] leading-[normal]">
-                              00:30
-                            </div>
-
-                            <button className="relative w-[206px] opacity-40 font-text-xs-medium-underline font-[number:var(--text-xs-medium-underline-font-weight)] text-primary-900 text-[length:var(--text-xs-medium-underline-font-size)] text-center tracking-[var(--text-xs-medium-underline-letter-spacing)] leading-[var(--text-xs-medium-underline-line-height)] underline [font-style:var(--text-xs-medium-underline-font-style)] bg-transparent border-none cursor-pointer">
+                          <div className="flex flex-col items-center gap-2.5 w-full">
+                            <div className="font-medium text-primary-900 text-xs">00:30</div>
+                            <button className="w-[206px] opacity-40 font-text-xs-medium-underline text-primary-900 text-center underline">
                               Si aún no has recibido el código ¡Haz click aquí!
                             </button>
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-start justify-between relative self-stretch w-full flex-[0_0_auto]">
+                      <div className="flex items-start justify-between w-full mt-6">
                         <Button
                           variant="outline"
-                          className="inline-flex flex-col items-center justify-center px-4 py-2 relative flex-[0_0_auto] bg-neutralswhite rounded-3xl shadow-shadow-xs h-auto"
+                          className="px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs h-auto"
                           onClick={handleBack}
                         >
-                          <span className="mt-[-1.00px] font-text-text-xs-text-xs-font-medium font-[number:var(--text-text-xs-text-xs-font-medium-font-weight)] text-primary-800 text-[length:var(--text-text-xs-text-xs-font-medium-font-size)] tracking-[var(--text-text-xs-text-xs-font-medium-letter-spacing)] leading-[var(--text-text-xs-text-xs-font-medium-line-height)] whitespace-nowrap relative w-fit text-right [font-style:var(--text-text-xs-text-xs-font-medium-font-style)]">
-                            Atrás
-                          </span>
+                          <span className="text-primary-800 text-xs">Atrás</span>
                         </Button>
 
-                        <Button 
-                          className="inline-flex px-4 py-2 flex-[0_0_auto] bg-primary-900 rounded-3xl items-center justify-center relative h-auto"
-                          onClick={() => setCurrentStep('success-confirmation')}
+                        <Button
+                          className="px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center h-auto"
+                          onClick={() => setCurrentStep("success-confirmation")}
                         >
-                          <div className="inline-flex items-center gap-1 relative flex-[0_0_auto]">
-                            <span className="mt-[-1.00px] [font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm tracking-[0] leading-5 whitespace-nowrap relative w-fit text-right">
-                              Confirmar
-                            </span>
-                            <ChevronRightIcon className="relative w-5 h-5" />
-                          </div>
+                          <span className="text-neutralswhite text-sm font-semibold">
+                            Confirmar
+                          </span>
+                          <ChevronRightIcon className="w-5 h-5 ml-1" />
                         </Button>
                       </div>
-                    </CardContent>
-                  </Card>
-                ) : currentStep === 'success-confirmation' ? (
-                  /* Success Confirmation */
-                  <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
-                    <Card className="w-96 shadow-shadow-md">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-terciary-50 rounded-[8px_8px_0px_0px]">
-                        <CheckCircleIcon className="w-7 h-7 text-terciary-600" />
-                        <div className="flex-1 font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-terciary-600 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
-                          Éxito
-                        </div>
-                        <XIcon className="w-4 h-4" />
-                      </div>
-                      <CardContent className="flex flex-col items-center justify-center gap-4 p-6 bg-otherswhite rounded-[0px_0px_8px_8px]">
-                        <div className="self-stretch mt-[-1.00px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-gray-600 text-[length:var(--paragraph-p2-regular-font-size)] tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
-                          Tu nueva contraseña ha sido creada con éxito
-                        </div>
-                        <div className="flex flex-col items-start gap-2 pt-3 pb-0 px-0 self-stretch w-full border-t border-solid border-[#d4d4d8]">
-                          <div className="flex items-center justify-end gap-2.5 self-stretch w-full">
-                            <div className="inline-flex items-start gap-2">
-                              <Button 
-                                className="h-auto px-4 py-2 bg-primary-800 rounded-3xl shadow-shadow-md"
-                                onClick={() => navigate('/')}
-                              >
-                                <div className="mt-[-1.00px] font-text-text-sm-text-sm-font-medium font-[number:var(--text-text-sm-text-sm-font-medium-font-weight)] text-neutralswhite text-[length:var(--text-text-sm-text-sm-font-medium-font-size)] tracking-[var(--text-text-sm-text-sm-font-medium-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-medium-line-height)] whitespace-nowrap text-right [font-style:var(--text-text-sm-text-sm-font-medium-font-style)]">
-                                  Agenda una cita
-                                </div>
-                              </Button>
-                              <Button
-                                variant="outline"
-                                className="h-auto px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs"
-                                onClick={() => navigate('/patient-dashboard')}
-                              >
-                                <div className="w-fit mt-[-1.00px] font-text-text-sm-text-sm-font-medium font-[number:var(--text-text-sm-text-sm-font-medium-font-weight)] text-primary-800 text-[length:var(--text-text-sm-text-sm-font-medium-font-size)] text-right tracking-[var(--text-text-sm-text-sm-font-medium-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-medium-line-height)] whitespace-nowrap [font-style:var(--text-text-sm-text-sm-font-medium-font-style)]">
-                                  Ir a mi perfil
-                                </div>
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ) : null}
-              </CardContent>
-            </Card>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Right side - Image */}
@@ -671,28 +688,26 @@ export const Registration = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection 
+        <FooterSection
           onFAQClick={() => setIsFAQModalOpen(true)}
           onSupportClick={() => setIsSupportModalOpen(true)}
         />
       </div>
 
+      {/* Modals */}
       <LanguageModal
         isOpen={isLanguageModalOpen}
         onClose={() => setIsLanguageModalOpen(false)}
       />
-
       <MenuDropdown
         isOpen={isMenuDropdownOpen}
         onClose={() => setIsMenuDropdownOpen(false)}
         buttonRef={menuButtonRef}
       />
-
       <FAQModal
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
       />
-
       <SupportModal
         isOpen={isSupportModalOpen}
         onClose={() => setIsSupportModalOpen(false)}
