@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRightIcon, GlobeIcon, MenuIcon, UserIcon, ChevronDownIcon } from "lucide-react";
 import { FAQModal } from "../../components/FAQModal";
+import { SupportModal } from "../../components/SupportModal";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
@@ -19,6 +20,7 @@ export const Login = (): JSX.Element => {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
+  const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login' | 'create-account' | 'name-form' | 'basic-info'>('initial');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -435,6 +437,10 @@ export const Login = (): JSX.Element => {
       <FAQModal
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
+      />
+      <SupportModal
+        isOpen={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
       />
     </>
   );

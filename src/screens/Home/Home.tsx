@@ -24,7 +24,7 @@ export const Home = (): JSX.Element => {
     <>
     <div className="relative w-full bg-primary-50 overflow-hidden">
       {/* Navigation */}
-      <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
+      <NavigationMenu className="mt-[29px] mx-auto w-fit bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)]">
         <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
           <NavigationMenuItem>
             <Link
@@ -59,7 +59,7 @@ export const Home = (): JSX.Element => {
       </NavigationMenu>
 
       {/* Right side buttons - separate from main navbar */}
-      <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
+      <div className="absolute top-[29px] right-8 flex items-center gap-2 z-50">
         <Button 
           variant="ghost" 
           className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
@@ -87,6 +87,7 @@ export const Home = (): JSX.Element => {
           <UserIcon className="w-4 h-4 text-gray-600" />
         </Button>
       </div>
+      
       {/* Background image positioned behind hero section */}
       <div 
         className="absolute top-0 left-0 w-full h-[884px] bg-cover bg-center bg-no-repeat opacity-100 z-0"
