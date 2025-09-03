@@ -50,7 +50,7 @@ export const CancellationFormModal: React.FC<CancellationFormModalProps> = ({
               variant="ghost"
               size="sm"
               className="h-auto p-0 hover:bg-transparent"
-              onClick={onClose}
+              
               onClick={onClose}
             >
               <div className="inline-flex items-center justify-center gap-1.5 rounded-[37.5px]">

@@ -1,20 +1,45 @@
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ContactFormSection } from "../../../../components/ContactFormSection";
 import { FAQModal } from "../../../../components/FAQModal";
-import { Button } from "../../../../components/ui/button";
 import { SupportModal } from "../../../../components/SupportModal";
+import { Button } from "../../../../components/ui/button";
 
-export const FooterSection = (): JSX.Element => {
+interface FooterSectionProps {
+  onFAQClick?: () => void;
+  onSupportClick?: () => void;
+}
+
+export const FooterSection = ({ onFAQClick, onSupportClick }: FooterSectionProps): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
+  const [isContactFormOpen, setIsContactFormOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleFAQClick = () => {
+    if (onFAQClick) {
+      onFAQClick();
+    } else {
+      setIsFAQModalOpen(true);
+    }
+  };
+
+  const handleSupportClick = () => {
+    if (onSupportClick) {
+      onSupportClick();
+    } else {
+      setIsSupportModalOpen(true);
+    }
+  };
 
   // Footer links data
   const footerLinks = [
-    { text: "Preguntas frecuentes", onClick: () => setIsFAQModalOpen(true) },
+    { text: "Preguntas frecuentes", onClick: handleFAQClick },
     { text: "Privacidad y cookies", onClick: () => {} },
-    { text: "Términos y condiciones", onClick: () => {} },
-    { text: "Soporte", onClick: () => {} },
-    { text: "Contacto", onClick: () => {} },
+    { text: "Términos y condiciones", onClick: () => navigate('/terms-and-conditions') },
+    { text: "Soporte", onClick: handleSupportClick },
+    { text: "Contacto", onClick: () => setIsContactFormOpen(true) },
   ];
 
   // Social media data
@@ -87,9 +112,15 @@ export const FooterSection = (): JSX.Element => {
       isOpen={isFAQModalOpen}
       onClose={() => setIsFAQModalOpen(false)}
     />
+
     <SupportModal
       isOpen={isSupportModalOpen}
       onClose={() => setIsSupportModalOpen(false)}
+    />
+
+    <ContactFormSection
+      isOpen={isContactFormOpen}
+      onClose={() => setIsContactFormOpen(false)}
     />
     </>
   );
