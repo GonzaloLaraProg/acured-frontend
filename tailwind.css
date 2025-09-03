@@ -123,6 +123,41 @@
   --text-text-xs-text-xs-font-medium-letter-spacing: 0px; /* NEW */
   --text-text-xs-text-xs-font-medium-line-height: 18px; /* NEW */
 
+  --text-text-lg-text-lg-font-normal-font-family: "Inter", Helvetica;
+  --text-text-lg-text-lg-font-normal-font-size: 18px;
+  --text-text-lg-text-lg-font-normal-font-style: normal;
+  --text-text-lg-text-lg-font-normal-font-weight: 400;
+  --text-text-lg-text-lg-font-normal-letter-spacing: 0px;
+  --text-text-lg-text-lg-font-normal-line-height: normal;
+
+  --terciary-50: rgba(240, 253, 244, 1);
+  --terciary-600: rgba(22, 163, 74, 1);
+  --otherswhite: rgba(255, 255, 255, 1);
+
+  --text-xs-medium-underline-font-family: "Inter", Helvetica;
+  --text-xs-medium-underline-font-size: 12px;
+  --text-xs-medium-underline-font-style: normal;
+  --text-xs-medium-underline-font-weight: 500;
+  --text-xs-medium-underline-letter-spacing: 0px;
+  --text-xs-medium-underline-line-height: 18px;
+
+  --shadow-white-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-600: rgba(107, 114, 128, 1);
+
+  --heading-h7-font-family: "Neue Haas Grotesk Display Pro", Helvetica; /* NEW */
+  --heading-h7-font-size: 16px; /* NEW */
+  --heading-h7-font-style: normal; /* NEW */
+  --heading-h7-font-weight: 400; /* NEW */
+  --heading-h7-letter-spacing: 0px; /* NEW */
+  --heading-h7-line-height: normal; /* NEW */
+
+  --text-text-sm-text-sm-font-medium-font-family: "Inter", Helvetica;
+  --text-text-sm-text-sm-font-medium-font-size: 14px;
+  --text-text-sm-text-sm-font-medium-font-style: normal;
+  --text-text-sm-text-sm-font-medium-font-weight: 500;
+  --text-text-sm-text-sm-font-medium-letter-spacing: 0px;
+  --text-text-sm-text-sm-font-medium-line-height: 20px;
+
   --primary-600: rgba(95, 120, 104, 1); /* NEW */
   --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px -2px 6px -1px rgba(0, 0, 0, 0.1); /* NEW */
   --shadow-xs: 0px 0px 8px 0px rgba(0, 0, 0, 0.1); /* NEW */

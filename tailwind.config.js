@@ -23,8 +23,16 @@ module.exports = {
         "primary-900": "var(--primary-900)",
         "shadow-50": "var(--shadow-50)",
         "shadow-100": "var(--shadow-100)",
+        "shadow-600": "var(--shadow-600)",
         "shadow-800": "var(--shadow-800)",
         "shadow-900": "var(--shadow-900)",
+
+        "terciary-50": "var(--terciary-50)",
+        "terciary-600": "var(--terciary-600)",
+        "otherswhite": "var(--otherswhite)",
+
+        // shadow white
+        "shadow-white-sm": "var(--shadow-white-sm)",
 
         // tokens hsl del theme base
         border: "hsl(var(--border))",
@@ -64,6 +72,7 @@ module.exports = {
       fontFamily: {
         "heading-h3": "var(--heading-h3-font-family)",
         "heading-h6": "var(--heading-h6-font-family)",
+        "heading-h7": "var(--heading-h7-font-family)",
         "paragraph-p2-semi-bold": "var(--paragraph-p2-semi-bold-font-family)",
         "paragraph-p3": "var(--paragraph-p3-font-family)",
         "subtitle-1": "var(--subtitle-1-font-family)",

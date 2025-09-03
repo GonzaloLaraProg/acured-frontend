@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRightIcon, GlobeIcon, MenuIcon, UserIcon, ChevronDownIcon } from "lucide-react";
 import { FAQModal } from "../../components/FAQModal";
-import { SupportModal } from "../../components/SupportModal";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
@@ -12,6 +11,7 @@ import {
 } from "../../components/ui/navigation-menu";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
+import { SupportModal } from "../../components/SupportModal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
 import { FooterSection } from "../Home/sections/FooterSection";
 
@@ -186,7 +186,10 @@ export const Login = (): JSX.Element => {
 
                     {/* Forgot Password Link */}
                     <div className="text-left">
-                      <button className="text-primary-900 text-sm hover:underline">
+                      <button 
+                        className="text-primary-900 text-sm hover:underline"
+                        onClick={() => navigate('/password-recovery')}
+                      >
                         ¿Olvidaste tu contraseña?
                       </button>
                     </div>
@@ -420,7 +423,10 @@ export const Login = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection onFAQClick={() => setIsFAQModalOpen(true)} />
+        <FooterSection 
+          onFAQClick={() => setIsFAQModalOpen(true)}
+          onSupportClick={() => setIsSupportModalOpen(true)}
+        />
       </div>
 
       <LanguageModal
@@ -438,6 +444,7 @@ export const Login = (): JSX.Element => {
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
       />
+
       <SupportModal
         isOpen={isSupportModalOpen}
         onClose={() => setIsSupportModalOpen(false)}
