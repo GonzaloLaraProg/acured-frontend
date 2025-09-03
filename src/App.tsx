@@ -11,6 +11,7 @@ import { ServiceDetails } from "./screens/ServiceDetails";
 import { PatientDashboard } from "./screens/PatientDashboard";
 import { TermsAndConditions } from "./screens/TermsAndConditions";
 import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
+import { Registration } from "./screens/Registration";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "/password-recovery",
     element: <VistaRecuperarTu />,
+  },
+  {
+    path: "/registration",
+    element: <Registration />,
   },
 ]);
 
