@@ -68,7 +68,7 @@ export const Login = (): JSX.Element => {
     <>
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
-        <NavigationMenu className="absolute top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
+        <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
           <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
             <NavigationMenuItem>
               <Link
@@ -101,7 +101,7 @@ export const Login = (): JSX.Element => {
         </NavigationMenu>
 
         {/* Right side buttons */}
-        <div className="absolute top-[29px] right-8 flex items-center gap-2 z-50">
+        <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
           <Button 
             variant="ghost" 
             className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
