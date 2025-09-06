@@ -5,14 +5,16 @@ interface ProgressIndicatorSectionProps {
   currentStep: number;
 }
 
-export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSectionProps): JSX.Element => {
+export const ProgressIndicatorSection = ({
+  currentStep,
+}: ProgressIndicatorSectionProps): JSX.Element => {
   const steps = [
-    { label: "Información General" },   // 1
-    { label: "Motivo de consulta" },    // 2
-    { label: "Antecedentes médicos" },  // 3
-    { label: "Síntomas" },              // 4
-    { label: "Exámenes" },              // 5
-    { label: "Confirmación" },          // 6
+    { label: "Información General" }, // 1
+    { label: "Motivo de consulta" },  // 2
+    { label: "Antecedentes médicos" },// 3
+    { label: "Síntomas" },            // 4
+    { label: "Exámenes" },            // 5
+    { label: "Confirmación" },        // 6
   ];
 
   const getProgressStep = () => {
@@ -20,11 +22,22 @@ export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSecti
       return 2; // Motivo de consulta
     } else if (currentStep === 3) {
       return 3; // Antecedentes médicos
-    } else if (currentStep >= 4 && currentStep <= 12) {
+    } else if (
+      currentStep === 4 ||
+      currentStep === 5 ||
+      currentStep === 6 ||
+      currentStep === 7 ||
+      currentStep === 8 ||
+      currentStep === 9 ||
+      currentStep === 10 ||
+      currentStep === 11 ||
+      currentStep === 12 ||
+      currentStep === 13
+    ) {
       return 4; // Síntomas
-    } else if (currentStep === 13) {
-      return 5; // Exámenes
     } else if (currentStep === 14) {
+      return 5; // Exámenes
+    } else if (currentStep === 15) {
       return 6; // Confirmación
     }
     return currentStep + 1;
@@ -37,11 +50,14 @@ export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSecti
       return index === 1 ? "opacity-100" : "opacity-25";
     } else if (currentStep === 3) {
       return index === 2 ? "opacity-100" : "opacity-25"; // Antecedentes médicos
-    } else if (currentStep >= 4 && currentStep <= 12) {
+    } else if (
+      currentStep >= 4 &&
+      currentStep <= 13
+    ) {
       return index === 3 ? "opacity-100" : "opacity-25"; // Síntomas
-    } else if (currentStep === 13) {
-      return index === 4 ? "opacity-100" : "opacity-25"; // Exámenes
     } else if (currentStep === 14) {
+      return index === 4 ? "opacity-100" : "opacity-25"; // Exámenes
+    } else if (currentStep === 15) {
       return index === 5 ? "opacity-100" : "opacity-25"; // Confirmación
     }
     return index === currentStep ? "opacity-100" : "opacity-25";
