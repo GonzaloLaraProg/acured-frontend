@@ -1,1 +1,0 @@
-export { PrivacyCookies } from "./PrivacyCookies";

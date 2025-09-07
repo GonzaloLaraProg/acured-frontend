@@ -1,145 +1,270 @@
+/* ---------------------------------------
+   Tailwind layers (orden correcto)
+--------------------------------------- */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------
+   COMPONENTS (clases personalizadas)
+--------------------------------------- */
 @layer components {
   .all-\[unset\] {
     all: unset;
   }
 }
 
+/* ---------------------------------------
+   VARIABLES: tema claro
+   (Unificadas en un solo :root)
+--------------------------------------- */
 :root {
+  /* ==== Ya estaban en tu base ==== */
   --heading-h3-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h3-font-size: 39px;
   --heading-h3-font-style: normal;
   --heading-h3-font-weight: 400;
   --heading-h3-letter-spacing: 0px;
   --heading-h3-line-height: normal;
+
   --heading-h6-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h6-font-size: 20px;
   --heading-h6-font-style: normal;
   --heading-h6-font-weight: 400;
   --heading-h6-letter-spacing: 0px;
   --heading-h6-line-height: normal;
+
   --neutralswhite: rgba(255, 255, 255, 1);
+
   --paragraph-p2-semi-bold-font-family: "Inter", Helvetica;
   --paragraph-p2-semi-bold-font-size: 14px;
   --paragraph-p2-semi-bold-font-style: normal;
   --paragraph-p2-semi-bold-font-weight: 600;
   --paragraph-p2-semi-bold-letter-spacing: 0px;
   --paragraph-p2-semi-bold-line-height: normal;
+
   --paragraph-p3-font-family: "Inter", Helvetica;
   --paragraph-p3-font-size: 16px;
   --paragraph-p3-font-style: normal;
   --paragraph-p3-font-weight: 400;
   --paragraph-p3-letter-spacing: 0px;
   --paragraph-p3-line-height: normal;
+
+  --primary-50: rgba(241, 244, 242, 1);
   --primary-100: rgba(211, 224, 215, 1);
   --primary-200: rgba(187, 202, 192, 1);
   --primary-400: rgba(137, 161, 145, 1);
-  --primary-50: rgba(241, 244, 242, 1);
   --primary-500: rgba(115, 140, 124, 1);
   --primary-700: rgba(77, 100, 85, 1);
   --primary-800: rgba(60, 80, 67, 1);
   --primary-900: rgba(46, 61, 51, 1);
+
   --shadow-100: rgba(220, 220, 226, 1);
   --shadow-50: rgba(243, 243, 245, 1);
   --shadow-800: rgba(53, 54, 61, 1);
   --shadow-900: rgba(34, 35, 39, 1);
   --shadow-base: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
   --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+
   --subtitle-1-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --subtitle-1-font-size: 25px;
   --subtitle-1-font-style: normal;
   --subtitle-1-font-weight: 400;
   --subtitle-1-letter-spacing: 0px;
   --subtitle-1-line-height: normal;
+
   --text-text-sm-text-sm-font-normal-font-family: "Inter", Helvetica;
   --text-text-sm-text-sm-font-normal-font-size: 14px;
   --text-text-sm-text-sm-font-normal-font-style: normal;
   --text-text-sm-text-sm-font-normal-font-weight: 400;
   --text-text-sm-text-sm-font-normal-letter-spacing: 0px;
   --text-text-sm-text-sm-font-normal-line-height: 17px;
+
+  /* ==== NEW: añadidos del bloque 2 (que no tenías) ==== */
+  --heading-h5-font-family: "Neue Haas Grotesk Display Pro", Helvetica; /* NEW */
+  --heading-h5-font-size: 25px; /* NEW */
+  --heading-h5-font-style: normal; /* NEW */
+  --heading-h5-font-weight: 400; /* NEW */
+  --heading-h5-letter-spacing: 0px; /* NEW */
+  --heading-h5-line-height: normal; /* NEW */
+
+  --paragraph-p1-font-family: "Inter", Helvetica; /* NEW */
+  --paragraph-p1-font-size: 12px; /* NEW */
+  --paragraph-p1-font-style: normal; /* NEW */
+  --paragraph-p1-font-weight: 400; /* NEW */
+  --paragraph-p1-letter-spacing: 0px; /* NEW */
+  --paragraph-p1-line-height: normal; /* NEW */
+
+  --paragraph-p1-semi-bold-font-family: "Inter", Helvetica; /* NEW */
+  --paragraph-p1-semi-bold-font-size: 12px; /* NEW */
+  --paragraph-p1-semi-bold-font-style: normal; /* NEW */
+  --paragraph-p1-semi-bold-font-weight: 600; /* NEW */
+  --paragraph-p1-semi-bold-letter-spacing: 0px; /* NEW */
+  --paragraph-p1-semi-bold-line-height: normal; /* NEW */
+
+  --paragraph-p2-regular-font-family: "Inter", Helvetica; /* NEW */
+  --paragraph-p2-regular-font-size: 14px; /* NEW */
+  --paragraph-p2-regular-font-style: normal; /* NEW */
+  --paragraph-p2-regular-font-weight: 400; /* NEW */
+  --paragraph-p2-regular-letter-spacing: 0px; /* NEW */
+  --paragraph-p2-regular-line-height: normal; /* NEW */
+
+  --text-text-sm-text-sm-font-medium-font-family: "Inter", Helvetica; /* NEW */
+  --text-text-sm-text-sm-font-medium-font-size: 14px; /* NEW */
+  --text-text-sm-text-sm-font-medium-font-style: normal; /* NEW */
+  --text-text-sm-text-sm-font-medium-font-weight: 500; /* NEW */
+  --text-text-sm-text-sm-font-medium-letter-spacing: 0px; /* NEW */
+  --text-text-sm-text-sm-font-medium-line-height: 20px; /* NEW */
+
+  --text-text-xs-text-xs-font-medium-font-family: "Inter", Helvetica; /* NEW */
+  --text-text-xs-text-xs-font-medium-font-size: 12px; /* NEW */
+  --text-text-xs-text-xs-font-medium-font-style: normal; /* NEW */
+  --text-text-xs-text-xs-font-medium-font-weight: 500; /* NEW */
+  --text-text-xs-text-xs-font-medium-letter-spacing: 0px; /* NEW */
+  --text-text-xs-text-xs-font-medium-line-height: 18px; /* NEW */
+
+  --text-text-lg-text-lg-font-normal-font-family: "Inter", Helvetica;
+  --text-text-lg-text-lg-font-normal-font-size: 18px;
+  --text-text-lg-text-lg-font-normal-font-style: normal;
+  --text-text-lg-text-lg-font-normal-font-weight: 400;
+  --text-text-lg-text-lg-font-normal-letter-spacing: 0px;
+  --text-text-lg-text-lg-font-normal-line-height: normal;
+
+  --terciary-50: rgba(240, 253, 244, 1);
+  --terciary-600: rgba(22, 163, 74, 1);
+  --otherswhite: rgba(255, 255, 255, 1);
+
+  --text-xs-medium-underline-font-family: "Inter", Helvetica;
+  --text-xs-medium-underline-font-size: 12px;
+  --text-xs-medium-underline-font-style: normal;
+  --text-xs-medium-underline-font-weight: 500;
+  --text-xs-medium-underline-letter-spacing: 0px;
+  --text-xs-medium-underline-line-height: 18px;
+
+  --shadow-white-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-600: rgba(107, 114, 128, 1);
+
+  --heading-h7-font-family: "Neue Haas Grotesk Display Pro", Helvetica; /* NEW */
+  --heading-h7-font-size: 16px; /* NEW */
+  --heading-h7-font-style: normal; /* NEW */
+  --heading-h7-font-weight: 400; /* NEW */
+  --heading-h7-letter-spacing: 0px; /* NEW */
+  --heading-h7-line-height: normal; /* NEW */
+
+  --text-text-sm-text-sm-font-medium-font-family: "Inter", Helvetica;
+  --text-text-sm-text-sm-font-medium-font-size: 14px;
+  --text-text-sm-text-sm-font-medium-font-style: normal;
+  --text-text-sm-text-sm-font-medium-font-weight: 500;
+  --text-text-sm-text-sm-font-medium-letter-spacing: 0px;
+  --text-text-sm-text-sm-font-medium-line-height: 20px;
+
+  --primary-600: rgba(95, 120, 104, 1); /* NEW */
+  --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px -2px 6px -1px rgba(0, 0, 0, 0.1); /* NEW */
+  --shadow-xs: 0px 0px 8px 0px rgba(0, 0, 0, 0.1); /* NEW */
+
+  /* Tailwind design tokens base (de tu setup) */
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 47.4% 11.2%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --card: transparent;
+  --card-foreground: 222.2 47.4% 11.2%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 215 20.2% 65.1%;
+  --radius: 0.5rem;
+
+  /* Animaciones (bloque 2) */
+  --animate-spin: spin 1s linear infinite; /* NEW */
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-
-    --card: transparent;
-    --card-foreground: 222.2 47.4% 11.2%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 215 20.2% 65.1%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
-
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-
-    --card: transparent;
-    --card-foreground: 213 31% 91%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
-  }
+/* ---------------------------------------
+   VARIABLES: tema oscuro
+--------------------------------------- */
+.dark {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+  --card: transparent;
+  --card-foreground: 213 31% 91%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 1.2%;
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 216 34% 17%;
+  --radius: 0.5rem;
 }
 
+/* ---------------------------------------
+   BASE styles
+--------------------------------------- */
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+/* ---------------------------------------
+   Animations & helpers (únicos)
+--------------------------------------- */
+.animate-fade-in { animation: fade-in 1s var(--animation-delay, 0s) ease forwards; }
+.animate-fade-up { animation: fade-up 1s var(--animation-delay, 0s) ease forwards; }
+.animate-marquee { animation: marquee var(--duration) infinite linear; }
+.animate-marquee-vertical { animation: marquee-vertical var(--duration) linear infinite; }
+.animate-shimmer { animation: shimmer 8s infinite; }
+.animate-spin { animation: var(--animate-spin); }
+
+@keyframes spin { to { transform: rotate(1turn); } }
+
+@keyframes image-glow {
+  0% { opacity: 0; animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1); }
+  10% { opacity: 0.7; animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99); }
+  to { opacity: 0.4; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes shimmer {
+  0%, 90%, to { background-position: calc(-100% - var(--shimmer-width)) 0; }
+  30%, 60% { background-position: calc(100% + var(--shimmer-width)) 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translate(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap))); }
 }

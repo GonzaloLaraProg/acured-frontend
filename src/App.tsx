@@ -1,16 +1,17 @@
-import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Home } from "./screens/Home";
 import { ScheduleSelection } from "./screens/ScheduleSelection";
 import { ServiceSelection } from "./screens/ServiceSelection";
 import { ConfirmationPayment } from "./screens/ConfirmationPayment";
-import { PatientForm } from "./screens/PatientForm";
+import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado"; 
 import { TherapistDashboard } from "./screens/TherapistDashboard";
 import { SearchResults } from "./screens/SearchResults";
 import { Login } from "./screens/Login";
 import { ServiceDetails } from "./screens/ServiceDetails";
 import { PatientDashboard } from "./screens/PatientDashboard";
-import { PrivacyCookies } from "./screens/PrivacyCookies";
+import { TermsAndConditions } from "./screens/TermsAndConditions";
+import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
+import { Registration } from "./screens/Registration";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +31,8 @@ const router = createBrowserRouter([
     element: <ConfirmationPayment />,
   },
   {
-    path: "/patient-form",
-    element: <PatientForm />,
+    path: "/VistaPrellenado",
+    element: <VistaPrellenado/>,
   },
   {
     path: "/therapist-dashboard",
@@ -54,8 +55,16 @@ const router = createBrowserRouter([
     element: <PatientDashboard />,
   },
   {
-    path: "/privacy-cookies",
-    element: <PrivacyCookies />,
+    path: "/terms-and-conditions",
+    element: <TermsAndConditions />,
+  },
+  {
+    path: "/password-recovery",
+    element: <VistaRecuperarTu />,
+  },
+  {
+    path: "/registration",
+    element: <Registration />,
   },
 ]);
 

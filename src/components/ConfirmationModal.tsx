@@ -18,7 +18,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   if (!isOpen) return null;
 
   const handleFormClick = () => {
-    navigate('/patient-form');
+    navigate('/VistaPrellenado');
   };
 
   return (

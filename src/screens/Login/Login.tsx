@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronRightIcon, GlobeIcon, MenuIcon, UserIcon, ChevronDownIcon } from "lucide-react";
+import { ChevronRightIcon, GlobeIcon, MenuIcon, UserIcon, ChevronDownIcon, ArrowRightIcon } from "lucide-react";
+import { CheckCircleIcon, XIcon } from "lucide-react";
 import { FAQModal } from "../../components/FAQModal";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
@@ -11,7 +12,11 @@ import {
 } from "../../components/ui/navigation-menu";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
+import { SupportModal } from "../../components/SupportModal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
 import { FooterSection } from "../Home/sections/FooterSection";
 
 export const Login = (): JSX.Element => {
@@ -19,7 +24,8 @@ export const Login = (): JSX.Element => {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
-  const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login' | 'create-account' | 'name-form' | 'basic-info'>('initial');
+  const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
+  const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login'>('initial');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
 
   const handlePatientLogin = () => {
@@ -31,15 +37,7 @@ export const Login = (): JSX.Element => {
   };
 
   const handleCreateAccount = () => {
-    setCurrentStep('create-account');
-  };
-
-  const handleNameForm = () => {
-    setCurrentStep('name-form');
-  };
-
-  const handleBasicInfo = () => {
-    setCurrentStep('basic-info');
+    navigate('/registration');
   };
 
   const handleBack = () => {
@@ -47,15 +45,6 @@ export const Login = (): JSX.Element => {
       case 'patient-login':
       case 'therapist-login':
         setCurrentStep('initial');
-        break;
-      case 'create-account':
-        setCurrentStep('therapist-login');
-        break;
-      case 'name-form':
-        setCurrentStep('create-account');
-        break;
-      case 'basic-info':
-        setCurrentStep('name-form');
         break;
       default:
         setCurrentStep('initial');
@@ -136,24 +125,8 @@ export const Login = (): JSX.Element => {
               <CardContent className="p-8">
                 {/* Title */}
                 <h1 className="text-center mb-8 text-2xl font-normal text-primary-900">
-                  {currentStep === 'patient-login' || currentStep === 'therapist-login' ? "Ingresa tu correo electrónico y contraseña para iniciar sesión." : 
-                   currentStep === 'create-account' ? "Crea una cuenta o regístrate a través de google" :
-                   currentStep === 'name-form' ? "Crea una Cuenta en Acured" :
-                   currentStep === 'basic-info' ? "Información básica" :
-                   "Inicia sesión"}
+                  {currentStep === 'patient-login' || currentStep === 'therapist-login' ? "Ingresa tu correo electrónico y contraseña para iniciar sesión." : "Inicia sesión"}
                 </h1>
-
-                {currentStep === 'name-form' && (
-                  <p className="text-center mb-6 text-sm text-gray-600">
-                    Ingresa tu nombre y apellido
-                  </p>
-                )}
-
-                {currentStep === 'basic-info' && (
-                  <div className="mb-6">
-                    {/* This will be the scrollable content */}
-                  </div>
-                )}
 
                 {(currentStep === 'patient-login' || currentStep === 'therapist-login') ? (
                   /* Patient Login Form */
@@ -184,10 +157,14 @@ export const Login = (): JSX.Element => {
 
                     {/* Forgot Password Link */}
                     <div className="text-left">
-                      <button className="text-primary-900 text-sm hover:underline">
+                      <button 
+                        className="text-primary-900 text-sm hover:underline"
+                        onClick={() => navigate('/password-recovery')}   // 👈 aquí está el fix
+                      >
                         ¿Olvidaste tu contraseña?
                       </button>
                     </div>
+
 
                     {/* Bottom Buttons */}
                     <div className="flex items-center justify-between pt-4">
@@ -195,7 +172,7 @@ export const Login = (): JSX.Element => {
                         {currentStep === 'therapist-login' ? (
                           <span onClick={handleCreateAccount}>Crear cuenta</span>
                         ) : (
-                          <span>¿No tienes cuenta?</span>
+                          <span onClick={handleCreateAccount}>Crear cuenta</span>
                         )}
                       </button>
                       <button 
@@ -203,163 +180,6 @@ export const Login = (): JSX.Element => {
                         onClick={() => navigate('/patient-dashboard')}
                       >
                         Iniciar Sesión
-                      </button>
-                    </div>
-                  </div>
-                ) : currentStep === 'create-account' ? (
-                  /* Create Account Options */
-                  <div className="space-y-4">
-                    <Button 
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors"
-                      onClick={handleNameForm}
-                    >
-                      <span className="font-medium">Crear cuenta</span>
-                    </Button>
-                    
-                    <Button className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                      <span className="text-xl">G</span>
-                      <span className="font-medium">Continuar con google</span>
-                    </Button>
-                  </div>
-                ) : currentStep === 'name-form' ? (
-                  /* Name Form */
-                  <div className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Nombres"
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    
-                    <input
-                      type="text"
-                      placeholder="Apellidos"
-                      className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    
-                    <div className="flex items-center justify-between pt-4">
-                      <button 
-                        className="text-primary-900 text-sm hover:underline"
-                        onClick={handleBack}
-                      >
-                        Atrás
-                      </button>
-                      <button 
-                        className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
-                        onClick={handleBasicInfo}
-                      >
-                        Siguiente
-                      </button>
-                    </div>
-                  </div>
-                ) : currentStep === 'basic-info' ? (
-                  /* Basic Info Form */
-                  <div className="space-y-6 max-h-[60vh] overflow-y-auto">
-                    {/* Información personal */}
-                    <div>
-                      <h3 className="text-sm font-medium text-primary-900 mb-4">Información personal</h3>
-                      
-                      <div className="space-y-4">
-                        <input
-                          type="text"
-                          placeholder="Rut (sin puntos y con guión)"
-                          className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                        
-                        <Select>
-                          <SelectTrigger className="w-full bg-gray-100 border-0 rounded-lg">
-                            <SelectValue placeholder="Género" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="masculino">Masculino</SelectItem>
-                            <SelectItem value="femenino">Femenino</SelectItem>
-                            <SelectItem value="otro">Otro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        
-                        <div>
-                          <label className="block text-sm text-gray-600 mb-2">Fecha de nacimiento</label>
-                          <input
-                            type="text"
-                            placeholder="DD/MM/AAAA"
-                            className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                          />
-                        </div>
-                        
-                        <Select>
-                          <SelectTrigger className="w-full bg-gray-100 border-0 rounded-lg">
-                            <SelectValue placeholder="Profesión" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="acupunturista">Acupunturista</SelectItem>
-                            <SelectItem value="medico">Médico</SelectItem>
-                            <SelectItem value="otro">Otro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    
-                    {/* Información de contacto */}
-                    <div>
-                      <h3 className="text-sm font-medium text-primary-900 mb-4">Información de contacto</h3>
-                      
-                      <div className="flex gap-2">
-                        <Select>
-                          <SelectTrigger className="w-24 bg-gray-100 border-0 rounded-lg">
-                            <SelectValue placeholder="+569" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="+569">+569</SelectItem>
-                            <SelectItem value="+56">+56</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <input
-                          type="text"
-                          placeholder="Número de teléfono"
-                          className="flex-1 px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Email y contraseña */}
-                    <div>
-                      <h3 className="text-sm font-medium text-primary-900 mb-2">Email y contraseña</h3>
-                      <p className="text-xs text-gray-600 mb-4">Recibirás un email con un código de confirmación</p>
-                      
-                      <div className="space-y-4">
-                        <input
-                          type="email"
-                          placeholder="Email"
-                          className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                        
-                        <input
-                          type="password"
-                          placeholder="Crea una contraseña"
-                          className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                        
-                        <input
-                          type="password"
-                          placeholder="Confirma tu contraseña"
-                          className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Bottom Buttons */}
-                    <div className="flex items-center justify-between pt-4">
-                      <button 
-                        className="text-primary-900 text-sm hover:underline"
-                        onClick={handleBack}
-                      >
-                        Atrás
-                      </button>
-                      <button 
-                        className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800 flex items-center gap-2"
-                        onClick={() => setCurrentStep('initial')}
-                      >
-                        <span>Confirmar</span>
-                        <span>→</span>
                       </button>
                     </div>
                   </div>
@@ -418,7 +238,10 @@ export const Login = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection onFAQClick={() => setIsFAQModalOpen(true)} />
+        <FooterSection 
+          onFAQClick={() => setIsFAQModalOpen(true)}
+          onSupportClick={() => setIsSupportModalOpen(true)}
+        />
       </div>
 
       <LanguageModal
@@ -435,6 +258,11 @@ export const Login = (): JSX.Element => {
       <FAQModal
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
+      />
+
+      <SupportModal
+        isOpen={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
       />
     </>
   );
