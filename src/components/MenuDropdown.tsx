@@ -50,7 +50,7 @@ export const MenuDropdown: React.FC<MenuDropdownProps> = ({
 
   return (
     <div 
-      className="fixed z-[100] bg-white rounded-lg shadow-lg border border-gray-200 py-4 px-0 min-w-[220px]"
+      className="fixed z-[60] bg-white rounded-lg shadow-lg border border-gray-200 py-4 px-0 min-w-[220px]"
       style={{
         top: `${position.top}px`,
         right: `${position.right}px`,

@@ -14,7 +14,7 @@ export const ServicesListSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="flex flex-col items-start justify-center gap-8 pt-16 pb-32 px-16 w-full">
+    <section className="flex flex-col items-start justify-center gap-8 pt-16 pb-32 px-16 w-full max-w-[1484px]">
       <h2 className="font-heading-h3 font-[number:var(--heading-h3-font-weight)] text-primary-900 text-[length:var(--heading-h3-font-size)] tracking-[var(--heading-h3-letter-spacing)] leading-[var(--heading-h3-line-height)] [font-style:var(--heading-h3-font-style)]">
         Nuevos terapeutas en Acured
       </h2>

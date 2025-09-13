@@ -21,9 +21,9 @@ export const MainContentSection = (): JSX.Element => {
 
   // Breadcrumb steps data
   const breadcrumbSteps = [
-    { label: "Selección Servicio", active: false },
-    { label: "Selección Servicio", active: true },
-    { label: "Selección Horario", active: false },
+    { label: "Selección tratamiento", active: true },
+    { label: "Selección horario", active: false },
+    { label: "Inicia sesión", active: false },
     { label: "Confirmación y pago", active: false },
   ];
 

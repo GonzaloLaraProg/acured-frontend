@@ -1,17 +1,19 @@
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
 import { FAQModal } from "../../../../components/FAQModal";
+import { SupportModal } from "../../../../components/SupportModal";
 import { Button } from "../../../../components/ui/button";
 
 export const FooterSection = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
+  const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
 
   // Footer links data
   const footerLinks = [
     { text: "Preguntas frecuentes", onClick: () => setIsFAQModalOpen(true) },
     { text: "Privacidad y cookies", onClick: () => {} },
     { text: "Términos y condiciones", onClick: () => {} },
-    { text: "Soporte", onClick: () => {} },
+    { text: "Soporte", onClick: () => setIsSupportModalOpen(true) },
     { text: "Contacto", onClick: () => {} },
   ];
 
@@ -85,6 +87,11 @@ export const FooterSection = (): JSX.Element => {
     <FAQModal
       isOpen={isFAQModalOpen}
       onClose={() => setIsFAQModalOpen(false)}
+    />
+
+    <SupportModal
+      isOpen={isSupportModalOpen}
+      onClose={() => setIsSupportModalOpen(false)}
     />
     </>
   );

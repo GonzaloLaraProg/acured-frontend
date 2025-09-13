@@ -87,11 +87,9 @@ export const ServicesSection = (): JSX.Element => {
 
   const handleNavigation = (direction: 'left' | 'right') => {
     if (direction === 'left') {
-      // Loop to the end if at the beginning
-      setCurrentIndex(currentIndex === 0 ? totalCards - cardsPerView : currentIndex - cardsPerView);
+      setCurrentIndex(currentIndex === 0 ? totalCards - cardsPerView : currentIndex - 1);
     } else {
-      // Loop to the beginning if at the end
-      setCurrentIndex(currentIndex + cardsPerView >= totalCards ? 0 : currentIndex + cardsPerView);
+      setCurrentIndex(currentIndex + 1 >= totalCards - cardsPerView + 1 ? 0 : currentIndex + 1);
     }
   };
 
@@ -103,7 +101,7 @@ export const ServicesSection = (): JSX.Element => {
       <Button
         variant="ghost"
         onClick={() => handleNavigation('left')}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        className="absolute left-[calc(50%-700px)] top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
       >
         <ChevronLeftIcon className="w-5 h-5 text-primary-900" />
       </Button>
@@ -111,7 +109,7 @@ export const ServicesSection = (): JSX.Element => {
       <Button
         variant="ghost"
         onClick={() => handleNavigation('right')}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        className="absolute right-[calc(50%-700px)] top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
       >
         <ChevronRightIcon className="w-5 h-5 text-primary-900" />
       </Button>
@@ -159,11 +157,11 @@ export const ServicesSection = (): JSX.Element => {
 
       {/* Scroll indicators */}
       <div className="flex justify-center mt-6 gap-2">
-        {Array.from({ length: Math.ceil(totalCards / cardsPerView) }).map((_, index) => (
+        {Array.from({ length: totalCards - cardsPerView + 1 }).map((_, index) => (
           <div
             key={index}
             className={`w-2 h-2 rounded-full transition-colors ${
-              Math.floor(currentIndex / cardsPerView) === index
+              currentIndex === index
                 ? 'bg-primary-900'
                 : 'bg-gray-300'
             }`}

@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GlobeIcon, MenuIcon, UserIcon, MapPinIcon, VideoIcon, ClockIcon } from "lucide-react";
-import { CancellationModal } from "../../components/CancellationModal";
+import { CancellationModal } from "../../components/CancellationModal"; 
 import { FAQModal } from "../../components/FAQModal";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
+import { SupportModal } from "../../components/SupportModal";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
@@ -19,8 +20,12 @@ export const PatientDashboard = (): JSX.Element => {
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isCancellationModalOpen, setIsCancellationModalOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
+  const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [selectedAppointment, setSelectedAppointment] = React.useState<any>(null);
   const [currentView, setCurrentView] = React.useState<'reservas' | 'perfil'>('reservas');
+  const [currentReservationsView, setCurrentReservationsView] = React.useState<'current' | 'past'>('current');
+  const [isEditingProfile, setIsEditingProfile] = React.useState(false);
+  const [cancellationType, setCancellationType] = React.useState<'full-refund' | 'partial-refund' | 'no-refund'>('full-refund');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
 
   // Mock appointment data
@@ -54,7 +59,51 @@ export const PatientDashboard = (): JSX.Element => {
     }
   ];
 
+  // Mock past appointments data
+  const pastAppointments = [
+    {
+      id: 1,
+      date: "01/08/2025, 15:30 PM",
+      professional: "Profesional",
+      treatment: "Tratamiento o servicio",
+      address: "Príncipe de gales, la reina 33333",
+      modality: "Modalidad",
+      duration: "Duración"
+    },
+    {
+      id: 2,
+      date: "01/08/2025, 15:30 PM",
+      professional: "Profesional",
+      treatment: "Tratamiento o servicio",
+      address: "Príncipe de gales, la reina 33333",
+      modality: "Modalidad",
+      duration: "Duración"
+    },
+    {
+      id: 3,
+      date: "01/08/2025, 15:30 PM",
+      professional: "Profesional",
+      treatment: "Tratamiento o servicio",
+      address: "Príncipe de gales, la reina 33333",
+      modality: "Modalidad",
+      duration: "Duración"
+    }
+  ];
+
   const handleCancelClick = (appointment: any) => {
+    // Determine cancellation type based on appointment index
+    const appointmentIndex = appointments.findIndex(apt => apt.id === appointment.id);
+    let type: 'full-refund' | 'partial-refund' | 'no-refund' = 'full-refund';
+    
+    if (appointmentIndex === 0) {
+      type = 'full-refund';
+    } else if (appointmentIndex === 1) {
+      type = 'partial-refund';
+    } else if (appointmentIndex === 2) {
+      type = 'no-refund';
+    }
+    
+    setCancellationType(type);
     setSelectedAppointment(appointment);
     setIsCancellationModalOpen(true);
   };
@@ -76,11 +125,13 @@ export const PatientDashboard = (): JSX.Element => {
               <div className="inline-flex items-center">
                 <Button
                   variant="ghost"
-                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
+                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-shadow-50"
                 >
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-primary-900">
-                    Inicia sesión
-                  </span>
+                  <Link to="/" className="text-decoration-none">
+                    <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-shadow-900">
+                      Agenda tu cita
+                    </span>
+                  </Link>
                 </Button>
               </div>
 
@@ -158,18 +209,29 @@ export const PatientDashboard = (): JSX.Element => {
               <Button
                 variant="ghost"
                 className={`w-full justify-start px-3 py-2 rounded-lg ${
-                  currentView === 'reservas' 
+                  currentView === 'reservas' && currentReservationsView === 'current'
                     ? 'bg-primary-200 text-primary-900 hover:bg-primary-300' 
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
-                onClick={() => setCurrentView('reservas')}
+                onClick={() => {
+                  setCurrentView('reservas');
+                  setCurrentReservationsView('current');
+                }}
               >
                 <span className="text-sm font-medium">Mis reservas</span>
               </Button>
               
               <Button
                 variant="ghost"
-                className="w-full justify-start px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className={`w-full justify-start px-3 py-2 rounded-lg ${
+                  currentView === 'reservas' && currentReservationsView === 'past'
+                    ? 'bg-primary-200 text-primary-900 hover:bg-primary-300' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => {
+                  setCurrentView('reservas');
+                  setCurrentReservationsView('past');
+                }}
               >
                 <span className="text-sm font-medium">Reservas pasadas</span>
               </Button>
@@ -181,6 +243,7 @@ export const PatientDashboard = (): JSX.Element => {
               <Button
                 variant="ghost"
                 className="w-full justify-start px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                onClick={() => setIsSupportModalOpen(true)}
               >
                 <span className="text-sm font-medium">Soporte</span>
               </Button>
@@ -202,8 +265,68 @@ export const PatientDashboard = (): JSX.Element => {
           {/* Main Content Area */}
           <div className="flex-1 bg-white p-8 pt-32">
             {currentView === 'reservas' ? (
-              <div className="space-y-6">
-                {appointments.map((appointment) => (
+              currentReservationsView === 'current' ? (
+                <div className="space-y-6">
+                  {appointments.map((appointment) => (
+                    <Card key={appointment.id} className="bg-white rounded-xl shadow-sm">
+                      <CardContent className="flex p-6 gap-6">
+                        {/* Professional Image Placeholder */}
+                        <div className="w-[120px] h-[120px] bg-primary-200 rounded-lg flex-shrink-0"></div>
+
+                        {/* Appointment Details */}
+                        <div className="flex-1">
+                          <div className="mb-4">
+                            <p className="text-sm text-gray-600 mb-1">{appointment.date}</p>
+                            <h3 className="font-semibold text-primary-900 text-lg mb-1">{appointment.professional}</h3>
+                            <p className="text-primary-900">{appointment.treatment}</p>
+                          </div>
+                          
+                          <Button
+                            variant="ghost"
+                            className="text-primary-900 hover:bg-primary-100 p-0 h-auto text-sm"
+                          >
+                            Ver perfil
+                          </Button>
+                        </div>
+
+                        {/* Appointment Info */}
+                        <div className="flex flex-col gap-2 w-[200px]">
+                          <div className="flex items-center gap-2">
+                            <MapPinIcon className="w-4 h-4 text-gray-500" />
+                            <span className="text-sm text-gray-700">{appointment.address}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <VideoIcon className="w-4 h-4 text-gray-500" />
+                            <span className="text-sm text-gray-700">{appointment.modality}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <ClockIcon className="w-4 h-4 text-gray-500" />
+                            <span className="text-sm text-gray-700">{appointment.duration}</span>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-2">
+                          <Button
+                            variant="outline"
+                            className="px-4 py-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                            onClick={() => handleCancelClick(appointment)}
+                          >
+                            Anular
+                          </Button>
+                          <Button
+                            className="px-4 py-2 bg-primary-900 text-white rounded-lg hover:bg-primary-800"
+                          >
+                            Confirmar
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {pastAppointments.map((appointment) => (
                   <Card key={appointment.id} className="bg-white rounded-xl shadow-sm">
                     <CardContent className="flex p-6 gap-6">
                       {/* Professional Image Placeholder */}
@@ -244,134 +367,273 @@ export const PatientDashboard = (): JSX.Element => {
                       {/* Action Buttons */}
                       <div className="flex gap-2">
                         <Button
-                          variant="outline"
-                          className="px-4 py-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                          onClick={() => handleCancelClick(appointment)}
-                        >
-                          Anular
-                        </Button>
-                        <Button
                           className="px-4 py-2 bg-primary-900 text-white rounded-lg hover:bg-primary-800"
                         >
-                          Confirmar
+                          Agendar nuevamente con "{appointment.professional}"
                         </Button>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
-              </div>
+                </div>
+              )
             ) : (
               /* Profile View */
-              <div className="max-w-4xl">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                  <h1 className="text-2xl font-normal text-primary-900">Información General</h1>
+              <div className="w-full">
+                {/* Edit Button - positioned above title */}
+                <div className="flex justify-end mb-4">
                   <Button
                     variant="ghost"
-                    className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-lg"
+                    className="flex items-center gap-2 text-primary-900 hover:bg-primary-100 px-3 py-2 rounded-lg"
+                    onClick={() => setIsEditingProfile(!isEditingProfile)}
                   >
-                    <span className="text-sm">Editar</span>
+                    <div className="w-4 h-4 bg-primary-900 rounded-sm flex items-center justify-center">
+                      <span className="text-white text-xs">✎</span>
+                    </div>
+                    <span className="text-sm font-medium">{isEditingProfile ? 'Cancelar' : 'Editar'}</span>
                   </Button>
                 </div>
 
-                {/* Profile Information Grid */}
-                <div className="grid grid-cols-2 gap-x-16 gap-y-8">
-                  {/* Left Column */}
-                  <div className="space-y-8">
-                    {/* Name */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        NOMBRE
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        Isidora Carrasco Zapata
-                      </p>
-                    </div>
-
-                    {/* Age */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        EDAD
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        27
-                      </p>
-                    </div>
-
-                    {/* Gender */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        GÉNERO
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        Mujer
-                      </p>
-                    </div>
-
-                    {/* Contact Phone */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        TELÉFONO DE CONTACTO
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        +569
-                      </p>
-                    </div>
-
-                    {/* RUT */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        RUT
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        19.605.454-5
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Column */}
-                  <div className="space-y-8">
-                    {/* Email */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        EMAIL
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        @
-                      </p>
-                    </div>
-
-                    {/* Address */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        DIRECCIÓN
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        ....
-                      </p>
-                    </div>
-
-                    {/* Occupation */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        OCUPACIÓN
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        ...
-                      </p>
-                    </div>
-
-                    {/* Emergency Phone */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                        TELÉFONO EN CASO DE EMERGENCIA
-                      </label>
-                      <p className="text-lg text-primary-900">
-                        +569
-                      </p>
-                    </div>
-                  </div>
+                <>
+                {/* Header */}
+                <div className="mb-8">
+                  <h2 className="text-lg font-normal text-primary-900">Información General</h2>
                 </div>
+
+                {isEditingProfile ? (
+                  /* Edit Profile Form */
+                  <div className="space-y-8">
+                    {/* Profile Information Grid - Edit Mode */}
+                    <div className="grid grid-cols-2 gap-x-16 gap-y-6">
+                      {/* Left Column */}
+                      <div className="space-y-6">
+                        {/* Name */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            NOMBRE
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="Isidora Carrasco Zapata"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Age */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            EDAD
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="27"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Gender */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            GÉNERO
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="Mujer"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Contact Phone */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            TELÉFONO DE CONTACTO
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="+569"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* RUT */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            RUT
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="19.605.454-5"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Right Column */}
+                      <div className="space-y-6">
+                        {/* Email */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            EMAIL
+                          </label>
+                          <input
+                            type="email"
+                            defaultValue="@"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Address */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            DIRECCIÓN
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="...."
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Occupation */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            OCUPACIÓN
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="..."
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+
+                        {/* Emergency Phone */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            TELÉFONO EN CASO DE EMERGENCIA
+                          </label>
+                          <input
+                            type="text"
+                            defaultValue="+569"
+                            className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-primary-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Save Button */}
+                    <div className="flex justify-start mt-8">
+                      <Button
+                        className="px-6 py-2 bg-primary-900 text-white rounded-lg hover:bg-primary-800"
+                        onClick={() => setIsEditingProfile(false)}
+                      >
+                        <span className="font-medium text-sm">Guardar cambios</span>
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  /* Profile View - Read Only */
+                  <div className="space-y-8">
+                    {/* Profile Information Grid - Read Only */}
+                    <div className="grid grid-cols-2 gap-x-16 gap-y-6">
+                      {/* Left Column */}
+                      <div className="space-y-6">
+                        {/* Name */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            NOMBRE
+                          </label>
+                          <p className="text-base text-primary-900">
+                            Isidora Carrasco Zapata
+                          </p>
+                        </div>
+
+                        {/* Age */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            EDAD
+                          </label>
+                          <p className="text-base text-primary-900">
+                            27
+                          </p>
+                        </div>
+
+                        {/* Gender */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            GÉNERO
+                          </label>
+                          <p className="text-base text-primary-900">
+                            Mujer
+                          </p>
+                        </div>
+
+                        {/* Contact Phone */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            TELÉFONO DE CONTACTO
+                          </label>
+                          <p className="text-base text-primary-900">
+                            +569
+                          </p>
+                        </div>
+
+                        {/* RUT */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            RUT
+                          </label>
+                          <p className="text-base text-primary-900">
+                            19.605.454-5
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Right Column */}
+                      <div className="space-y-6">
+                        {/* Email */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            EMAIL
+                          </label>
+                          <p className="text-base text-primary-900">
+                            @
+                          </p>
+                        </div>
+
+                        {/* Address */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            DIRECCIÓN
+                          </label>
+                          <p className="text-base text-primary-900">
+                            ....
+                          </p>
+                        </div>
+
+                        {/* Occupation */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            OCUPACIÓN
+                          </label>
+                          <p className="text-base text-primary-900">
+                            ...
+                          </p>
+                        </div>
+
+                        {/* Emergency Phone */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+                            TELÉFONO EN CASO DE EMERGENCIA
+                          </label>
+                          <p className="text-base text-primary-900">
+                            +569
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                </>
               </div>
             )}
           </div>
@@ -395,12 +657,18 @@ export const PatientDashboard = (): JSX.Element => {
       <CancellationModal
         isOpen={isCancellationModalOpen}
         onClose={() => setIsCancellationModalOpen(false)}
+        cancellationType={cancellationType}
         appointment={selectedAppointment}
       />
 
       <FAQModal
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
+      />
+
+      <SupportModal
+        isOpen={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
       />
     </>
   );

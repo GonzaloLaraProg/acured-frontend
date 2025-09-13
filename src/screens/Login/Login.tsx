@@ -11,6 +11,7 @@ import {
 } from "../../components/ui/navigation-menu";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
+import { SupportModal } from "../../components/SupportModal";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
 import { FooterSection } from "../Home/sections/FooterSection";
 
@@ -19,6 +20,7 @@ export const Login = (): JSX.Element => {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
+  const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login' | 'create-account' | 'name-form' | 'basic-info'>('initial');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -418,7 +420,10 @@ export const Login = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection onFAQClick={() => setIsFAQModalOpen(true)} />
+        <FooterSection 
+          onFAQClick={() => setIsFAQModalOpen(true)}
+          onSupportClick={() => setIsSupportModalOpen(true)}
+        />
       </div>
 
       <LanguageModal
@@ -435,6 +440,11 @@ export const Login = (): JSX.Element => {
       <FAQModal
         isOpen={isFAQModalOpen}
         onClose={() => setIsFAQModalOpen(false)}
+      />
+
+      <SupportModal
+        isOpen={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
       />
     </>
   );
