@@ -22,10 +22,7 @@ export const ConfirmationSection = (): JSX.Element => {
           </div>
 
           <div className="flex items-start gap-2.5">
-            <Button 
-              onClick={handleConfirmAndPay}
-              className="h-auto justify-center px-4 py-2 bg-primary-900 rounded-3xl hover:bg-primary-800 transition-colors"
-            >
+            <Button className="h-auto justify-center px-4 py-2 bg-primary-900 rounded-3xl">
               <div className="gap-1 flex items-center">
                 <span className="[font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm tracking-[0] leading-5 whitespace-nowrap">
                   Confirmar y pagar

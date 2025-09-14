@@ -41,7 +41,7 @@ export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps)
       />
       
       {/* Modal */}
-      <div className="relative max-w-2xl mx-auto bg-primary-50 rounded-lg p-6 shadow-lg border border-primary-200">
+      <div className="relative max-w-4xl mx-auto bg-primary-50 rounded-lg p-6 shadow-lg border border-primary-200">
         <Button
           variant="ghost"
           size="sm"

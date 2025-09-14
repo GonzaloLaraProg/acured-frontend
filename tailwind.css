@@ -19,13 +19,20 @@
    (Unificadas en un solo :root)
 --------------------------------------- */
 :root {
-  /* ==== Ya estaban en tu base ==== */
+  /* ==== HEADINGS ==== */
   --heading-h3-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h3-font-size: 39px;
   --heading-h3-font-style: normal;
   --heading-h3-font-weight: 400;
   --heading-h3-letter-spacing: 0px;
   --heading-h3-line-height: normal;
+
+  --heading-h5-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --heading-h5-font-size: 25px;
+  --heading-h5-font-style: normal;
+  --heading-h5-font-weight: 400;
+  --heading-h5-letter-spacing: 0px;
+  --heading-h5-line-height: normal;
 
   --heading-h6-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h6-font-size: 20px;
@@ -34,64 +41,6 @@
   --heading-h6-letter-spacing: 0px;
   --heading-h6-line-height: normal;
 
-  --neutralswhite: rgba(255, 255, 255, 1);
-
-  --paragraph-p2-semi-bold-font-family: "Inter", Helvetica;
-  --paragraph-p2-semi-bold-font-size: 14px;
-  --paragraph-p2-semi-bold-font-style: normal;
-  --paragraph-p2-semi-bold-font-weight: 600;
-  --paragraph-p2-semi-bold-letter-spacing: 0px;
-  --paragraph-p2-semi-bold-line-height: normal;
-
-  --paragraph-p3-font-family: "Inter", Helvetica;
-  --paragraph-p3-font-size: 16px;
-  --paragraph-p3-font-style: normal;
-  --paragraph-p3-font-weight: 400;
-  --paragraph-p3-letter-spacing: 0px;
-  --paragraph-p3-line-height: normal;
-
-  --primary-50: rgba(241, 244, 242, 1);
-  --primary-100: rgba(211, 224, 215, 1);
-  --primary-200: rgba(187, 202, 192, 1);
-  --primary-400: rgba(137, 161, 145, 1);
-  --primary-500: rgba(115, 140, 124, 1);
-  --primary-600: rgba(95, 120, 104, 1);
-  --primary-700: rgba(77, 100, 85, 1);
-  --primary-800: rgba(60, 80, 67, 1);
-  --primary-900: rgba(46, 61, 51, 1);
-
-  --shadow-100: rgba(220, 220, 226, 1);
-  --shadow-50: rgba(243, 243, 245, 1);
-  --shadow-800: rgba(53, 54, 61, 1);
-  --shadow-900: rgba(34, 35, 39, 1);
-  --shadow-base: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
-  --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
-  --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px -2px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-xs: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
-  --shadow-white-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-
-  --subtitle-1-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
-  --subtitle-1-font-size: 25px;
-  --subtitle-1-font-style: normal;
-  --subtitle-1-font-weight: 400;
-  --subtitle-1-letter-spacing: 0px;
-  --subtitle-1-line-height: normal;
-
-  --text-text-sm-text-sm-font-normal-font-family: "Inter", Helvetica;
-  --text-text-sm-text-sm-font-normal-font-size: 14px;
-  --text-text-sm-text-sm-font-normal-font-style: normal;
-  --text-text-sm-text-sm-font-normal-font-weight: 400;
-  --text-text-sm-text-sm-font-normal-letter-spacing: 0px;
-  --text-text-sm-text-sm-font-normal-line-height: 17px;
-
-  /* ==== NEW: añadidos del bloque 2 (que no tenías) ==== */
-  --heading-h5-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
-  --heading-h5-font-size: 25px;
-  --heading-h5-font-style: normal;
-  --heading-h5-font-weight: 400;
-  --heading-h5-letter-spacing: 0px;
-  --heading-h5-line-height: normal;
-
   --heading-h7-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h7-font-size: 16px;
   --heading-h7-font-style: normal;
@@ -99,6 +48,7 @@
   --heading-h7-letter-spacing: 0px;
   --heading-h7-line-height: normal;
 
+  /* ==== PARAGRAPHS ==== */
   --paragraph-p1-font-family: "Inter", Helvetica;
   --paragraph-p1-font-size: 12px;
   --paragraph-p1-font-style: normal;
@@ -119,6 +69,28 @@
   --paragraph-p2-regular-font-weight: 400;
   --paragraph-p2-regular-letter-spacing: 0px;
   --paragraph-p2-regular-line-height: normal;
+
+  --paragraph-p2-semi-bold-font-family: "Inter", Helvetica;
+  --paragraph-p2-semi-bold-font-size: 14px;
+  --paragraph-p2-semi-bold-font-style: normal;
+  --paragraph-p2-semi-bold-font-weight: 600;
+  --paragraph-p2-semi-bold-letter-spacing: 0px;
+  --paragraph-p2-semi-bold-line-height: normal;
+
+  --paragraph-p3-font-family: "Inter", Helvetica;
+  --paragraph-p3-font-size: 16px;
+  --paragraph-p3-font-style: normal;
+  --paragraph-p3-font-weight: 400;
+  --paragraph-p3-letter-spacing: 0px;
+  --paragraph-p3-line-height: normal;
+
+  /* ==== TEXT TOKENS ==== */
+  --text-text-sm-text-sm-font-normal-font-family: "Inter", Helvetica;
+  --text-text-sm-text-sm-font-normal-font-size: 14px;
+  --text-text-sm-text-sm-font-normal-font-style: normal;
+  --text-text-sm-text-sm-font-normal-font-weight: 400;
+  --text-text-sm-text-sm-font-normal-letter-spacing: 0px;
+  --text-text-sm-text-sm-font-normal-line-height: 17px;
 
   --text-text-sm-text-sm-font-medium-font-family: "Inter", Helvetica;
   --text-text-sm-text-sm-font-medium-font-size: 14px;
@@ -141,10 +113,6 @@
   --text-text-lg-text-lg-font-normal-letter-spacing: 0px;
   --text-text-lg-text-lg-font-normal-line-height: normal;
 
-  --terciary-50: rgba(240, 253, 244, 1);
-  --terciary-600: rgba(22, 163, 74, 1);
-  --otherswhite: rgba(255, 255, 255, 1);
-
   --text-xs-medium-underline-font-family: "Inter", Helvetica;
   --text-xs-medium-underline-font-size: 12px;
   --text-xs-medium-underline-font-style: normal;
@@ -152,28 +120,45 @@
   --text-xs-medium-underline-letter-spacing: 0px;
   --text-xs-medium-underline-line-height: 18px;
 
-  --shadow-white-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  /* ==== COLORS ==== */
+  --neutralswhite: rgba(255, 255, 255, 1);
+
+  --primary-50: rgba(241, 244, 242, 1);
+  --primary-100: rgba(211, 224, 215, 1);
+  --primary-200: rgba(187, 202, 192, 1);
+  --primary-400: rgba(137, 161, 145, 1);
+  --primary-500: rgba(115, 140, 124, 1);
+  --primary-600: rgba(95, 120, 104, 1);
+  --primary-700: rgba(77, 100, 85, 1);
+  --primary-800: rgba(60, 80, 67, 1);
+  --primary-900: rgba(46, 61, 51, 1);
+
+  --terciary-50: rgba(240, 253, 244, 1);
+  --terciary-600: rgba(22, 163, 74, 1);
+  --otherswhite: rgba(255, 255, 255, 1);
+
+  /* ==== SHADOWS ==== */
+  --shadow-50: rgba(243, 243, 245, 1);
+  --shadow-100: rgba(220, 220, 226, 1);
   --shadow-600: rgba(107, 114, 128, 1);
+  --shadow-800: rgba(53, 54, 61, 1);
+  --shadow-900: rgba(34, 35, 39, 1);
 
-  --heading-h7-font-family: "Neue Haas Grotesk Display Pro", Helvetica; /* NEW */
-  --heading-h7-font-size: 16px; /* NEW */
-  --heading-h7-font-style: normal; /* NEW */
-  --heading-h7-font-weight: 400; /* NEW */
-  --heading-h7-letter-spacing: 0px; /* NEW */
-  --heading-h7-line-height: normal; /* NEW */
+  --shadow-base: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px -2px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-xs: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-white-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
-  --text-text-sm-text-sm-font-medium-font-family: "Inter", Helvetica;
-  --text-text-sm-text-sm-font-medium-font-size: 14px;
-  --text-text-sm-text-sm-font-medium-font-style: normal;
-  --text-text-sm-text-sm-font-medium-font-weight: 500;
-  --text-text-sm-text-sm-font-medium-letter-spacing: 0px;
-  --text-text-sm-text-sm-font-medium-line-height: 20px;
+  /* ==== SUBTITLES ==== */
+  --subtitle-1-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --subtitle-1-font-size: 25px;
+  --subtitle-1-font-style: normal;
+  --subtitle-1-font-weight: 400;
+  --subtitle-1-letter-spacing: 0px;
+  --subtitle-1-line-height: normal;
 
-  --primary-600: rgba(95, 120, 104, 1); /* NEW */
-  --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px -2px 6px -1px rgba(0, 0, 0, 0.1); /* NEW */
-  --shadow-xs: 0px 0px 8px 0px rgba(0, 0, 0, 0.1); /* NEW */
-
-  /* Tailwind design tokens base (de tu setup) */
+  /* ==== Tailwind base tokens ==== */
   --background: 0 0% 100%;
   --foreground: 222.2 47.4% 11.2%;
   --muted: 210 40% 96.1%;
@@ -195,8 +180,8 @@
   --ring: 215 20.2% 65.1%;
   --radius: 0.5rem;
 
-  /* Animaciones (bloque 2) */
-  --animate-spin: spin 1s linear infinite; /* NEW */
+  /* ==== Animaciones ==== */
+  --animate-spin: spin 1s linear infinite;
 }
 
 /* ---------------------------------------
@@ -274,35 +259,6 @@
   0% { transform: translate(0); }
   to { transform: translateX(calc(-100% - var(--gap))); }
 }
-
-
-
-@keyframes image-glow {
-  0% { opacity: 0; animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1); }
-  10% { opacity: 0.7; animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99); }
-  to { opacity: 0.4; }
-}
-
-@keyframes fade-in {
-  0% { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes fade-up {
-  0% { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes shimmer {
-  0%, 90%, to { background-position: calc(-100% - var(--shimmer-width)) 0; }
-  30%, 60% { background-position: calc(100% + var(--shimmer-width)) 0; }
-}
-
-@keyframes marquee {
-  0% { transform: translate(0); }
-  to { transform: translateX(calc(-100% - var(--gap))); }
-}
-
 
 @keyframes marquee-vertical {
   0% { transform: translateY(0); }
