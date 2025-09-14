@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { GlobeIcon, MenuIcon, UserIcon, MapPinIcon, VideoIcon, ClockIcon } from "lucide-react";
 import { CancellationModal } from "../../components/CancellationModal"; 
 import { FAQModal } from "../../components/FAQModal";
-import { SupportModal } from "../../components/SupportModal";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
+import { SupportModal } from "../../components/SupportModal";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
