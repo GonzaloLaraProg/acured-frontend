@@ -1,6 +1,5 @@
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { ContactFormSection } from "../../../../components/ContactFormSection";
 import { FAQModal } from "../../../../components/FAQModal";
 import { SupportModal } from "../../../../components/SupportModal";
@@ -15,7 +14,6 @@ export const FooterSection = ({ onFAQClick, onSupportClick }: FooterSectionProps
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = React.useState(false);
-  const navigate = useNavigate();
 
   const handleFAQClick = () => {
     if (onFAQClick) {
@@ -37,7 +35,7 @@ export const FooterSection = ({ onFAQClick, onSupportClick }: FooterSectionProps
   const footerLinks = [
     { text: "Preguntas frecuentes", onClick: handleFAQClick },
     { text: "Privacidad y cookies", onClick: () => {} },
-    { text: "Términos y condiciones", onClick: () => navigate('/terms-and-conditions') },
+    { text: "Términos y condiciones", onClick: null },
     { text: "Soporte", onClick: handleSupportClick },
     { text: "Contacto", onClick: () => setIsContactFormOpen(true) },
   ];
@@ -77,13 +75,22 @@ export const FooterSection = ({ onFAQClick, onSupportClick }: FooterSectionProps
       {/* Middle section - Links */}
       <div className="flex flex-col w-[450px] items-start gap-2.5 relative">
         {footerLinks.map((link, index) => (
-          <button
-            key={`footer-link-${index}`}
-            onClick={link.onClick}
-            className="relative w-fit font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]"
-          >
-            {link.text}
-          </button>
+          link.onClick ? (
+            <button
+              key={`footer-link-${index}`}
+              onClick={link.onClick}
+              className="relative w-fit font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)] hover:text-primary-700 cursor-pointer"
+            >
+              {link.text}
+            </button>
+          ) : (
+            <span
+              key={`footer-link-${index}`}
+              className="relative w-fit font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-gray-500 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]"
+            >
+              {link.text}
+            </span>
+          )
         ))}
       </div>
 

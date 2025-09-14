@@ -138,7 +138,7 @@ export const HeroSection = (): JSX.Element => {
         isOpen={isCalendarModalOpen}
         onClose={() => setIsCalendarModalOpen(false)}
         onDateSelect={handleDateSelect}
-        selectedDate={selectedDate}
+        selectedDate={selectedDate || undefined}
       />
 
       <TimeSelectionModal

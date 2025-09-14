@@ -1,8 +1,16 @@
 import { ChevronRightIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 
 export const ConfirmationSection = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  const handleConfirmAndPay = () => {
+    // Navegar a la pantalla de confirmación de pago
+    navigate('/confirmation-payment');
+  };
+
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
       <Card className="w-[780px] h-[313px] bg-white rounded-lg shadow-shadow-sm">
@@ -14,7 +22,10 @@ export const ConfirmationSection = (): JSX.Element => {
           </div>
 
           <div className="flex items-start gap-2.5">
-            <Button className="h-auto justify-center px-4 py-2 bg-primary-900 rounded-3xl">
+            <Button 
+              onClick={handleConfirmAndPay}
+              className="h-auto justify-center px-4 py-2 bg-primary-900 rounded-3xl hover:bg-primary-800 transition-colors"
+            >
               <div className="gap-1 flex items-center">
                 <span className="[font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm tracking-[0] leading-5 whitespace-nowrap">
                   Confirmar y pagar

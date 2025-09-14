@@ -46,7 +46,10 @@ export const SupportModal: React.FC<SupportModalProps> = ({
   const [isCancellationFormOpen, setIsCancellationFormOpen] = React.useState(false);
 
   const handleOptionClick = (optionText: string) => {
-    if (optionText === "Contáctanos") {
+    if (optionText === "Agendar hora") {
+      navigate('/search-results');
+      onClose();
+    } else if (optionText === "Contáctanos") {
       setIsContactFormOpen(true);
     } else if (optionText === "Cancelación de cita") {
       setIsCancellationFormOpen(true);
