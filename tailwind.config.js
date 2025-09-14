@@ -23,6 +23,10 @@ module.exports = {
         "primary-900": "var(--primary-900)",
         "shadow-50": "var(--shadow-50)",
         "shadow-100": "var(--shadow-100)",
+
+        "shadow-800": "var(--shadow-800)",
+        "shadow-900": "var(--shadow-900)",
+
         "shadow-600": "var(--shadow-600)",
         "shadow-800": "var(--shadow-800)",
         "shadow-900": "var(--shadow-900)",
@@ -33,6 +37,7 @@ module.exports = {
 
         // shadow white
         "shadow-white-sm": "var(--shadow-white-sm)",
+
 
         // tokens hsl del theme base
         border: "hsl(var(--border))",

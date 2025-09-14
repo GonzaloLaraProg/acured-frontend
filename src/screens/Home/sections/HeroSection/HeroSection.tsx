@@ -3,13 +3,16 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AdvancedFiltersModal } from "../../../../components/AdvancedFiltersModal";
 import { CalendarModal } from "../../../../components/CalendarModal";
+import { TimeSelectionModal } from "../../../../components/TimeSelectionModal";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 
 export const HeroSection = (): JSX.Element => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = React.useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = React.useState(false);
+  const [isTimeModalOpen, setIsTimeModalOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
+  const timeButtonRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
 
   const formatDate = (date: Date) => {
@@ -94,8 +97,10 @@ export const HeroSection = (): JSX.Element => {
           </div>
 
           <Button
+            ref={timeButtonRef}
             variant="ghost"
             className="px-4 py-2 bg-primary-100 rounded-3xl"
+            onClick={() => setIsTimeModalOpen(true)}
           >
             <span className="[font-family:'Inter',Helvetica] font-semibold text-primary-800 text-sm leading-5 whitespace-nowrap">
               En cualquier momento
@@ -134,6 +139,12 @@ export const HeroSection = (): JSX.Element => {
         onClose={() => setIsCalendarModalOpen(false)}
         onDateSelect={handleDateSelect}
         selectedDate={selectedDate}
+      />
+
+      <TimeSelectionModal
+        isOpen={isTimeModalOpen}
+        onClose={() => setIsTimeModalOpen(false)}
+        buttonRef={timeButtonRef}
       />
     </>
   );

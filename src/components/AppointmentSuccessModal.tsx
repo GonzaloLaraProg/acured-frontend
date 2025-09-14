@@ -1,28 +1,41 @@
-import { CalendarIcon, ChevronRightIcon, MapPinIcon, PlusIcon, VideoIcon } from "lucide-react";
+import { CalendarIcon, ChevronRightIcon, MapPinIcon, PhoneIcon, PlusIcon, VideoIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { CalendarSuccessModal } from "./CalendarSuccessModal";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 
-interface ConfirmationModalProps {
+interface AppointmentSuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+export const AppointmentSuccessModal: React.FC<AppointmentSuccessModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const navigate = useNavigate();
+  const [showCalendarSuccess, setShowCalendarSuccess] = React.useState(false);
 
   if (!isOpen) return null;
 
-  const handleFormClick = () => {
-    navigate('/VistaPrellenado');
+  const handleBackToHome = () => {
+    navigate('/');
+    onClose();
+  };
+
+  const handleAddToCalendar = () => {
+    setShowCalendarSuccess(true);
+  };
+
+  const handleCalendarSuccessClose = () => {
+    setShowCalendarSuccess(false);
+    onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-[40] flex items-center justify-center">
+    <>
+      <div className="fixed inset-0 z-[40] flex items-center justify-center">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
@@ -49,6 +62,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               alt="Profesional" 
               className="w-full h-full object-cover rounded-full"
             />
+            <AvatarFallback>P</AvatarFallback>
           </Avatar>
           <span className="font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
             Profesional
@@ -65,9 +79,16 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           </div>
 
           <div className="flex items-center gap-3 justify-center">
+            <VideoIcon className="w-5 h-5 text-gray-500" />
+            <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-primary-900 text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
+              Modalidad
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 justify-center">
             <CalendarIcon className="w-5 h-5 text-gray-500" />
             <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-primary-900 text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
-              Fecha
+              Fecha y hora
             </span>
           </div>
 
@@ -79,27 +100,43 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           </div>
 
           <div className="flex items-center gap-3 justify-center">
-            <VideoIcon className="w-5 h-5 text-gray-500" />
+            <PhoneIcon className="w-5 h-5 text-gray-500" />
             <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-primary-900 text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
-              Modalidad
+              Teléfono
             </span>
           </div>
         </div>
 
-        {/* Action button */}
-        <div className="flex justify-center">
+        {/* Action buttons */}
+        <div className="flex gap-4 justify-center">
+          <Button 
+            variant="outline"
+            className="px-6 py-2 bg-primary-100 text-primary-800 rounded-3xl hover:bg-primary-200 border-0"
+            onClick={handleBackToHome}
+          >
+            <span className="font-medium text-sm">
+              Volver a la página de inicio
+            </span>
+          </Button>
+
           <Button 
             variant="ghost"
-            className="flex items-center gap-2 text-primary-900 hover:bg-primary-100 px-4 py-2 shadow-lg rounded-3xl"
-            onClick={handleFormClick}
+            className="flex items-center gap-2 text-primary-900 hover:bg-primary-100 px-6 py-2 rounded-3xl border border-gray-300"
+            onClick={handleAddToCalendar}
           >
             <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
-              Rellenar formulario especialista
+              Añadir cita a tu calendario
             </span>
             <ChevronRightIcon className="w-4 h-4" />
           </Button>
         </div>
       </div>
     </div>
+
+      <CalendarSuccessModal
+        isOpen={showCalendarSuccess}
+        onClose={handleCalendarSuccessClose}
+      />
+    </>
   );
 };

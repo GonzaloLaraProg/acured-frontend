@@ -32,6 +32,7 @@ interface PersonalDataFormSectionProps {
 export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSectionProps): JSX.Element => {
   const [selectedGender, setSelectedGender] = useState<string>("");
   const [selectedMonth, setSelectedMonth] = useState<string>("");
+
   const [open, setOpen] = useState(false);
   const [genderExpansionLevel, setGenderExpansionLevel] = useState<number>(0);
 
@@ -66,6 +67,7 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
     onGenderChange?.(value);
     setOpen(false); // cerrar en selecciones "reales"
   };
+
 
 
 
@@ -143,6 +145,7 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
                     Género
                   </span>
                 </Label>
+
 
                   <Select
                     value={selectedGender}

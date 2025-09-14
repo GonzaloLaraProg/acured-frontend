@@ -25,7 +25,9 @@ export const Login = (): JSX.Element => {
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
-  const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login'>('initial');
+
+  const [currentStep, setCurrentStep] = React.useState<'initial' | 'patient-login' | 'therapist-login' | 'create-account' | 'name-form' | 'basic-info'>('initial');
+
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
 
   const handlePatientLogin = () => {

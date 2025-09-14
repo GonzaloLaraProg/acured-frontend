@@ -2,20 +2,23 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
 
-interface CalendarModalProps {
+interface MonthYearSelectorProps {
   isOpen: boolean;
   onClose: () => void;
-  onDateSelect: (date: Date) => void;
-  selectedDate?: Date;
+  currentMonth: string;
+  currentYear: string;
+  onMonthYearChange: (month: string, year: string) => void;
 }
 
-export const CalendarModal: React.FC<CalendarModalProps> = ({
+export const MonthYearSelector: React.FC<MonthYearSelectorProps> = ({
   isOpen,
   onClose,
-  onDateSelect,
-  selectedDate,
+  currentMonth,
+  currentYear,
+  onMonthYearChange,
 }) => {
-  const [currentDate, setCurrentDate] = React.useState(new Date());
+  const [selectedMonth, setSelectedMonth] = React.useState(currentMonth);
+  const [selectedYear, setSelectedYear] = React.useState(currentYear);
 
   if (!isOpen) return null;
 
@@ -26,11 +29,12 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
 
   const daysOfWeek = ["LU", "MA", "MI", "JU", "VI", "SÁ", "DO"];
 
-  const getDaysInMonth = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
+  // Generate calendar days for the selected month/year
+  const getDaysInMonth = () => {
+    const monthIndex = months.indexOf(selectedMonth);
+    const year = parseInt(selectedYear);
+    const firstDay = new Date(year, monthIndex, 1);
+    const lastDay = new Date(year, monthIndex + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = (firstDay.getDay() + 6) % 7; // Adjust for Monday start
 
@@ -43,31 +47,37 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
     
     // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      days.push(new Date(year, month, day));
+      days.push(day);
     }
     
     return days;
   };
 
   const handlePrevMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    const currentIndex = months.indexOf(selectedMonth);
+    if (currentIndex === 0) {
+      setSelectedMonth("Diciembre");
+      setSelectedYear((parseInt(selectedYear) - 1).toString());
+    } else {
+      setSelectedMonth(months[currentIndex - 1]);
+    }
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    const currentIndex = months.indexOf(selectedMonth);
+    if (currentIndex === 11) {
+      setSelectedMonth("Enero");
+      setSelectedYear((parseInt(selectedYear) + 1).toString());
+    } else {
+      setSelectedMonth(months[currentIndex + 1]);
+    }
   };
 
-  const handleDateClick = (date: Date) => {
-    onDateSelect(date);
-    onClose();
+  const handleDateClick = (day: number) => {
+    onMonthYearChange(selectedMonth, selectedYear);
   };
 
-  const isDateSelected = (date: Date) => {
-    if (!selectedDate) return false;
-    return date.toDateString() === selectedDate.toDateString();
-  };
-
-  const days = getDaysInMonth(currentDate);
+  const days = getDaysInMonth();
 
   return (
     <div className="fixed inset-0 z-[40] flex items-center justify-center">
@@ -78,7 +88,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
       />
       
       {/* Calendar Modal */}
-      <div className="relative bg-white rounded-3xl shadow-lg w-[400px] p-6">
+      <div className="relative bg-white rounded-2xl shadow-lg w-[400px] p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <Button
@@ -91,10 +101,10 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
           
           <div className="flex items-center gap-4">
             <span className="text-xl font-medium text-gray-900">
-              {months[currentDate.getMonth()]}
+              {selectedMonth}
             </span>
             <span className="text-xl font-medium text-gray-900">
-              {currentDate.getFullYear()}
+              {selectedYear}
             </span>
           </div>
 
@@ -118,18 +128,14 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
 
         {/* Calendar grid */}
         <div className="grid grid-cols-7 gap-2">
-          {days.map((date, index) => (
+          {days.map((day, index) => (
             <div key={index} className="aspect-square">
-              {date ? (
+              {day ? (
                 <button
-                  onClick={() => handleDateClick(date)}
-                  className={`w-full h-full flex items-center justify-center text-sm rounded-full hover:bg-gray-100 transition-colors ${
-                    isDateSelected(date)
-                      ? "bg-primary-700 text-white hover:bg-primary-800"
-                      : "text-gray-900"
-                  }`}
+                  onClick={() => handleDateClick(day)}
+                  className="w-full h-full flex items-center justify-center text-sm rounded-full hover:bg-gray-100 transition-colors text-gray-900"
                 >
-                  {date.getDate()}
+                  {day}
                 </button>
               ) : (
                 <div className="w-full h-full" />

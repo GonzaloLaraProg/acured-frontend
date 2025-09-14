@@ -1,6 +1,8 @@
-import { ChevronDownIcon, X } from "lucide-react";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, X } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 interface AdvancedFiltersModalProps {
@@ -14,12 +16,15 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 }) => {
   const [selectedSpecialty, setSelectedSpecialty] = React.useState("");
   const [selectedDistance, setSelectedDistance] = React.useState("");
+  const [selectedModality, setSelectedModality] = React.useState("");
   const [selectedDateRange, setSelectedDateRange] = React.useState("");
-  const [timeFrom, setTimeFrom] = React.useState("");
-  const [timeTo, setTimeTo] = React.useState("");
-  const [priceRange, setPriceRange] = React.useState([35000, 300000]);
+  const [timeFrom, setTimeFrom] = React.useState("05:00 AM");
+  const [timeTo, setTimeTo] = React.useState("06:00 AM");
+  const [priceRange, setPriceRange] = React.useState([35000, 100000]);
   const [selectedServices, setSelectedServices] = React.useState<string[]>([]);
-  const [selectedGender, setSelectedGender] = React.useState("");
+  const [selectedGenders, setSelectedGenders] = React.useState<string[]>([]);
+  const [currentMonth, setCurrentMonth] = React.useState("Mes");
+  const [currentYear, setCurrentYear] = React.useState("2025");
 
   if (!isOpen) return null;
 
@@ -27,21 +32,25 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
     "Medicina China General",
     "Dolor y trastornos musculoesqueléticos",
     "Rehabilitación y Medicina Deportiva",
-    "Neurología",
-    "Ginecología y fertilidad",
+    "Medicina Interna",
+    "Ginecología y Fertilidad",
     "Trastornos Neurológicos",
     "Salud Mental, Dermatología",
     "Pediatría, Oncología y Cuidados Paliativos",
-    "Medicina Estética",
-    "Local"
+    "Medicina Estética"
   ];
 
   const distances = [
-    "5 km",
-    "10 km",
-    "15 km",
-    "20 km",
-    "25 km"
+    "< 1km",
+    "< 2km",
+    "< 5km",
+    "< 10km",
+    "< 20km"
+  ];
+
+  const modalities = [
+    "Presencial",
+    "Online"
   ];
 
   const timeSlots = [
@@ -54,22 +63,25 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
   ];
 
   const services = [
-    "Acupuntura y Medicina China",
+    "Medicina China Integral",
+    "Acupuntura",
+    "Moxibustión",
+    "Ventosas",
     "Masaje Tuina",
     "Fitoterapia",
-    "Dietoterapia",
     "Auriculoterapia",
-    "Ventosas",
-    "Moxibustión",
+    "Dietoterapia",
+    "Sangría",
+    "Agua de fuego",
+    "Gua Sha",
     "Qigong",
-    "Local"
+    "Otros"
   ];
 
   const genders = [
     "Femenino",
     "Masculino",
-    "Otro",
-    "Local"
+    "Otro"
   ];
 
   const handleServiceToggle = (service: string) => {
@@ -80,14 +92,34 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
     );
   };
 
+  const handleGenderToggle = (gender: string) => {
+    setSelectedGenders(prev => 
+      prev.includes(gender) 
+        ? prev.filter(g => g !== gender)
+        : [...prev, gender]
+    );
+  };
+
   const handlePriceChange = (index: number, value: number) => {
     const newRange = [...priceRange];
     newRange[index] = value;
     setPriceRange(newRange);
   };
 
+  // Calendar days for the mini calendar
+  const getDaysInMonth = () => {
+    const days = [];
+    for (let i = 1; i <= 31; i++) {
+      days.push(i);
+    }
+    return days;
+  };
+
+  const daysOfWeek = ["LU", "MA", "MI", "JU", "VI", "SÁ", "DO"];
+  const days = getDaysInMonth();
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center">
+    <div className="fixed inset-0 z-[40] flex items-center justify-center pt-20">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
@@ -95,9 +127,9 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
       />
       
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-[400px] mx-4 max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-[500px] mx-4 max-h-[80vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 rounded-t-2xl">
           <h2 className="text-lg font-medium text-gray-900">
             Filtros avanzados
           </h2>
@@ -113,7 +145,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
         </div>
 
         {/* Filter Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 overflow-x-hidden">
           {/* Especialidad */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
@@ -152,6 +184,25 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
             </Select>
           </div>
 
+          {/* Modalidad */}
+          <div>
+            <label className="block text-sm font-medium text-gray-900 mb-2">
+              Modalidad
+            </label>
+            <Select value={selectedModality} onValueChange={setSelectedModality}>
+              <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
+                <SelectValue placeholder="Selecciona Modalidad" />
+              </SelectTrigger>
+              <SelectContent>
+                {modalities.map((modality) => (
+                  <SelectItem key={modality} value={modality}>
+                    {modality}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Rango de Fechas */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
@@ -162,25 +213,25 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                 <SelectValue placeholder="Selecciona Rango de Fechas" />
               </SelectTrigger>
               <SelectContent>
-                <div className="p-4">
+                <div className="p-4 w-full">
                   {/* Mini Calendar */}
-                  <div className="bg-white rounded-lg border p-3">
+                  <div className="bg-white rounded-lg border p-3 w-full">
                     <div className="flex items-center justify-between mb-3">
                       <button className="p-1">
-                        <ChevronDownIcon className="w-4 h-4 rotate-90" />
+                        <ChevronLeftIcon className="w-4 h-4" />
                       </button>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">Mes</span>
-                        <span className="text-sm font-medium">2025</span>
+                        <span className="text-sm font-medium">{currentMonth}</span>
+                        <span className="text-sm font-medium">{currentYear}</span>
                       </div>
                       <button className="p-1">
-                        <ChevronDownIcon className="w-4 h-4 -rotate-90" />
+                        <ChevronRightIcon className="w-4 h-4" />
                       </button>
                     </div>
                     
                     {/* Calendar Grid */}
                     <div className="grid grid-cols-7 gap-1 text-xs text-center mb-2">
-                      {['LU', 'MA', 'MI', 'JU', 'VI', 'SÁ', 'DO'].map(day => (
+                      {daysOfWeek.map(day => (
                         <div key={day} className="p-1 font-medium text-gray-600">
                           {day}
                         </div>
@@ -188,9 +239,16 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                     </div>
                     
                     <div className="grid grid-cols-7 gap-1 text-xs text-center">
+                      {/* Empty cells for alignment */}
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      
                       {/* Calendar days */}
-                      {[...Array(31)].map((_, i) => {
-                        const day = i + 1;
+                      {days.slice(0, 28).map((day) => {
                         const isSelected = day === 3 || day === 8;
                         return (
                           <button
@@ -220,7 +278,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                 <label className="block text-xs text-gray-600 mb-1">Desde</label>
                 <Select value={timeFrom} onValueChange={setTimeFrom}>
                   <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
-                    <SelectValue placeholder="05:00 AM" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {timeSlots.map((time) => (
@@ -235,7 +293,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                 <label className="block text-xs text-gray-600 mb-1">Hasta</label>
                 <Select value={timeTo} onValueChange={setTimeTo}>
                   <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
-                    <SelectValue placeholder="06:00 AM" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {timeSlots.map((time) => (
@@ -254,57 +312,71 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
             <label className="block text-sm font-medium text-gray-900 mb-2">
               Precio
             </label>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="flex items-center justify-between text-sm text-gray-600">
                 <span>${priceRange[0].toLocaleString()}</span>
                 <span>${priceRange[1].toLocaleString()}</span>
               </div>
-              <div className="relative">
+              <div className="relative px-3">
+                {/* Track background */}
+                <div className="w-full h-2 bg-primary-200 rounded-full"></div>
+                
+                {/* Active track */}
+                <div 
+                  className="absolute top-0 h-2 bg-primary-900 rounded-full"
+                  style={{
+                    left: `${3 + (priceRange[0] / 100000) * (100 - 6)}%`,
+                    width: `${((priceRange[1] - priceRange[0]) / 100000) * (100 - 6)}%`
+                  }}
+                ></div>
+                
+                {/* Min range slider */}
                 <input
                   type="range"
-                  min="35000"
-                  max="300000"
+                  min="0"
+                  max="100000"
                   step="5000"
                   value={priceRange[0]}
                   onChange={(e) => handlePriceChange(0, parseInt(e.target.value))}
-                  className="absolute w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                  className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
                 />
+                
+                {/* Max range slider */}
                 <input
                   type="range"
-                  min="35000"
-                  max="300000"
+                  min="0"
+                  max="100000"
                   step="5000"
                   value={priceRange[1]}
                   onChange={(e) => handlePriceChange(1, parseInt(e.target.value))}
-                  className="absolute w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                  className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
                 />
               </div>
             </div>
           </div>
 
-          {/* Servicios */}
+          {/* Servicio o técnica */}
           <div>
             <label className="block text-sm font-medium text-gray-900 mb-2">
-              Servicios
+              Servicio o técnica
             </label>
             <Select>
               <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
-                <SelectValue placeholder="Selecciona Servicio" />
+                <SelectValue placeholder="Selecciona servicio o técnica" />
               </SelectTrigger>
               <SelectContent>
-                <div className="p-2 space-y-2">
+                <div className="p-2 space-y-2 max-h-[200px] overflow-y-auto">
                   {services.map((service) => (
-                    <div key={service} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
+                    <div key={service} className="flex items-center justify-between space-x-2 py-1">
+                      <Label htmlFor={service} className="text-sm text-gray-900 flex-1 cursor-pointer">
+                        {service}
+                      </Label>
+                      <Checkbox
                         id={service}
                         checked={selectedServices.includes(service)}
-                        onChange={() => handleServiceToggle(service)}
+                        onCheckedChange={() => handleServiceToggle(service)}
                         className="rounded border-gray-300"
                       />
-                      <label htmlFor={service} className="text-sm text-gray-900">
-                        {service}
-                      </label>
                     </div>
                   ))}
                 </div>
@@ -317,26 +389,23 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
             <label className="block text-sm font-medium text-gray-900 mb-2">
               Género
             </label>
-            <Select value={selectedGender} onValueChange={setSelectedGender}>
+            <Select>
               <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
                 <SelectValue placeholder="Selecciona Género" />
               </SelectTrigger>
               <SelectContent>
                 <div className="p-2 space-y-2">
                   {genders.map((gender) => (
-                    <div key={gender} className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        id={gender}
-                        name="gender"
-                        value={gender}
-                        checked={selectedGender === gender}
-                        onChange={(e) => setSelectedGender(e.target.value)}
-                        className="rounded-full border-gray-300"
-                      />
-                      <label htmlFor={gender} className="text-sm text-gray-900">
+                    <div key={gender} className="flex items-center justify-between space-x-2 py-1">
+                      <Label htmlFor={gender} className="text-sm text-gray-900 flex-1 cursor-pointer">
                         {gender}
-                      </label>
+                      </Label>
+                      <Checkbox
+                        id={gender}
+                        checked={selectedGenders.includes(gender)}
+                        onCheckedChange={() => handleGenderToggle(gender)}
+                        className="rounded border-gray-300"
+                      />
                     </div>
                   ))}
                 </div>
@@ -346,8 +415,11 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-200">
-          <Button className="w-full px-6 py-3 bg-primary-900 text-white rounded-3xl hover:bg-primary-800">
+        <div className="p-6 border-t border-gray-200 rounded-b-2xl">
+          <Button 
+            className="w-full px-6 py-3 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
+            onClick={onClose}
+          >
             Buscar resultados
           </Button>
         </div>

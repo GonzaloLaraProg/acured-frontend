@@ -5,6 +5,7 @@ interface ProgressIndicatorSectionProps {
   currentStep: number;
 }
 
+
 export const ProgressIndicatorSection = ({
   currentStep,
 }: ProgressIndicatorSectionProps): JSX.Element => {
@@ -39,11 +40,13 @@ export const ProgressIndicatorSection = ({
       return 5; // Exámenes
     } else if (currentStep === 15) {
       return 6; // Confirmación
+
     }
     return currentStep + 1;
   };
 
   const progressValue = (getProgressStep() / steps.length) * 100;
+
 
   const getStepOpacity = (index: number) => {
     if (currentStep === 1 || currentStep === 2) {
@@ -59,9 +62,11 @@ export const ProgressIndicatorSection = ({
       return index === 4 ? "opacity-100" : "opacity-25"; // Exámenes
     } else if (currentStep === 15) {
       return index === 5 ? "opacity-100" : "opacity-25"; // Confirmación
+
     }
     return index === currentStep ? "opacity-100" : "opacity-25";
   };
+
 
   return (
     <section className="flex flex-col items-center gap-6 w-full">
@@ -73,7 +78,9 @@ export const ProgressIndicatorSection = ({
           >
             <div className="flex items-center gap-1">
               <span className="[font-family:'Inter',Helvetica] font-semibold text-shadow-800 text-xs tracking-[0] leading-[normal] text-right whitespace-nowrap">
+
                 {step.label}
+
               </span>
               <ChevronRightIcon className="w-4 h-4" />
             </div>
@@ -89,4 +96,6 @@ export const ProgressIndicatorSection = ({
       </div>
     </section>
   );
+
 };
+
