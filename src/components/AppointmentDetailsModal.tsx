@@ -61,7 +61,9 @@ export const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = (
 
   if (showCancellationConfirmation) {
     return (
+
       <div className="fixed inset-0 z-[46] flex items-center justify-center">
+
         {/* Backdrop */}
         <div 
           className="absolute inset-0 bg-black/20 backdrop-blur-sm"
@@ -80,7 +82,9 @@ export const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = (
   }
 
   return (
+
     <div className="fixed inset-0 z-[45] flex items-center justify-center">
+
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"

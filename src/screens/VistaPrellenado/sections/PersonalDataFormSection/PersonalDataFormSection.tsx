@@ -32,53 +32,43 @@ interface PersonalDataFormSectionProps {
 export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSectionProps): JSX.Element => {
   const [selectedGender, setSelectedGender] = useState<string>("");
   const [selectedMonth, setSelectedMonth] = useState<string>("");
+
+  const [open, setOpen] = useState(false);
   const [genderExpansionLevel, setGenderExpansionLevel] = useState<number>(0);
 
   const getGenderOptions = () => {
-    const baseOptions = [
-      { value: "femenino", label: "Femenino" },
-      { value: "masculino", label: "Masculino" },
+    if (genderExpansionLevel === 0) {
+      return [
+        { value: "femenino", label: "Femenino" },
+        { value: "masculino", label: "Masculino" },
+        { value: "otro", label: "Otro" },
+      ];
+    }
+
+    return [
+      { value: "no-binario", label: "No binario" },
+      { value: "transfemenino", label: "Transfemenino" },
+      { value: "transmasculino", label: "Transmasculino" },
+      { value: "prefiero-no-informar", label: "Prefiero no informar" },
+      { value: "otro", label: "Otro" },
     ];
-
-    if (genderExpansionLevel >= 1) {
-      baseOptions.push(
-        { value: "no-binario", label: "No binario" },
-        { value: "transfemenino", label: "Transfemenino" },
-        { value: "transmasculino", label: "Transmasculino" },
-      );
-    }
-
-    // Always show "Otro" option
-    baseOptions.push({ value: "otro", label: "Otro" });
-
-    if (genderExpansionLevel >= 2) {
-      // Insert "Prefiero no informar" before "Otro"
-      baseOptions.splice(-1, 0, { value: "prefiero-no-informar", label: "Prefiero no informar" });
-    }
-
-    return baseOptions;
   };
 
   const handleGenderChange = (value: string) => {
-    if (value === "otro") {
-      if (genderExpansionLevel === 0) {
-        // First time clicking "Otro" - expand to show more options
-        setGenderExpansionLevel(1);
-        setSelectedGender(""); // Clear selection to show expanded options
-      } else if (genderExpansionLevel === 1) {
-        // Second time clicking "Otro" - show final option
-        setGenderExpansionLevel(2);
-        setSelectedGender(""); // Clear selection to show final options
-      } else {
-        // Final level - actually select "Otro"
-        setSelectedGender(value);
-        onGenderChange?.(value);
-      }
-    } else {
-      setSelectedGender(value);
-      onGenderChange?.(value);
+    if (value === "otro" && genderExpansionLevel === 0) {
+      // No debería dispararse si prevenimos el pointerdown para "otro",
+      // pero lo dejamos por seguridad si se selecciona por teclado.
+      setGenderExpansionLevel(1);
+      setSelectedGender("");
+      return; // no cerrar
     }
+
+    setSelectedGender(value);
+    onGenderChange?.(value);
+    setOpen(false); // cerrar en selecciones "reales"
   };
+
+
 
 
   return (
@@ -156,20 +146,60 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
                   </span>
                 </Label>
 
-                <Select
-                  value={selectedGender}
-                  onValueChange={handleGenderChange}
-                >
+
+                  <Select
+                    value={selectedGender}
+                    onValueChange={handleGenderChange}
+                    open={open}
+                    onOpenChange={setOpen}
+                  >
+
                   <SelectTrigger className="flex-col self-stretch w-full flex-[0_0_auto] mb-[-1.00px] ml-[-1.00px] mr-[-1.00px] overflow-hidden border border-solid border-[#bbcac0] shadow-shadow-sm flex items-center relative bg-primary-50 rounded h-auto">
                     <SelectValue placeholder="Género" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {getGenderOptions().map((gender) => (
-                      <SelectItem key={gender.value} value={gender.value}>
-                        {gender.label}
-                      </SelectItem>
-                    ))}
+                  <SelectContent
+                    // evita cambios de foco bruscos al actualizar opciones
+                    onCloseAutoFocus={(e) => e.preventDefault()}
+                  >
+                    {getGenderOptions().map((opt) => {
+                      // --- Item especial: "Otro" en nivel 0 (no cerrar al hacer click) ---
+                      if (opt.value === "otro" && genderExpansionLevel === 0) {
+                        return (
+                          <SelectItem
+                            key="otro"
+                            value="otro"
+                            // Evitamos que Radix seleccione y cierre:
+                            onPointerDown={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setGenderExpansionLevel(1);
+                              setSelectedGender("");
+                              // No tocamos `open`: el menú sigue abierto
+                            }}
+                            onKeyDown={(e) => {
+                              // Soporte teclado: Enter o Space
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setGenderExpansionLevel(1);
+                                setSelectedGender("");
+                              }
+                            }}
+                          >
+                            {opt.label}
+                          </SelectItem>
+                        );
+                      }
+
+                      // --- Resto de items (flujo normal) ---
+                      return (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
+
                 </Select>
               </div>
 

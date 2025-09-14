@@ -11,6 +11,7 @@ import { Login } from "./screens/Login";
 import { ServiceDetails } from "./screens/ServiceDetails";
 import { PatientDashboard } from "./screens/PatientDashboard";
 import { TermsAndConditions } from "./screens/TermsAndConditions";
+
 import { LoginRegistration } from "./screens/LoginRegistration";
 import { CenterSchedule } from "./screens/CenterSchedule";
 import { CenterPayment } from "./screens/CenterPayment";
@@ -22,6 +23,9 @@ const ScrollToTop = () => {
   });
   return null;
 };
+
+import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
+import { Registration } from "./screens/Registration";
 
 const router = createBrowserRouter([
   {
@@ -62,12 +66,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/VistaPrellenado",
+
     element: (
       <>
         <ScrollToTop />
         <VistaPrellenado />
       </>
     ),
+
   },
   {
     path: "/therapist-dashboard",
@@ -149,6 +155,18 @@ const router = createBrowserRouter([
         <CenterPayment />
       </>
     ),
+  },
+  {
+    path: "/terms-and-conditions",
+    element: <TermsAndConditions />,
+  },
+  {
+    path: "/password-recovery",
+    element: <VistaRecuperarTu />,
+  },
+  {
+    path: "/registration",
+    element: <Registration />,
   },
 ]);
 

@@ -16,7 +16,9 @@ interface FrameWrapperSubsectionProps {
   onConfirmCancellation?: () => void;
 }
 
+
 export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: FrameWrapperSubsectionProps): JSX.Element => {
+
   const [showFeedback, setShowFeedback] = React.useState(false);
 
   const handleConfirmCancellation = () => {
@@ -28,6 +30,7 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
     onClose?.();
   };
 
+
   if (showFeedback) {
     return (
       <div className="flex items-center justify-center">
@@ -37,6 +40,7 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
   }
 
   return (
+
     <div className="flex flex-col items-center gap-12 w-full">
       <Card className="w-full max-w-[612px] bg-neutralswhite rounded-lg">
         <CardContent className="flex flex-col items-center pt-8 pb-0 px-8">
@@ -49,18 +53,22 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
               <span className="[font-family:'Inter',Helvetica] font-normal text-zinc-900 text-sm">
                 Cerrar
               </span>
+
               <XIcon className="w-[18px] h-[18px]" />
             </Button>
           </div>
 
+
           <div className="flex flex-col items-center gap-6 py-6 w-full">
             <h2 className="w-[336px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
+
               Cancelación de cita
             </h2>
 
             <Alert className="w-full max-w-[530px] bg-yellow-100 border-yellow-200 shadow-shadow-base">
               <AlertTriangleIcon className="w-6 h-6 text-orange-700" />
               <div className="flex flex-col gap-2 flex-1">
+
                 <AlertDescription className="font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-orange-700 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
                   Advertencia
                 </AlertDescription>

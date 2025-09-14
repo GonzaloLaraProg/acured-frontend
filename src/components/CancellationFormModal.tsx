@@ -35,7 +35,9 @@ export const CancellationFormModal: React.FC<CancellationFormModalProps> = ({
 
   return (
     <>
+
       <div className="fixed inset-0 z-[45] flex items-center justify-center">
+
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
@@ -50,6 +52,7 @@ export const CancellationFormModal: React.FC<CancellationFormModalProps> = ({
               variant="ghost"
               size="sm"
               className="h-auto p-0 hover:bg-transparent"
+
               onClick={onClose}
             >
               <div className="inline-flex items-center justify-center gap-1.5 rounded-[37.5px]">

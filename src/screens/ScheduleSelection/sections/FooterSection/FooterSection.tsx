@@ -3,6 +3,7 @@ import React from "react";
 import { FAQModal } from "../../../../components/FAQModal";
 import { SupportModal } from "../../../../components/SupportModal";
 import { Button } from "../../../../components/ui/button";
+import { SupportModal } from "../../../../components/SupportModal";
 
 export const FooterSection = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);

@@ -12,6 +12,7 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
+
     <div className="fixed inset-0 z-[45] flex items-center justify-center">
       {/* Backdrop */}
       <div 

@@ -5,50 +5,68 @@ interface ProgressIndicatorSectionProps {
   currentStep: number;
 }
 
-export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSectionProps): JSX.Element => {
+
+export const ProgressIndicatorSection = ({
+  currentStep,
+}: ProgressIndicatorSectionProps): JSX.Element => {
   const steps = [
-    { label: "Información General" },
-    { label: "Motivo de consulta" },
-    { label: "Antecedentes médicos" },
-    { label: "Síntomas" },
-    { label: "Exámenes" },
-    { label: "Confirmación" },
+    { label: "Información General" }, // 1
+    { label: "Motivo de consulta" },  // 2
+    { label: "Antecedentes médicos" },// 3
+    { label: "Síntomas" },            // 4
+    { label: "Exámenes" },            // 5
+    { label: "Confirmación" },        // 6
   ];
 
-  // Para los pasos 1 y 2, mantener el progreso en el paso 2
   const getProgressStep = () => {
     if (currentStep === 1 || currentStep === 2) {
-      return 2;
-    } else if (currentStep === 3 || currentStep === 4 || currentStep === 5 || currentStep === 6 || currentStep === 7 || currentStep === 8 || currentStep === 9 || currentStep === 10 || currentStep === 11 || currentStep === 12 || currentStep === 13) {
-      return 4; // Keep progress on "Síntomas" for steps 3-10
+      return 2; // Motivo de consulta
+    } else if (currentStep === 3) {
+      return 3; // Antecedentes médicos
+    } else if (
+      currentStep === 4 ||
+      currentStep === 5 ||
+      currentStep === 6 ||
+      currentStep === 7 ||
+      currentStep === 8 ||
+      currentStep === 9 ||
+      currentStep === 10 ||
+      currentStep === 11 ||
+      currentStep === 12 ||
+      currentStep === 13
+    ) {
+      return 4; // Síntomas
     } else if (currentStep === 14) {
-      return 5; // "Exámenes" step
+      return 5; // Exámenes
     } else if (currentStep === 15) {
-      return 6; // "Confirmación" step
+      return 6; // Confirmación
+
     }
     return currentStep + 1;
   };
 
   const progressValue = (getProgressStep() / steps.length) * 100;
 
-  // Para los pasos 1 y 2, mantener "Motivo de consulta" resaltado pero cambiar el texto en el paso 2
+
   const getStepOpacity = (index: number) => {
     if (currentStep === 1 || currentStep === 2) {
       return index === 1 ? "opacity-100" : "opacity-25";
-    } else if (currentStep === 3 || currentStep === 4 || currentStep === 5 || currentStep === 6 || currentStep === 7 || currentStep === 8 || currentStep === 9 || currentStep === 10 || currentStep === 11 || currentStep === 12 || currentStep === 13) {
-      return index === 3 ? "opacity-100" : "opacity-25"; // Highlight "Síntomas" for steps 3-10
+    } else if (currentStep === 3) {
+      return index === 2 ? "opacity-100" : "opacity-25"; // Antecedentes médicos
+    } else if (
+      currentStep >= 4 &&
+      currentStep <= 13
+    ) {
+      return index === 3 ? "opacity-100" : "opacity-25"; // Síntomas
     } else if (currentStep === 14) {
-      return index === 4 ? "opacity-100" : "opacity-25"; // Highlight "Exámenes" for step 14
+      return index === 4 ? "opacity-100" : "opacity-25"; // Exámenes
     } else if (currentStep === 15) {
-      return index === 5 ? "opacity-100" : "opacity-25"; // Highlight "Confirmación" for step 15
+      return index === 5 ? "opacity-100" : "opacity-25"; // Confirmación
+
     }
     return index === currentStep ? "opacity-100" : "opacity-25";
   };
 
-  // Cambiar el texto del paso según el currentStep
-  const getStepLabel = (index: number, originalLabel: string) => {
-    return originalLabel;
-  };
 
   return (
     <section className="flex flex-col items-center gap-6 w-full">
@@ -60,7 +78,9 @@ export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSecti
           >
             <div className="flex items-center gap-1">
               <span className="[font-family:'Inter',Helvetica] font-semibold text-shadow-800 text-xs tracking-[0] leading-[normal] text-right whitespace-nowrap">
-                {getStepLabel(index, step.label)}
+
+                {step.label}
+
               </span>
               <ChevronRightIcon className="w-4 h-4" />
             </div>
@@ -76,4 +96,6 @@ export const ProgressIndicatorSection = ({ currentStep }: ProgressIndicatorSecti
       </div>
     </section>
   );
+
 };
+

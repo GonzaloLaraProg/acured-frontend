@@ -87,6 +87,7 @@ export const Home = (): JSX.Element => {
           <UserIcon className="w-4 h-4 text-gray-600" />
         </Button>
       </div>
+      
       {/* Background image positioned behind hero section */}
       <div 
         className="absolute top-0 left-0 w-full h-[884px] bg-cover bg-center bg-no-repeat opacity-100 z-0"

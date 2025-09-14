@@ -1,4 +1,6 @@
-import { XIcon } from "lucide-react";
+
+import { XIcon, ArrowRightIcon } from "lucide-react";
+
 import React, { useState } from "react";
 import { FeedbackSection } from "./FeedbackSection";
 import { Button } from "./ui/button";
@@ -11,7 +13,9 @@ interface ContactFormSectionProps {
   onClose: () => void;
 }
 
+
 export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps): JSX.Element => {
+
   const [showFeedback, setShowFeedback] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,6 +32,7 @@ export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps)
 
   return (
     <>
+
       <div className="fixed inset-0 z-[40] flex items-center justify-center">
       {/* Backdrop */}
       <div 
@@ -122,3 +127,4 @@ export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps)
     </>
   );
 };
+

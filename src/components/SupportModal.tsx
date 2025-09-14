@@ -41,6 +41,7 @@ export const SupportModal: React.FC<SupportModalProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
+
   const [isContactFormOpen, setIsContactFormOpen] = React.useState(false);
   const [isCancellationFormOpen, setIsCancellationFormOpen] = React.useState(false);
 
@@ -56,6 +57,7 @@ export const SupportModal: React.FC<SupportModalProps> = ({
       onClose();
     }
   };
+
 
   if (!isOpen) return null;
 
