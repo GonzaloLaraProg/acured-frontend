@@ -57,7 +57,7 @@ export const HeroSection = (): JSX.Element => {
           </h1>
 
           <h2 className="font-subtitle-1 font-[number:var(--subtitle-1-font-weight)] text-primary-900 text-[length:var(--subtitle-1-font-size)] text-center tracking-[var(--subtitle-1-letter-spacing)] leading-[var(--subtitle-1-line-height)] whitespace-nowrap [font-style:var(--subtitle-1-font-style)]">
-            Acu-red Gestión y Tecnología para la Medicina China
+            Acured Gestión y Tecnología para la Medicina China
           </h2>
         </div>
 

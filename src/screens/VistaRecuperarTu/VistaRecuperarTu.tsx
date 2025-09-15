@@ -25,6 +25,15 @@ export const VistaRecuperarTu = (): JSX.Element => {
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [currentStep, setCurrentStep] = React.useState<'email' | 'verification' | 'new-password' | 'success'>('email');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+  // 👇 Aquí agregamos el estado del scroll
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   const handleBack = () => {
     if (currentStep === 'success') {
@@ -55,6 +64,12 @@ export const VistaRecuperarTu = (): JSX.Element => {
     <>
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
+        {/* Fondo blanco detrás del navbar */}
+        <div
+          className={`fixed top-0 left-0 w-full h-[90px] bg-white shadow-sm transition-opacity duration-300 z-40 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
         <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
           <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
             <NavigationMenuItem>
@@ -86,6 +101,8 @@ export const VistaRecuperarTu = (): JSX.Element => {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+
+
 
         {/* Right side buttons */}
         <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">

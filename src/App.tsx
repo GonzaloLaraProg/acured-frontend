@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useEffect } from "react";
+import WithTopNav from "./components/WithTopNav";
 import { Home } from "./screens/Home";
 import { ScheduleSelection } from "./screens/ScheduleSelection";
 import { ServiceSelection } from "./screens/ServiceSelection";
@@ -29,144 +30,30 @@ import { Registration } from "./screens/Registration";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: (
       <>
         <ScrollToTop />
-        <Home />
+        <WithTopNav />   {/* 👈 Aquí va el layout con navbar */}
       </>
     ),
-  },
-  {
-    path: "/service-selection",
-    element: (
-      <>
-        <ScrollToTop />
-        <ServiceSelection />
-      </>
-    ),
-  },
-  {
-    path: "/schedule-selection",
-    element: (
-      <>
-        <ScrollToTop />
-        <ScheduleSelection />
-      </>
-    ),
-  },
-  {
-    path: "/confirmation-payment",
-    element: (
-      <>
-        <ScrollToTop />
-        <ConfirmationPayment />
-      </>
-    ),
-  },
-  {
-    path: "/VistaPrellenado",
-
-    element: (
-      <>
-        <ScrollToTop />
-        <VistaPrellenado />
-      </>
-    ),
-
-  },
-  {
-    path: "/therapist-dashboard",
-    element: (
-      <>
-        <ScrollToTop />
-        <TherapistDashboard />
-      </>
-    ),
-  },
-  {
-    path: "/search-results",
-    element: (
-      <>
-        <ScrollToTop />
-        <SearchResults />
-      </>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <>
-        <ScrollToTop />
-        <Login />
-      </>
-    ),
-  },
-  {
-    path: "/service-details/:serviceId?",
-    element: (
-      <>
-        <ScrollToTop />
-        <ServiceDetails />
-      </>
-    ),
-  },
-  {
-    path: "/patient-dashboard",
-    element: (
-      <>
-        <ScrollToTop />
-        <PatientDashboard />
-      </>
-    ),
-  },
-  {
-    path: "/terms-and-conditions",
-    element: (
-      <>
-        <ScrollToTop />
-        <TermsAndConditions />
-      </>
-    ),
-  },
-  {
-    path: "/login-registration",
-    element: (
-      <>
-        <ScrollToTop />
-        <LoginRegistration />
-      </>
-    ),
-  },
-  {
-    path: "/center-schedule",
-    element: (
-      <>
-        <ScrollToTop />
-        <CenterSchedule />
-      </>
-    ),
-  },
-  {
-    path: "/center-payment",
-    element: (
-      <>
-        <ScrollToTop />
-        <CenterPayment />
-      </>
-    ),
-  },
-  {
-    path: "/terms-and-conditions",
-    element: <TermsAndConditions />,
-  },
-  {
-    path: "/password-recovery",
-    element: <VistaRecuperarTu />,
-  },
-  {
-    path: "/registration",
-    element: <Registration />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/service-selection", element: <ServiceSelection /> },
+      { path: "/schedule-selection", element: <ScheduleSelection /> },
+      { path: "/confirmation-payment", element: <ConfirmationPayment /> },
+      { path: "/VistaPrellenado", element: <VistaPrellenado /> },
+      { path: "/therapist-dashboard", element: <TherapistDashboard /> },
+      { path: "/search-results", element: <SearchResults /> },
+      { path: "/login", element: <Login /> },
+      { path: "/service-details/:serviceId?", element: <ServiceDetails /> },
+      { path: "/patient-dashboard", element: <PatientDashboard /> },
+      { path: "/terms-and-conditions", element: <TermsAndConditions /> },
+      { path: "/login-registration", element: <LoginRegistration /> },
+      { path: "/center-schedule", element: <CenterSchedule /> },
+      { path: "/center-payment", element: <CenterPayment /> },
+      { path: "/password-recovery", element: <VistaRecuperarTu /> },
+      { path: "/registration", element: <Registration /> },
+    ],
   },
 ]);
 

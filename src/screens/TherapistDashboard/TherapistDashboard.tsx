@@ -17,6 +17,15 @@ export const TherapistDashboard = (): JSX.Element => {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+  
+// 👇 Aquí agregamos el estado del scroll
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Navigation menu items data
   const navItems = [
@@ -28,34 +37,76 @@ export const TherapistDashboard = (): JSX.Element => {
   // Service data for mapping
   const services = [
     {
+      title: "Medicina China",
+      description:
+        "La Medicina Tradicional China (MTC) es un sistema médico completo y holístico …",
+      image: "/image-1.png",
+    },
+    {
       title: "Acupuntura",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-2.svg",
+        "Los orígenes de la acupuntura se remontan a la antigüedad, aunque es difícil precisar …",
+      image: "/image-2.png",
     },
     {
-      title: "Sangría",
+      title: "Moxibustión",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-3.svg",
-    },
-    {
-      title: "Fitoterapia",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image.svg",
+        "La moxibustión es una técnica de la medicina tradicional china que utiliza el calor generado …",
+      image: "/image-3.png",
     },
     {
       title: "Ventosas",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-1.svg",
+        "La terapia de ventosas, conocida en chino como 'Bá Guàn' (拔罐) y en Occidente como “Cupping” …",
+      image: "/image-4.png",
     },
     {
-      title: "Electropuntura",
+      title: "Masaje Tuina",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-63.png",
+        "El Masaje Tuina es una rama de la Medicina Tradicional China que utiliza el masaje como medio …",
+      image: "/image-5.png",
+    },
+    {
+      title: "Auriculoterapia",
+      description:
+        "La auriculoterapia (耳针疗法 - ěr zhēn liáo fǎ) es una rama especializada de la acupuntura …",
+      image: "/image-6.png",
+    },
+    {
+      title: "Fitoterapia",
+      description:
+        "La fitoterapia es una de las ramas más importantes de la Medicina Tradicional China (MTC), con …",
+      image: "/image-7.png",
+    },
+    {
+      title: "Dietoterapia",
+      description:
+        "La dietoterapia china es una disciplina terapéutica basada en los principios de la Medicina …",
+      image: "/image-8.png",
+    },
+    {
+      title: "Sangría terapéutica",
+      description:
+        "En la Medicina China Tradicional, la sangría se considera una técnica valiosa para regular el flujo …",
+      image: "/image-9.png",
+    },
+    {
+      title: "Aguja de fuego",
+      description:
+        "La aguja de fuego (huǒ zhēn), es una técnica especializada dentro de la Medicina China, que combina …",
+      image: "/image-10.png",
+    },
+    {
+      title: "Gua sha",
+      description:
+        "El Gua Sha es una técnica de la Medicina Tradicional China que consiste en aplicar fricción …",
+      image: "/image-11.png",
+    },
+    {
+      title: "Qigong",
+      description:
+        "El Qigong es una de las ramas más importantes de la Medicina China. Esta práctica combina …",
+      image: "/image-12.png",
     },
   ];
 
@@ -76,58 +127,45 @@ export const TherapistDashboard = (): JSX.Element => {
   return (
     <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
       {/* Navigation */}
-      <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
-        <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
-          <NavigationMenuItem>
-            <Link
-              className="relative w-[92px] h-[21px] bg-[url(/acured-logo-1.png)] bg-cover bg-[50%_50%] block"
-              to="/"
-            />
-          </NavigationMenuItem>
+        {/* Fondo blanco detrás del navbar */}
+        <div
+          className={`fixed top-0 left-0 w-full h-[90px] bg-white shadow-sm transition-opacity duration-300 z-40 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
+          <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
+            <NavigationMenuItem>
+              <Link
+                className="relative w-[92px] h-[21px] bg-[url(/acured-logo-1.png)] bg-cover bg-[50%_50%] block"
+                to="/"
+              />
+            </NavigationMenuItem>
 
-          <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
-            <div className="inline-flex items-center">
-              {navItems.map((item, index) => (
-                <Link key={index} to={item.text === "Demo gratis" ? "/login" : "#"}>
-                  <Button
-                    variant="ghost"
-                    className={`inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] ${
-                      item.active ? "bg-primary-50" : "bg-shadow-50"
-                    }`}
-                  >
-                    <span
-                      className={`[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg ${
-                        item.active ? "text-primary-900" : "text-shadow-900"
-                      }`}
-                    >
-                      {item.text}
-                    </span>
-                  </Button>
-                </Link>
-              ))}
-              
-              <Button
-                variant="ghost"
-                className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-shadow-50"
-              >
-                <Link to="/login" className="text-decoration-none">
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-shadow-900">
+            <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
+              <div className="inline-flex items-center">
+                <Button
+                  variant="ghost"
+                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
+                >
+                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-primary-900">
                     Inicia sesión
+                  </span>
+                </Button>
+              </div>
+
+              <Button className="inline-flex flex-col justify-center gap-4 px-4 py-2 bg-primary-900 items-center rounded-3xl">
+                <Link to="/therapist-dashboard" className="text-decoration-none">
+                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-neutralswhite text-lg leading-[normal] whitespace-nowrap">
+                    ¿Eres acupunturista?
                   </span>
                 </Link>
               </Button>
-            </div>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
 
-            <Button className="inline-flex flex-col justify-center gap-4 px-4 py-2 bg-primary-900 items-center rounded-3xl hover:bg-primary-800">
-              <Link to="/" className="text-decoration-none">
-                <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-neutralswhite text-lg leading-[normal] whitespace-nowrap">
-                  Regístrate
-                </span>
-              </Link>
-            </Button>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+
 
       {/* Right side buttons - separate from main navbar */}
       <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
