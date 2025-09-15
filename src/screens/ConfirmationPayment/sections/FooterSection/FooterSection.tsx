@@ -7,6 +7,8 @@ import { Button } from "../../../../components/ui/button";
 export const FooterSection = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
+  
+  console.log('FooterSection está renderizando');
 
   // Footer links data
   const footerLinks = [
@@ -26,7 +28,8 @@ export const FooterSection = (): JSX.Element => {
 
   return (
     <>
-    <footer className="flex items-start justify-end gap-4 pt-28 pb-16 px-16 relative self-stretch w-full flex-[0_0_auto] !bg-white">
+    <footer className="bg-red-500 p-8">
+      <div className="text-white text-2xl font-bold">¡ESTE FOOTER DEBERÍA SER ROJO!</div>
 
       {/* Left section - Call to action buttons */}
       <div className="flex flex-col items-start gap-2.5 relative flex-1 self-stretch grow">

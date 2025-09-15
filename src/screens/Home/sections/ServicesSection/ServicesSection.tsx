@@ -10,78 +10,79 @@ export const ServicesSection = (): JSX.Element => {
   const totalCards = 12;
 
   // Extended service data for 12 services
+  // Service data for mapping
   const services = [
-    {
-      title: "Acupuntura",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-2.svg",
-    },
     {
       title: "Medicina China",
       description:
-        "La Medicina Tradicional China (MTC) es un sistema médico complejo y holístico...",
-      image: "/image.svg",
+        "La Medicina Tradicional China (MTC) es un sistema médico completo y holístico …",
+      image: "/image-1.png",
+    },
+    {
+      title: "Acupuntura",
+      description:
+        "Los orígenes de la acupuntura se remontan a la antigüedad, aunque es difícil precisar …",
+      image: "/image-2.png",
     },
     {
       title: "Moxibustión",
       description:
-        "La moxibustión es una técnica de la medicina tradicional china que utiliza el calor generado...",
-      image: "/image-1.svg",
+        "La moxibustión es una técnica de la medicina tradicional china que utiliza el calor generado …",
+      image: "/image-3.png",
     },
     {
       title: "Ventosas",
       description:
-        "La terapia de ventosas, conocida en chino como 'Ba Guan' (拔罐) y en Occidente como 'cupping'...",
-      image: "/image-2.svg",
+        "La terapia de ventosas, conocida en chino como 'Bá Guàn' (拔罐) y en Occidente como “Cupping” …",
+      image: "/image-4.png",
     },
     {
       title: "Masaje Tuina",
       description:
-        "El Masaje Tuina es una rama de la Medicina Tradicional China que utiliza el masaje como medio...",
-      image: "/image-63.png",
+        "El Masaje Tuina es una rama de la Medicina Tradicional China que utiliza el masaje como medio …",
+      image: "/image-5.png",
     },
     {
       title: "Auriculoterapia",
       description:
-        "La auriculoterapia es una especialidad...",
-      image: "/image-3.svg",
+        "La auriculoterapia (耳针疗法 - ěr zhēn liáo fǎ) es una rama especializada de la acupuntura …",
+      image: "/image-6.png",
     },
     {
       title: "Fitoterapia",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image.svg",
-    },
-    {
-      title: "Electropuntura",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-1.svg",
-    },
-    {
-      title: "Reflexología",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-2.svg",
-    },
-    {
-      title: "Qi Gong",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-3.svg",
+        "La fitoterapia es una de las ramas más importantes de la Medicina Tradicional China (MTC), con …",
+      image: "/image-7.png",
     },
     {
       title: "Dietoterapia",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image.svg",
+        "La dietoterapia china es una disciplina terapéutica basada en los principios de la Medicina …",
+      image: "/image-8.png",
     },
     {
-      title: "Medicina Herbal",
+      title: "Sangría terapéutica",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam",
-      image: "/image-63.png",
+        "En la Medicina China Tradicional, la sangría se considera una técnica valiosa para regular el flujo …",
+      image: "/image-9.png",
+    },
+    {
+      title: "Aguja de fuego",
+      description:
+        "La aguja de fuego (huǒ zhēn), es una técnica especializada dentro de la Medicina China, que combina …",
+      image: "/image-10.png",
+    },
+    {
+      title: "Gua sha",
+      description:
+        "El Gua Sha es una técnica de la Medicina Tradicional China que consiste en aplicar fricción …",
+      image: "/image-11.png",
+    },
+    {
+      title: "Qigong",
+      description:
+        "El Qigong es una de las ramas más importantes de la Medicina China. Esta práctica combina …",
+      image: "/image-12.png",
     },
   ];
 

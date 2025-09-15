@@ -28,7 +28,7 @@ export const ConfirmationPayment = (): JSX.Element => {
 
   return (
     <>
-      <div className="relative w-full bg-primary-50 overflow-hidden">
+      <div className="relative w-full bg-white overflow-hidden">
       {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
         <div
@@ -98,8 +98,8 @@ export const ConfirmationPayment = (): JSX.Element => {
           </Button>
         </div>
       
-      <div className="w-full relative z-10">
-        <div className="flex flex-col w-full items-center relative">
+      <div className="w-full relative z-10 bg-white">
+        <div className="flex flex-col w-full items-center relative bg-white">
           <MainContentSection />
           <FooterSection />
         </div>

@@ -223,6 +223,14 @@
 }
 
 /* ---------------------------------------
+   Footer específico para ConfirmationPayment
+--------------------------------------- */
+.confirmation-payment-footer {
+  background-color: white !important;
+  background: white !important;
+}
+
+/* ---------------------------------------
    Animations & helpers (únicos)
 --------------------------------------- */
 .animate-fade-in { animation: fade-in 1s var(--animation-delay, 0s) ease forwards; }

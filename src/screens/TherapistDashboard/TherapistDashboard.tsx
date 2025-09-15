@@ -324,7 +324,7 @@ export const TherapistDashboard = (): JSX.Element => {
             {/* Title and Description */}
             <div className="flex flex-col items-center gap-6 text-center">
               <h2 className="font-['Neue_Haas_Grotesk_Display_Pro-55Rg',Helvetica] text-primary-900 text-4xl md:text-5xl leading-tight font-normal max-w-[800px]">
-                Contrata Acu-red y lleva la atención de tus pacientes a un nuevo nivel.
+                Contrata Acured y lleva la atención de tus pacientes a un nuevo nivel.
               </h2>
               
               <p className="font-paragraph-p3 text-primary-900 text-[length:var(--paragraph-p3-font-size)] leading-[var(--paragraph-p3-line-height)] font-[number:var(--paragraph-p3-font-weight)] tracking-[var(--paragraph-p3-letter-spacing)] [font-style:var(--paragraph-p3-font-style)] max-w-[600px]">
