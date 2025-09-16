@@ -3,10 +3,13 @@ import React from "react";
 import { FAQModal } from "../../../../components/FAQModal";
 import { SupportModal } from "../../../../components/SupportModal";
 import { Button } from "../../../../components/ui/button";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const FooterSection = (): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
+  const navigate = useNavigate();
   
   console.log('FooterSection está renderizando');
 
@@ -33,14 +36,16 @@ export const FooterSection = (): JSX.Element => {
 
       {/* Left section - Call to action buttons */}
       <div className="flex flex-col items-start gap-2.5 relative flex-1 self-stretch grow">
-        <Button
-          variant="outline"
-          className="flex justify-center w-[211px] h-[31px] px-4 py-2 bg-primary-100 border-0 rounded-3xl"
+        <Link
+          to="/search-results"
+          className="inline-flex justify-center items-center w-[211px] h-[31px] px-4 py-2 bg-primary-100 border-0 rounded-3xl"
         >
           <span className="font-medium text-primary-800 text-sm leading-5 [font-family:'Inter',Helvetica]">
             Agenda tu hora aquí
           </span>
-        </Button>
+        </Link>
+
+
 
         <Button className="flex justify-center w-full px-4 py-2 bg-primary-900 rounded-3xl">
           <span className="font-medium text-neutralswhite text-sm leading-[normal] [font-family:'Inter',Helvetica]">

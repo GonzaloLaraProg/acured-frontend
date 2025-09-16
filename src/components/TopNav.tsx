@@ -8,7 +8,11 @@ import {
 } from "./ui/navigation-menu";
 import { Button } from "./ui/button";
 import { GlobeIcon, MenuIcon, UserIcon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // 👈 Importa Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
+
+// 👇 importa los modales
+import { LanguageModal } from "./LanguageModal";
+import { MenuDropdown } from "./MenuDropdown";
 
 export default function TopNav(): JSX.Element {
   const [scrolled, setScrolled] = React.useState(false);
@@ -102,6 +106,18 @@ export default function TopNav(): JSX.Element {
           <UserIcon className="w-4 h-4 text-gray-600" />
         </Button>
       </div>
+
+      {/* 👇 Renderiza los modales */}
+      <LanguageModal
+        isOpen={isLanguageModalOpen}
+        onClose={() => setIsLanguageModalOpen(false)}
+      />
+
+      <MenuDropdown
+        isOpen={isMenuDropdownOpen}
+        onClose={() => setIsMenuDropdownOpen(false)}
+        buttonRef={menuButtonRef}
+      />
     </>
   );
 }
