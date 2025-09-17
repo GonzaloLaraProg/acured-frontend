@@ -79,9 +79,10 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
       <div className="flex flex-col items-start gap-8 relative self-stretch w-full flex-[0_0_auto]">
         <Card className="flex flex-col items-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
           <CardContent className="inline-flex flex-col items-center gap-12 relative flex-[0_0_auto] p-0">
-            <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+            <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-bold text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
               Datos personales
             </h2>
+
 
             <div className="inline-flex flex-col items-start gap-6 relative flex-[0_0_auto] w-full">
               <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">

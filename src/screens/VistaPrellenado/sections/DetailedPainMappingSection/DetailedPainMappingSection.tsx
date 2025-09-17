@@ -20,7 +20,7 @@ interface DetailedPainMappingSectionProps {
 }
 
 export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: DetailedPainMappingSectionProps): JSX.Element => {
-  const [painIntensity, setPainIntensity] = useState(5);
+  const [painIntensity, setPainIntensity] = useState(0);
 
   return (
     <div className="min-h-screen bg-primary-50 relative">
@@ -64,12 +64,13 @@ export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: 
               </div>
 
               <div className="flex flex-col items-center gap-6">
-                <div className="w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+                <div className="mt-[-1.00px] font-text-text-xs-text-xs-font-medium font-[number:var(--text-text-xs-text-xs-font-medium-font-weight)] text-primary-800 text-[20px] leading-[28px] tracking-[var(--text-text-xs-text-xs-font-medium-letter-spacing)] whitespace-nowrap text-right [font-style:var(--text-text-xs-text-xs-font-medium-font-style)]">
                   Intensidad del dolor
                 </div>
 
+
                 <div className="flex items-center gap-2.5">
-                  <div className="w-fit font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+                  <div className="w-fit font-heading-h6 font- bold font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                     0
                   </div>
 
@@ -82,7 +83,7 @@ export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: 
                       onChange={(e) => setPainIntensity(Number(e.target.value))}
                       className="w-full h-1 bg-primary-200 rounded-sm appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #10b981 0%, #10b981 ${(painIntensity / 10) * 100}%, var(--primary-200) ${(painIntensity / 10) * 100}%, var(--primary-200) 100%)`
+                        background: `linear-gradient(to right, #2b705aff 0%, #2b705aff ${(painIntensity / 10) * 100}%, var(--primary-200) ${(painIntensity / 10) * 100}%, var(--primary-200) 100%)`
                       }}
                     />
                     <div 
@@ -96,7 +97,7 @@ export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: 
                     </div>
                   </div>
 
-                  <div className="w-fit font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+                  <div className="w-fit font-heading-h6 font-bold font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                     10
                   </div>
                 </div>
@@ -107,9 +108,10 @@ export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: 
                 className="h-auto flex items-center justify-center gap-2 px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs"
                 onClick={onMarkMorePains}
               >
-                <div className="mt-[-1.00px] font-text-text-xs-text-xs-font-medium font-[number:var(--text-text-xs-text-xs-font-medium-font-weight)] text-primary-800 text-[length:var(--text-text-xs-text-xs-font-medium-font-size)] tracking-[var(--text-text-xs-text-xs-font-medium-letter-spacing)] leading-[var(--text-text-xs-text-xs-font-medium-line-height)] whitespace-nowrap text-right [font-style:var(--text-text-xs-text-xs-font-medium-font-style)]">
+                <div className="mt-[-1.00px] font-text-text-xs-text-xs-font-medium font-[number:var(--text-text-xs-text-xs-font-medium-font-weight)] text-primary-800 text-[12px] leading-[12px] tracking-[var(--text-text-xs-text-xs-font-medium-letter-spacing)] whitespace-nowrap text-right [font-style:var(--text-text-xs-text-xs-font-medium-font-style)]">
                   Marcar más dolores
                 </div>
+
                 <ChevronRightIcon className="w-4 h-4" />
               </Button>
             </CardContent>

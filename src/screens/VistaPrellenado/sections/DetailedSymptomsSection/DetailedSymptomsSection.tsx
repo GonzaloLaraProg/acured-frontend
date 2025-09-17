@@ -91,16 +91,14 @@ export const DetailedSymptomsSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Síntomas
-      </h1>
+      
 
       <div className="flex flex-col items-start gap-8 relative self-stretch w-full flex-[0_0_auto]">
         {/* Sección 1: Cabeza o rostro */}
         <Card className="items-center gap-6 p-6 bg-white rounded-lg shadow-shadow-sm flex flex-col relative self-stretch w-full flex-[0_0_auto]">
           <CardContent className="p-0 w-full">
-            <div className="inline-flex flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
-              <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+            <div className="flex justify-center w-full flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
+              <h2 className="relative w-fit mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                 ¿Tienes molestias frecuentes en la cabeza o rostro?
               </h2>
               <RadioGroup value={headFaceAnswer} onValueChange={setHeadFaceAnswer} className="flex gap-6 justify-center">
@@ -178,10 +176,8 @@ export const DetailedSymptomsSection = (): JSX.Element => {
                       </Label>
                     </div>
                     {headFaceOther && (
-                      <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                        <div className="flex items-start p-2 relative self-stretch w-full flex-[0_0_auto] bg-primary-50 rounded border border-solid border-[#f1f4f2]">
-                          <Input className="border-0 bg-transparent p-0 h-auto" />
-                        </div>
+                      <div className="flex flex-col items-start gap-2 w-full">
+                        <Input className="w-full p-2 bg-primary-50 border border-[#f1f4f2] rounded" />
                       </div>
                     )}
                   </div>
@@ -194,8 +190,8 @@ export const DetailedSymptomsSection = (): JSX.Element => {
         {/* Sección 2: Tronco o extremidades */}
         <Card className="items-center gap-6 p-6 bg-white rounded-lg shadow-shadow-sm flex flex-col relative self-stretch w-full flex-[0_0_auto]">
           <CardContent className="p-0 w-full">
-            <div className="inline-flex flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
-              <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+            <div className="flex justify-center w-full flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
+              <h2 className="relative w-fit mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                 ¿Tienes dolores o molestias en tronco o extremidades?
               </h2>
               <RadioGroup value={trunkExtremitiesAnswer} onValueChange={setTrunkExtremitiesAnswer} className="flex gap-6 justify-center">
@@ -273,10 +269,8 @@ export const DetailedSymptomsSection = (): JSX.Element => {
                       </Label>
                     </div>
                     {trunkExtremitiesOther && (
-                      <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                        <div className="flex items-start p-2 relative self-stretch w-full flex-[0_0_auto] bg-primary-50 rounded border border-solid border-[#f1f4f2]">
-                          <Input className="border-0 bg-transparent p-0 h-auto" />
-                        </div>
+                      <div className="flex flex-col items-start gap-2 w-full">
+                        <Input className="w-full p-2 bg-primary-50 border border-[#f1f4f2] rounded" />
                       </div>
                     )}
                   </div>
@@ -289,8 +283,8 @@ export const DetailedSymptomsSection = (): JSX.Element => {
         {/* Sección 3: Piel, cabello o uñas */}
         <Card className="flex flex-col items-center justify-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
           <CardContent className="p-0 w-full">
-            <div className="inline-flex flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
-              <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+            <div className="flex justify-center w-full flex-col items-center gap-6 relative flex-[0_0_auto] mb-6">
+              <h2 className="relative w-fit mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                 ¿Tienes problemas en la piel, cabello o uñas?
               </h2>
               <RadioGroup value={skinHairNailsAnswer} onValueChange={setSkinHairNailsAnswer} className="flex gap-6 justify-center">
@@ -368,10 +362,8 @@ export const DetailedSymptomsSection = (): JSX.Element => {
                       </Label>
                     </div>
                     {skinHairNailsOther && (
-                      <div className="flex flex-col items-start gap-2 relative self-stretch w-full flex-[0_0_auto]">
-                        <div className="flex items-start p-2 relative self-stretch w-full flex-[0_0_auto] bg-primary-50 rounded border border-solid border-[#f1f4f2]">
-                          <Input className="border-0 bg-transparent p-0 h-auto" />
-                        </div>
+                      <div className="flex flex-col items-start gap-2 w-full">
+                        <Input className="w-full p-2 bg-primary-50 border border-[#f1f4f2] rounded" />
                       </div>
                     )}
                   </div>

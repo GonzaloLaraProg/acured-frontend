@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TopNav from "../../components/TopNav";
 import { Button } from "../../components/ui/button";
 import { ActionButtonsSection } from "./sections/ActionButtonsSection/ActionButtonsSection";
 import { ConsultationReasonSection } from "./sections/ConsultationReasonSection/ConsultationReasonSection";
@@ -140,7 +141,7 @@ export const VistaPrellenado = (): JSX.Element => {
   if (showDetailedPainMapping) {
     return (
       <div className="relative min-h-screen w-full bg-primary-50">
-        <NavigationBarSection />
+        <TopNav isPrefilledView />
         <DetailedPainMappingSection
           onBack={handleDetailedPainBack}
           onMarkMorePains={handleMarkMorePains}
@@ -152,7 +153,7 @@ export const VistaPrellenado = (): JSX.Element => {
 
   return (
     <div className="relative min-h-screen w-full bg-primary-50">
-      <NavigationBarSection />
+      <TopNav isPrefilledView />
 
       {/* Botones superiores: idioma y menú */}
       {/* ... puedes dejar tu lógica de botones aquí ... */}

@@ -14,7 +14,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LanguageModal } from "./LanguageModal";
 import { MenuDropdown } from "./MenuDropdown";
 
-export default function TopNav(): JSX.Element {
+interface TopNavProps {
+  isPrefilledView?: boolean; // 👉 nueva prop opcional
+}
+
+export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.Element {
   const [scrolled, setScrolled] = React.useState(false);
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
@@ -58,11 +62,19 @@ export default function TopNav(): JSX.Element {
                 variant="ghost"
                 className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
               >
-                <Link to="/login" className="text-decoration-none">
-                  <span className="font-normal text-lg text-primary-900">
-                    Inicia sesión
-                  </span>
-                </Link>
+                {isPrefilledView ? (
+                  <Link to="/search-results" className="text-decoration-none">
+                    <span className="font-normal text-lg text-primary-900">
+                      Agendar hora
+                    </span>
+                  </Link>
+                ) : (
+                  <Link to="/login" className="text-decoration-none">
+                    <span className="font-normal text-lg text-primary-900">
+                      Inicia sesión
+                    </span>
+                  </Link>
+                )}
               </Button>
             </div>
 

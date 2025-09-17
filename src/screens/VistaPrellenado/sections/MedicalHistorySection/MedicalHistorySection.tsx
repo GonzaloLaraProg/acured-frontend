@@ -275,7 +275,7 @@ export const MedicalHistorySection = ({ selectedGender }: MedicalHistorySectionP
         <Card className="w-full bg-white rounded-lg shadow-shadow-sm">
           <CardContent className="flex flex-col items-center gap-6 p-6">
             <div className="inline-flex flex-col items-center gap-12 relative flex-[0_0_auto]">
-              <div className="relative w-fit mt-[-1.00px] [font-family:'Neue_Haas_Grotesk_Display_Pro-Regular',Helvetica] font-normal text-primary-900 text-xl tracking-[0] leading-5 whitespace-nowrap">
+              <div className="relative w-fit mt-[-1.00px] [font-family:'Neue_Haas_Grotesk_Display_Pro-Regular',Helvetica] font-bold text-primary-900 text-xl tracking-[0] leading-5 whitespace-nowrap">
                 Antecedentes médicos
               </div>
             </div>

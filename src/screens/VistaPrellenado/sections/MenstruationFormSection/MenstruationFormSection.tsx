@@ -45,16 +45,14 @@ export const MenstruationFormSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Síntomas
-      </h1>
+      
 
       <div className="flex flex-col items-center gap-8 w-full">
         <div className="flex flex-col items-start gap-8 w-full">
           <Card className="flex flex-col items-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-6 relative flex-[0_0_auto] w-full">
-                <h2 className="relative w-fit mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
+                <h2 className="relative w-fit mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] whitespace-nowrap [font-style:var(--heading-h6-font-style)]">
                   ¿Cada cuántos días ocurre tu menstruación?
                 </h2>
 
@@ -62,24 +60,28 @@ export const MenstruationFormSection = (): JSX.Element => {
                   <RadioGroup
                     value={menstruationFrequency}
                     onValueChange={setMenstruationFrequency}
-                    className="flex flex-col gap-3 w-full max-w-md"
+                    className="flex flex-col gap-3 items-center"
                   >
                     {frequencyOptions.map((option) => (
-                      <div key={option.value} className="flex items-center gap-4 justify-start">
+                      <div
+                        key={option.value}
+                        className="flex items-center gap-3 w-full max-w-sm justify-start"
+                      >
                         <RadioGroupItem
                           value={option.value}
                           id={option.value}
-                          className="w-4 h-4 bg-primary-50 rounded-[20px] border border-solid border-[#2e3d33]"
+                          className="w-4 h-4 bg-primary-50 rounded-full border border-[#2e3d33]"
                         />
                         <Label
                           htmlFor={option.value}
-                          className="relative w-fit mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-sm tracking-[0] leading-[normal] cursor-pointer"
+                          className="text-sm font-medium text-primary-900 cursor-pointer"
                         >
                           {option.label}
                         </Label>
                       </div>
                     ))}
                   </RadioGroup>
+
                 </div>
               </div>
             </CardContent>
@@ -89,19 +91,20 @@ export const MenstruationFormSection = (): JSX.Element => {
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-6 relative flex-[0_0_auto] w-full">
                 <div className="flex gap-1 flex-col items-center relative flex-[0_0_auto]">
-                  <h2 className="relative w-fit max-w-[450px] mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+                  <h2 className="relative w-fit max-w-[500px] mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                     ¿Cuántos días dura normalmente tu menstruación?
                   </h2>
-                  <p className="relative w-fit max-w-[450px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
+                  <p className="relative w-fit max-w-[450px] font-bold font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
                     (desde el primer hasta el último día de sangrado)
                   </p>
                 </div>
 
                 <div className="flex flex-col items-center gap-3 relative flex-[0_0_auto] w-full">
                   <RadioGroup
+                   
                     value={menstruationDuration}
                     onValueChange={setMenstruationDuration}
-                    className="flex flex-col gap-3 w-full max-w-md"
+                    className="flex flex-col gap-3 items-center  max-w-md"
                   >
                     {durationOptions.map((option) => (
                       <div
@@ -115,13 +118,15 @@ export const MenstruationFormSection = (): JSX.Element => {
                         />
                         <Label
                           htmlFor={option.value}
-                          className="relative flex-1 mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-sm tracking-[0] leading-[normal] cursor-pointer"
+                          className="relative mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-sm tracking-[0] leading-[normal] cursor-pointer"
                         >
                           {option.label}
                         </Label>
                       </div>
                     ))}
                   </RadioGroup>
+
+
                 </div>
               </div>
             </CardContent>
@@ -130,15 +135,15 @@ export const MenstruationFormSection = (): JSX.Element => {
           <Card className="flex flex-col items-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-6 relative flex-[0_0_auto] w-full">
-                <h2 className="relative w-fit max-w-[424px] mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
-                  ¿Cómo es la cantidad de tu sangrado menstrual?
+                <h2 className="relative w-fit max-w-[450px] mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+                  ¿Cómo describirías la cantidad de sangrado?
                 </h2>
 
                 <div className="flex flex-col items-center gap-3 relative flex-[0_0_auto] w-full">
                   <RadioGroup
                     value={bleedingAmount}
                     onValueChange={setBleedingAmount}
-                    className="flex flex-col gap-3 w-full max-w-md"
+                    className="flex flex-col gap-3 items-center max-w-md"
                   >
                     {amountOptions.map((option) => (
                       <div
@@ -152,13 +157,14 @@ export const MenstruationFormSection = (): JSX.Element => {
                         />
                         <Label
                           htmlFor={option.value}
-                          className="relative flex-1 mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-sm tracking-[0] leading-[normal] cursor-pointer"
+                          className="relative mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-sm tracking-[0] leading-[normal] cursor-pointer"
                         >
                           {option.label}
                         </Label>
                       </div>
                     ))}
                   </RadioGroup>
+
                 </div>
               </div>
             </CardContent>
@@ -167,7 +173,7 @@ export const MenstruationFormSection = (): JSX.Element => {
           <Card className="flex flex-col items-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-6 relative flex-[0_0_auto] w-full">
-                <h2 className="relative w-fit max-w-[480px] mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+                <h2 className="relative w-fit max-w-[550px] mt-[-1.00px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                   ¿Cuál es el color habitual de tu sangrado menstrual?
                 </h2>
 
@@ -175,7 +181,7 @@ export const MenstruationFormSection = (): JSX.Element => {
                   <RadioGroup
                     value={bleedingColor}
                     onValueChange={setBleedingColor}
-                    className="flex flex-col gap-3 w-full max-w-md"
+                    className="flex flex-col gap-3 max-w-md"
                   >
                     {colorOptions.map((option) => (
                       <div

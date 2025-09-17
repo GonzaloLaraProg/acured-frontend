@@ -19,7 +19,7 @@ export const PainMappingSection = ({ onImageClick, onBack }: PainMappingSectionP
                 Si presentas algún dolor, márcalo haciendo click donde
                 corresponda
               </h1>
-              <p className="w-[450px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
+              <p className="w-[450px] font-bold font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
                 (puedes marcar más de uno)
               </p>
             </div>

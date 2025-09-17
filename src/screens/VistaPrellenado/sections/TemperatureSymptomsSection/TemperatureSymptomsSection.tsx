@@ -48,9 +48,7 @@ export const TemperatureSymptomsSection = ({ onAutoAdvance, onAnswerChange }: Te
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Síntomas
-      </h1>
+      
 
       <div className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
         {/* Question Card */}
@@ -58,7 +56,7 @@ export const TemperatureSymptomsSection = ({ onAutoAdvance, onAnswerChange }: Te
           <Card className="bg-white rounded-lg shadow-shadow-sm">
             <CardContent className="p-6 flex flex-col items-center gap-8">
               <div className="flex flex-col items-center gap-12">
-                <h2 className="w-[522px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+                <h2 className="w-[600px] font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                   ¿Has experimentado cambios constantes de temperatura,
                   sudoración o peso en las últimas semanas?
                 </h2>

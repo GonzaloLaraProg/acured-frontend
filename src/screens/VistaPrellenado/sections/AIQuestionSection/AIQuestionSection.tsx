@@ -8,16 +8,14 @@ export const AIQuestionSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Pregunta de seguimiento
-      </h1>
+     
 
       <div className="flex flex-col items-start gap-8 relative self-stretch w-full flex-[0_0_auto]">
         {/* Question Card */}
         <Card className="w-full bg-white rounded-lg shadow-shadow-sm border-0">
           <CardContent className="flex flex-col items-center gap-6 p-6">
             <div className="flex flex-col items-center gap-12">
-              <h2 className="w-[338px] text-center font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)] mt-[-1.00px]">
+              <h2 className="w-[338px] text-center font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)] mt-[-1.00px]">
                 Pregunta IA
               </h2>
             </div>
@@ -32,7 +30,7 @@ export const AIQuestionSection = (): JSX.Element => {
                   <RadioGroupItem
                     value="si"
                     id="si"
-                    className="w-4 h-4 bg-primary-50 border-[#3c5043] data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
+                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-sm data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
                   />
                   <Label
                     htmlFor="si"
@@ -46,7 +44,7 @@ export const AIQuestionSection = (): JSX.Element => {
                   <RadioGroupItem
                     value="no"
                     id="no"
-                    className="w-4 h-4 bg-primary-50 border-[#3c5043] data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
+                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-sm data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
                   />
                   <Label
                     htmlFor="no"

@@ -80,16 +80,14 @@ export const MenstrualPainSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Síntomas
-      </h1>
+     
 
       <div className="flex flex-col items-center gap-12 w-full max-w-4xl mx-auto">
         {/* Pregunta 1: Dolor menstrual */}
         <Card className="w-full bg-white rounded-lg shadow-shadow-sm">
           <CardContent className="flex flex-col items-center gap-6 p-6">
             <div className="flex flex-col w-[424px] items-center gap-12">
-              <h2 className="text-center font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+              <h2 className="text-center font-bold font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                 ¿Sientes dolor menstrual?
               </h2>
             </div>
@@ -124,11 +122,11 @@ export const MenstrualPainSection = (): JSX.Element => {
         <Card className="flex flex-col items-center gap-6 p-6 relative self-stretch w-full flex-[0_0_auto] bg-white rounded-lg shadow-shadow-sm">
           <CardContent className="flex flex-col w-[424px] items-center gap-12 relative flex-[0_0_auto] p-0">
             <div className="ml-[-13.00px] mr-[-13.00px] inline-flex flex-col items-center gap-1 relative flex-[0_0_auto]">
-              <div className="relative w-[450px] mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+              <div className="relative w-[450px] font-bold mt-[-1.00px] font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                 ¿Sientes frío o calor durante la menstruación?
               </div>
 
-              <div className="relative w-[450px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
+              <div className="relative w-[450px] font-bold font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
                 (en el abdomen, el cuerpo o las extremidades).
               </div>
             </div>
@@ -165,10 +163,10 @@ export const MenstrualPainSection = (): JSX.Element => {
           <CardContent className="flex flex-col items-center gap-6 p-6">
             <div className="flex flex-col items-center gap-12 w-full">
               <div className="flex flex-col items-center gap-1">
-                <h2 className="font-heading-h6 font-[number:var(--heading-h6-font-weight)] text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
+                <h2 className="font-heading-h6 font-[number:var(--heading-h6-font-weight)] font-bold text-primary-900 text-[length:var(--heading-h6-font-size)] text-center tracking-[var(--heading-h6-letter-spacing)] leading-[var(--heading-h6-line-height)] [font-style:var(--heading-h6-font-style)]">
                   ¿Tienes otros síntomas previos o durante la menstruación?
                 </h2>
-                <p className="w-[450px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
+                <p className="w-[450px] font-paragraph-p2-regular font-bold font-[number:var(--paragraph-p2-regular-font-weight)] text-primary-700 text-[length:var(--paragraph-p2-regular-font-size)] text-center tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
                   (Puedes marcar más de una opción)
                 </p>
               </div>
@@ -181,7 +179,7 @@ export const MenstrualPainSection = (): JSX.Element => {
                       id={symptom.id}
                       checked={selectedSymptoms.includes(symptom.id)}
                       onCheckedChange={(checked) => handleSymptomChange(symptom.id, checked as boolean)}
-                      className="w-4 h-4 bg-primary-50 rounded border border-solid border-[#3c5043]"
+                      className="w-4 h-4 bg-primary-50 rounded-full border border-solid border-[#3c5043]"
                     />
                     <Label
                       htmlFor={symptom.id}

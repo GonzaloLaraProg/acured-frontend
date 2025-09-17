@@ -15,15 +15,15 @@ export const MenstruationAgeSection = ({ onDataChange, onAutoNavigate }: Menstru
 
   const lastMenstruationOptions = [
     { value: "less-than-1-month", label: "Hace menos de 1 mes" },
-    { value: "1-3-months", label: "Entre 1 y 3 meses" },
+    { value: "1-3-months", label: "Hace más de 1 mes pero menos de 3 meses" },
     { value: "more-than-3-months", label: "Hace más de 3 meses" }
   ];
 
   const reasonOptions = [
     { value: "pregnancy", label: "Embarazo" },
-    { value: "breastfeeding", label: "Lactancia" },
     { value: "menopause", label: "Menopausia" },
-    { value: "other", label: "Otro" }
+    { value: "other", label: "Otro (cirugía, anticonceptivo, etc)" },
+    { value: "breastfeeding", label: "No sé" }
   ];
 
   const handleLastMenstruationChange = (value: string) => {
@@ -37,14 +37,13 @@ export const MenstruationAgeSection = ({ onDataChange, onAutoNavigate }: Menstru
   };
 
   return (
-    <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
-      <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
-        Síntomas
-      </h1>
+    <section className="flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
+      
 
       <div className="flex flex-col items-start gap-8 w-full">
         <Card className="w-full bg-white rounded-lg shadow-shadow-sm border-0">
-          <CardContent className="p-6">
+          <CardContent className="p-6 flex flex-col items-center justify-center gap-8">
+
             <div className="inline-flex flex-col items-center gap-8">
               {/* First Question */}
               <div className="flex flex-col items-start gap-1 w-full">
@@ -92,7 +91,7 @@ export const MenstruationAgeSection = ({ onDataChange, onAutoNavigate }: Menstru
                   {/* Follow-up Question */}
                   {lastMenstruation === "more-than-3-months" && (
                     <div className="flex flex-col items-start gap-3 w-full">
-                      <Label className="font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-primary-700 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
+                      <Label className="font-paragraph-p2-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-primary-700 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
                         ¿Por qué?
                       </Label>
 
