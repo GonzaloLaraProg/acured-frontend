@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobeIcon, MenuIcon, UserIcon, ChevronRightIcon, CheckCircleIcon, XIcon } from "lucide-react";
 import { FAQModal } from "../../components/FAQModal";
@@ -26,6 +26,12 @@ export const VistaRecuperarTu = (): JSX.Element => {
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [currentStep, setCurrentStep] = React.useState<'email' | 'verification' | 'new-password' | 'success'>('email');
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+  const [code, setCode] = useState(Array(6).fill("")); 
+  const [timeLeft, setTimeLeft] = useState(30);
+  const [error, setError] = useState<string | null>(null);
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const [isComplete, setIsComplete] = useState(false);
+
   // 👇 Aquí agregamos el estado del scroll
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -34,6 +40,55 @@ export const VistaRecuperarTu = (): JSX.Element => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  React.useEffect(() => {
+    if (timeLeft <= 0) return;
+    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+  React.useEffect(() => {
+    setIsComplete(code.every((digit) => digit !== ""));
+  }, [code]);
+
+  // ⏳ Temporizador
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+    const interval = setInterval(() => setTimeLeft((prev: number) => prev - 1), 1000);
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+  // Manejo de inputs con auto-focus
+  const handleChange = (value: string, index: number) => {
+    if (/^[0-9]?$/.test(value)) {
+      const newCode = [...code];
+      newCode[index] = value;
+      setCode(newCode);
+      setError(null);
+
+      if (value && index < 5) {
+        inputsRef.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  // Permitir retroceso al input anterior
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    }
+  };
+
+  // ✅ Validación al confirmar
+  const handleConfirm = () => {
+    const enteredCode = code.join("");
+    if (enteredCode === "111111") {
+      setError("Código de verificación incorrecto");
+    } else {
+      setError(null);
+      alert("✅ Código válido: " + enteredCode);
+    }
+  };
+
+
 
 
   const handleBack = () => {
@@ -60,121 +115,61 @@ export const VistaRecuperarTu = (): JSX.Element => {
       navigate('/login');
     }
   };
+  
 
   return (
     <>
       <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
-        {/* Fondo blanco detrás del navbar */}
-        <div
-          className={`fixed top-0 left-0 w-full h-[90px] bg-white shadow-sm transition-opacity duration-300 z-40 ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-        />
-        <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
-          <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
-            <NavigationMenuItem>
-              <Link
-                className="relative w-[92px] h-[21px] bg-[url(/acured-logo-1.png)] bg-cover bg-[50%_50%] block"
-                to="/"
-              />
-            </NavigationMenuItem>
-
-            <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
-              <div className="inline-flex items-center">
-                <Button
-                  variant="ghost"
-                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
-                >
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-primary-900">
-                    Inicia sesión
-                  </span>
-                </Button>
-              </div>
-
-              <Button className="inline-flex flex-col justify-center gap-4 px-4 py-2 bg-primary-900 items-center rounded-3xl">
-                <Link to="/therapist-dashboard" className="text-decoration-none">
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-neutralswhite text-lg leading-[normal] whitespace-nowrap">
-                    ¿Eres acupunturista?
-                  </span>
-                </Link>
-              </Button>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-
-
-
-        {/* Right side buttons */}
-        <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
-          <Button 
-            variant="ghost" 
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-            onClick={() => setIsLanguageModalOpen(true)}
-          >
-            <span className="text-sm text-gray-700 font-medium">Idioma</span>
-            <GlobeIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-
-          <Button 
-            ref={menuButtonRef}
-            variant="ghost" 
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-            onClick={() => setIsMenuDropdownOpen(!isMenuDropdownOpen)}
-          >
-            <span className="text-sm text-gray-700 font-medium">Menú</span>
-            <MenuIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-
-          <Button 
-            variant="ghost" 
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-          >
-            <span className="text-sm text-gray-700 font-medium">Nombre</span>
-            <UserIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-        </div>
+        <TopNav/>
 
         {/* Main Content */}
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen ">
           {/* Left side - Password recovery form */}
-          <div className="flex-1 flex items-center justify-center pt-32 pb-16 px-16">
+          <div className="flex-1 flex items-center justify-center px-8">
             {currentStep === 'email' ? (
-              <Card className="w-full max-w-[500px] bg-white rounded-2xl shadow-lg">
+              <Card className="w-full max-w-[460px] bg-white rounded-2xl shadow-lg">
                 <CardContent className="p-8">
-                  {/* Title */}
-                  <h1 className="text-center mb-8 text-2xl font-normal text-primary-900">
-                    Ingresa tu correo electrónico para recuperar tu contraseña
+                 {/* Título */}
+                  <h1 className="font-haas text-center text-[30px] leading-snug text-primary-900 mb-6">
+                    Ingresa tu correo electrónico
+                    <br />
+                    para recuperar tu contraseña
                   </h1>
-                  <p className="text-center mb-6 text-sm text-gray-600">
+                  {/* Subtítulo */}
+                  <p className="font-inter text-center text-[15px] text-gray-700 mb-8">
                     Recibirás un email con un código de verificación
                   </p>
 
-                  {/* Email Input */}
-                  <div className="space-y-4 mb-8">
-                    <div>
-                      <Label htmlFor="email" className="sr-only">
-                        Email
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        defaultValue="Email"
-                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      />
-                    </div>
+                  {/* Input de Email */}
+                  <div className="mb-8">
+                    <Label htmlFor="email" className="sr-only">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Email"
+                      className="h-12 w-full px-4 bg-[#F2F7F4] border border-gray-200 rounded-lg 
+                                text-gray-900 placeholder-gray-500 
+                                focus:outline-none focus:ring-2 focus:ring-[#1B4332]"
+                    />
                   </div>
-                  {/* Action Buttons */}
+
+                  {/* Botones */}
                   <div className="flex items-center justify-between">
-                    <button 
-                      className="text-primary-900 text-sm hover:underline"
+                    <button
+                      className="px-6 py-2 bg-white border border-gray-200 text-gray-900 
+                                rounded-full shadow-md hover:bg-gray-50 font-inter"
                       onClick={handleBack}
                     >
                       Atrás
                     </button>
-                    <button 
-                      className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
+
+                    <button
+                      className="px-6 py-2 bg-[#1B4332] text-white rounded-full shadow-md 
+                                hover:bg-[#163828] font-inter"
                       onClick={handleContinue}
                     >
                       Continuar
@@ -276,86 +271,91 @@ export const VistaRecuperarTu = (): JSX.Element => {
             ) : (
               /* Verification Code Step */
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 relative flex-1 self-stretch grow">
-                <Card className="w-[398px] bg-neutralswhite rounded-lg shadow-shadow-sm">
+                <Card className="w-[450px] bg-white rounded-lg shadow-md">
                   <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
-                    <div className="flex flex-col items-center gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                      <header className="flex flex-col items-center gap-3 relative self-stretch w-full flex-[0_0_auto]">
-                        <h1 className="relative w-fit mt-[-1.00px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] whitespace-nowrap [font-style:var(--heading-h5-font-style)]">
+                    <div className="flex flex-col items-center gap-2 w-full">
+                      {/* Título */}
+                      <header className="flex flex-col items-center gap-2 w-full">
+                        <h1 className="text-center text-[30px] font-haas text-primary-900">
                           Código de verificación
                         </h1>
-
-                        <p className="relative self-stretch [font-family:'Inter',Helvetica] font-normal text-black text-sm text-center tracking-[0] leading-[normal]">
-                          <span className="[font-family:'Inter',Helvetica] font-normal text-black text-sm tracking-[0]">
-                            Ingrese el código de verificación de 6 dígitos enviado a{" "}
-                          </span>
-                          <span className="font-bold">acu***@gmail.com.</span>
+                        <p className="text-center text-md text-gray-700">
+                          Ingrese el código de verificación de 6 dígitos 
+                          <br />
+                          enviado a{" "}
+                          <span className="font-bold">acu***@gmail.com</span>.
                         </p>
                       </header>
 
-                      <div className="flex flex-col items-center gap-4 relative self-stretch w-full flex-[0_0_auto]">
-                        <InputOTP maxLength={6} className="gap-2">
-                          <InputOTPGroup className="gap-2">
-                            <InputOTPSlot
-                              index={0}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                            <InputOTPSlot
-                              index={1}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                            <InputOTPSlot
-                              index={2}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                            <InputOTPSlot
-                              index={3}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                            <InputOTPSlot
-                              index={4}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                            <InputOTPSlot
-                              index={5}
-                              className="w-[50px] h-[50px] bg-primary-50 border-[#dcdce2] font-text-text-lg-text-lg-font-normal font-[number:var(--text-text-lg-text-lg-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-lg-text-lg-font-normal-font-size)] tracking-[var(--text-text-lg-text-lg-font-normal-letter-spacing)] leading-[var(--text-text-lg-text-lg-font-normal-line-height)] [font-style:var(--text-text-lg-text-lg-font-normal-font-style)]"
-                            />
-                          </InputOTPGroup>
-                        </InputOTP>
+                      {/* Inputs */}
+                      <div className="flex justify-center gap-3 mb-2">
+                        {code.map((digit: string, index: number) => (
+                          <input
+                            key={index}
+                            type="text"
+                            maxLength={1}
+                            value={digit}
+                            onChange={(e) => handleChange(e.target.value, index)}
+                            onKeyDown={(e) => handleKeyDown(e, index)}
+                            ref={(el) => (inputsRef.current[index] = el)}
+                            className={`w-12 h-12 text-center rounded-md border text-lg font-medium ${
+                              error
+                                ? "border-red-500 bg-red-50 text-red-600"
+                                : "border-gray-300 bg-gray-100 text-gray-900"
+                            }`}
+                          />
+                        ))}
+                      </div>
 
-                        <div className="flex flex-col items-center gap-2.5 relative self-stretch w-full flex-[0_0_auto]">
-                          <div className="relative w-fit mt-[-1.00px] [font-family:'Inter',Helvetica] font-medium text-primary-900 text-xs tracking-[0] leading-[normal]">
-                            00:30
-                          </div>
+                      {/* Error */}
+                    {error && (
+                      <p className="text-red-600 text-sm font-medium text-left w-full">
+                        &nbsp; &nbsp; &nbsp; {error}
+                      </p>
+                    )}
 
-                          <button className="relative w-[206px] opacity-40 font-text-xs-medium-underline font-[number:var(--text-xs-medium-underline-font-weight)] text-primary-900 text-[length:var(--text-xs-medium-underline-font-size)] text-center tracking-[var(--text-xs-medium-underline-letter-spacing)] leading-[var(--text-xs-medium-underline-line-height)] underline [font-style:var(--text-xs-medium-underline-font-style)] bg-transparent border-none cursor-pointer">
-                            Si aún no has recibido el código ¡Haz click aquí!
-                          </button>
-                        </div>
+
+                      {/* Timer */}
+                      <div className="text-center text-sm text-gray-600">
+                        {`00:${timeLeft.toString().padStart(2, "0")}`}
+                      </div>
+                      {/* Reenviar (siempre visible) */}
+                      <div className="text-center">
+                        <button className=" text-primary-900 underline text-sm">
+                          Si aún no has recibido el código 
+                          <br />
+                          ¡Haz click aquí!
+                        </button>
                       </div>
                     </div>
 
-                    <div className="flex items-start justify-between relative self-stretch w-full flex-[0_0_auto]">
-                      <Button
-                        variant="outline"
-                        className="h-auto px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs border-none"
-                        onClick={handleBack}
+                    {/* Botones */}
+                    <div className="flex justify-between w-full">
+                      <button
+                        onClick={() => setCurrentStep("email")}
+                        className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
                       >
-                        <span className="mt-[-1.00px] font-text-text-xs-text-xs-font-medium font-[number:var(--text-text-xs-text-xs-font-medium-font-weight)] text-primary-800 text-[length:var(--text-text-xs-text-xs-font-medium-font-size)] tracking-[var(--text-text-xs-text-xs-font-medium-letter-spacing)] leading-[var(--text-text-xs-text-xs-font-medium-line-height)] whitespace-nowrap [font-style:var(--text-text-xs-text-xs-font-medium-font-style)]">
-                          Atrás
-                        </span>
-                      </Button>
-
-                      <Button 
-                        className="h-auto px-4 py-2 bg-primary-900 rounded-3xl"
-                        onClick={handleContinue}
+                        Atrás
+                      </button>
+                      <button
+                        onClick={() => {
+                          const enteredCode = code.join("");
+                          if (enteredCode === "111111") {
+                            setError("Código de verificación incorrecto");
+                          } else if (!code.includes("")) {
+                            setError(null);
+                            setCurrentStep("new-password"); // 👉 pasa al paso de nueva contraseña
+                          }
+                        }}
+                        disabled={code.includes("")}
+                        className={`px-6 py-2 rounded-3xl flex items-center gap-2 ${
+                          code.includes("")
+                            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                            : "bg-primary-900 text-white hover:bg-primary-800"
+                        }`}
                       >
-                        <div className="inline-flex items-center gap-1">
-                          <span className="mt-[-1.00px] [font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm tracking-[0] leading-5 whitespace-nowrap">
-                            Confirmar
-                          </span>
-                          <ChevronRightIcon className="w-5 h-5" />
-                        </div>
-                      </Button>
+                        Confirmar <ChevronRightIcon className="w-5 h-5" />
+                      </button>
                     </div>
                   </CardContent>
                 </Card>
@@ -366,9 +366,9 @@ export const VistaRecuperarTu = (): JSX.Element => {
           {/* Right side - Image */}
           <div className="flex-1 relative">
             <img
+              src="/loginimg.jpg" // 👈 asegúrate de que este archivo esté dentro de la carpeta /public/
+              alt="Acupuncture treatment"
               className="w-full h-full object-cover"
-              alt="Close up hand"
-              src="/close-up-hand-holding-acupuncture-needle-1.png"
             />
           </div>
         </div>

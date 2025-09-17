@@ -83,6 +83,8 @@ module.exports = {
         "subtitle-1": "var(--subtitle-1-font-family)",
         "text-text-sm-text-sm-font-normal":
           "var(--text-text-sm-text-sm-font-normal-font-family)",
+        haas: ['"Neue Haas Grotesk Text Pro"', "sans-serif"],
+        inter: ["Inter", "sans-serif"],
         sans: [
           "ui-sans-serif",
           "system-ui",
@@ -118,6 +120,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      
     },
   },
   plugins: [],

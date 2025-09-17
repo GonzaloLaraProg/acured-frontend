@@ -4,7 +4,7 @@ import { CreditCard, Heart } from "lucide-react";
 
 export const AboutUsSection = (): JSX.Element => {
   return (
-    <section className="w-full bg-[#F5FAF7] px-16 py-16">
+    <section className="w-full  px-16 py-16">
       <div className="max-w-[1512px] mx-auto flex justify-between items-start gap-16">
         {/* Imagen izquierda */}
         <img
@@ -16,7 +16,7 @@ export const AboutUsSection = (): JSX.Element => {
         {/* Contenido derecho */}
         <div className="flex-1 flex flex-col justify-between h-[653px]">
           {/* Título */}
-          <h2 className="text-primary-900 text-[40px] leading-[48px] font-normal mb-8">
+          <h2 className="font-haas text-primary-900 text-[40px] leading-[48px]  mb-8">
             Somos el mayor directorio de <br /> acupunturistas de Chile y
             Latinoamérica.
           </h2>
@@ -26,7 +26,7 @@ export const AboutUsSection = (): JSX.Element => {
             {/* Paga seguro */}
             <div className="flex items-start gap-3">
               <CreditCard className="w-7 h-7 text-green-900 flex-shrink-0 mt-1" />
-              <p className="text-[20px] leading-[30px] text-black">
+              <p className="font-inter text-[20px] leading-[30px] text-black">
                 Paga en línea con total seguridad.
               </p>
             </div>
@@ -34,7 +34,7 @@ export const AboutUsSection = (): JSX.Element => {
             {/* Salud en tres líneas */}
             <div className="flex items-start gap-3">
               <Heart className="w-7 h-7 text-green-900 flex-shrink-0 mt-1" />
-              <p className="text-[20px] leading-[30px] text-black">
+              <p className="font-inter text-[20px] leading-[30px] text-black">
                 Aprovecha cada minuto de tu <br />
                 sesión enfocándote en lo <br />
                 que más importa:{" "}
@@ -45,11 +45,11 @@ export const AboutUsSection = (): JSX.Element => {
 
           {/* Párrafos inferiores */}
           <div className="flex gap-4 text-[18px] leading-[28px] text-black">
-            <p className="flex-1">
+            <p className="font-inter flex-1">
               Agenda tu hora de forma rápida, segura, 100% en línea y encuentra
               al profesional que mejor se adapte a tus necesidades.
             </p>
-            <p className="flex-1">
+            <p className="font-inter flex-1">
               Conoce sus especialidades, experiencia y enfoque terapéutico.
               Infórmate sobre los distintos tipos de tratamiento y elige con
               confianza.
