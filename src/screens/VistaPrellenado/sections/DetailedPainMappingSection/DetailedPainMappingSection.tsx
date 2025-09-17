@@ -43,9 +43,14 @@ export const DetailedPainMappingSection = ({ onBack, onMarkMorePains, onNext }: 
               ))}
             </div>
 
-            <div className="w-[700px] h-2 bg-neutralswhite overflow-hidden shadow-[inset_0px_1px_2px_#00000026,inset_-1px_0px_2px_#0000001a] rounded-[100px]">
-              <Progress value={75} className="h-full bg-primary-800" />
-            </div>
+            {/* Barra de progreso personalizada */}
+              <div className="w-[700px] h-2 bg-neutralswhite overflow-hidden shadow-[inset_0px_1px_2px_#00000026,inset_-1px_0px_2px_#0000001a] rounded-[100px] relative">
+                <div
+                  className="h-full bg-primary-800 rounded-[100px] transition-all duration-300"
+                  style={{ width: `${66}%` }} // aquí usas tu valor dinámico
+                />
+              </div>
+
           </div>
 
           <Card className="w-[780px] bg-white rounded-lg shadow-shadow-sm">

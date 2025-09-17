@@ -68,6 +68,7 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
                       Agendar hora
                     </span>
                   </Link>
+                  
                 ) : (
                   <Link to="/login" className="text-decoration-none">
                     <span className="font-normal text-lg text-primary-900">

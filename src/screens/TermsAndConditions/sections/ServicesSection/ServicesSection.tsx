@@ -5,6 +5,7 @@ export const ServicesSection = (): JSX.Element => {
   const policyContent = [
     {
       title: "1. Flexibilidad en las Políticas Individuales",
+      
       content: [
         {
           type: "bold",
@@ -79,7 +80,8 @@ export const ServicesSection = (): JSX.Element => {
 
   return (
     <section className="flex flex-col w-full items-center gap-6 relative">
-      <header className="relative w-fit font-heading-h4 font-[number:var(--heading-h4-font-weight)] text-primary-900 text-[length:var(--heading-h4-font-size)] tracking-[var(--heading-h4-letter-spacing)] leading-[var(--heading-h4-line-height)] text-center [font-style:var(--heading-h4-font-style)]">
+      {/* Título */}
+      <header className="text-center text-2xl md:text-3xl text-primary-900">
         Política de cancelación, reembolsos y reprogramación de citas
       </header>
 
@@ -95,7 +97,7 @@ export const ServicesSection = (): JSX.Element => {
 
             {policyContent.map((section, index) => (
               <div key={index} className="mb-6">
-                <h3 className="[font-family:'Neue_Haas_Grotesk_Display_Pro-Regular',Helvetica] text-base mb-2">
+                <h3 className="[font-family:'Neue_Haas_Grotesk_Display_Pro-Regular',Helvetica] font-bold text-base mb-2">
                   {section.title}
                 </h3>
 
@@ -128,6 +130,7 @@ export const ServicesSection = (): JSX.Element => {
           </div>
         </CardContent>
       </Card>
+      <br />
     </section>
   );
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
+import TopNav from "../../components/TopNav";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,7 +16,7 @@ export const ServiceDetails = (): JSX.Element => {
 
   // Service menu items for sidebar
   const serviceMenuItems = [
-    { id: "medicina-tradicional-china", name: "Medicina tradicional china", active: serviceId === "medicina-tradicional-china" || !serviceId },
+    { id: "medicina-china", name: "Medicina tradicional china", active: serviceId === "medicina-china" || !serviceId },
     { id: "acupuntura", name: "Acupuntura", active: serviceId === "acupuntura" },
     { id: "moxibustion", name: "Moxibustión", active: serviceId === "moxibustion" },
     { id: "ventosas", name: "Ventosas", active: serviceId === "ventosas" },
@@ -163,43 +165,8 @@ export const ServiceDetails = (): JSX.Element => {
   return (
     <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
       {/* Navigation */}
-        {/* Fondo blanco detrás del navbar */}
-        <div
-          className={`fixed top-0 left-0 w-full h-[90px] bg-white shadow-sm transition-opacity duration-300 z-40 ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-        />
-        <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
-          <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
-            <NavigationMenuItem>
-              <Link
-                className="relative w-[92px] h-[21px] bg-[url(/acured-logo-1.png)] bg-cover bg-[50%_50%] block"
-                to="/"
-              />
-            </NavigationMenuItem>
+      <TopNav />
 
-            <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
-              <div className="inline-flex items-center">
-                <Button
-                  variant="ghost"
-                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
-                >
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-primary-900">
-                    Inicia sesión
-                  </span>
-                </Button>
-              </div>
-
-              <Button className="inline-flex flex-col justify-center gap-4 px-4 py-2 bg-primary-900 items-center rounded-3xl">
-                <Link to="/therapist-dashboard" className="text-decoration-none">
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-neutralswhite text-lg leading-[normal] whitespace-nowrap">
-                    ¿Eres acupunturista?
-                  </span>
-                </Link>
-              </Button>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
 
       {/* Main Content - Full height layout */}
       <div className="pt-0 flex relative z-10 min-h-screen">
@@ -223,7 +190,8 @@ export const ServiceDetails = (): JSX.Element => {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 bg-white min-h-screen pt-32">
+        <div className="flex-1 bg-primary-50 min-h-screen pt-32">
+
           <div className="p-8 pt-12 max-w-4xl">
             <h1 className="text-xl font-bold text-primary-900 mb-6">
               {currentService.title}

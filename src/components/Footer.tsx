@@ -2,6 +2,7 @@ import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
 import { FAQModal } from "./FAQModal";
 import { SupportModal } from "./SupportModal";
+import { ContactFormSection } from "./ContactFormSection"; // 👈 importa el modal de contacto
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +14,7 @@ interface FooterProps {
 export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element => {
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = React.useState(false); // 👈 nuevo estado
   const navigate = useNavigate();
 
   const handleFAQClick = () => {
@@ -31,14 +33,25 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
     }
   };
 
+  const handleContactClick = () => {
+    setIsContactModalOpen(true); // 👈 abre modal contacto
+  };
+
   // Footer links data
   const footerLinks = [
     { text: "Preguntas frecuentes", onClick: handleFAQClick },
-    { text: "Privacidad y cookies", onClick: () => {} },
-    { text: "Términos y condiciones", onClick: () => {} },
+    {
+      text: "Privacidad y cookies",
+      onClick: () => window.open("/privacidad.pdf", "_blank"),
+    },
+    {
+      text: "Términos y condiciones",
+      onClick: () => window.open("/terminos.pdf", "_blank"),
+    },
     { text: "Soporte", onClick: handleSupportClick },
-    { text: "Contacto", onClick: () => {} },
+    { text: "Contacto", onClick: handleContactClick }, // sigue abriendo el modal de contacto
   ];
+
 
   // Social media data
   const socialMedia = [
@@ -49,6 +62,7 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
 
   return (
     <>
+    <br />
       <footer className="flex items-start justify-end gap-4 pt-28 pb-16 px-16 relative self-stretch w-full flex-[0_0_auto] bg-white">
         {/* Left section - Call to action buttons */}
         <div className="flex flex-col items-start gap-2.5 relative flex-1 self-stretch grow">
@@ -62,7 +76,11 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
             </span>
           </Button>
 
-          <Button className="flex justify-center w-full px-4 py-2 bg-primary-900 rounded-3xl">
+          <Button
+          
+            className="flex justify-center w-full px-4 py-2 bg-primary-900 rounded-3xl"
+            onClick={() => navigate('/therapist-dashboard')}
+          >
             <span className="font-medium text-neutralswhite text-sm leading-[normal] [font-family:'Inter',Helvetica]">
               ¿Eres acupunturista?
             </span>
@@ -108,17 +126,10 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
         </div>
       </footer>
 
-      <FAQModal
-        isOpen={isFAQModalOpen}
-        onClose={() => setIsFAQModalOpen(false)}
-      />
-
-      <SupportModal
-        isOpen={isSupportModalOpen}
-        onClose={() => setIsSupportModalOpen(false)}
-      />
+      {/* Modals */}
+      <FAQModal isOpen={isFAQModalOpen} onClose={() => setIsFAQModalOpen(false)} />
+      <SupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
+      <ContactFormSection isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </>
   );
 };
-
-

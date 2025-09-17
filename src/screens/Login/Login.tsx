@@ -124,13 +124,17 @@ export const Login = (): JSX.Element => {
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
+                          {/* 🔹 Título más grande */}
+                          <span className="font-bold text-primary-900 text-xl leading-6">
                             Acured para pacientes
                           </span>
-                          <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-gray-600 text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
+
+                          {/* 🔹 Subtítulo más pequeño */}
+                          <span className="text-gray-600 text-sm leading-5">
                             Soy paciente y quiero iniciar sesión
                           </span>
                         </div>
+
                         <ChevronRightIcon className="w-5 h-5 text-gray-400" />
                       </div>
                     </div>
@@ -142,10 +146,13 @@ export const Login = (): JSX.Element => {
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
+                          {/* 🔹 Título más grande */}
+                          <span className="font-bold text-primary-900 text-xl leading-6">
                             Acured para acupunturistas
                           </span>
-                          <span className="font-paragraph-p3 font-[number:var(--paragraph-p3-font-weight)] text-gray-600 text-[length:var(--paragraph-p3-font-size)] tracking-[var(--paragraph-p3-letter-spacing)] leading-[var(--paragraph-p3-line-height)] [font-style:var(--paragraph-p3-font-style)]">
+
+                          {/* 🔹 Subtítulo más pequeño */}
+                          <span className="text-gray-600 text-sm leading-5">
                             Soy acupunturista y me interesa administrar mis pacientes
                           </span>
                         </div>

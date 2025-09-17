@@ -49,7 +49,7 @@ export const MainContentSection = (): JSX.Element => {
 
   return (
     <>
-    <section className="flex flex-col items-start gap-6 pt-24 pb-0 px-24 relative w-full">
+    <section className="flex flex-col bg-primary-50 items-start gap-6 pt-24 pb-0 px-24 relative w-full">
       {/* Breadcrumb navigation */}
       <div className="flex items-center gap-4 py-1 w-full max-w-[1384px] mx-auto">
         {breadcrumbSteps.map((step, index) => (
@@ -244,7 +244,9 @@ export const MainContentSection = (): JSX.Element => {
             </div>
           </CardContent>
         </Card>
+        
       </div>
+      <br /><br /><br />
     </section>
 
     <AppointmentSuccessModal

@@ -14,7 +14,7 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
   onVerificationComplete,
 }) => {
   const [verificationCode, setVerificationCode] = useState<string[]>(["", "", "", "", "", ""]);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(180); // 5 minutes in seconds
 
   useEffect(() => {
     if (!isOpen) return;
@@ -64,7 +64,7 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
   };
 
   const handleResendCode = () => {
-    setTimeLeft(300); // Reset timer
+    setTimeLeft(180); // Reset timer
     setVerificationCode(["", "", "", "", "", ""]); // Clear code
   };
 

@@ -1,6 +1,5 @@
 import { X } from "lucide-react";
 import React from "react";
-import { Button } from "./ui/button";
 
 interface LanguageModalProps {
   isOpen: boolean;
@@ -22,44 +21,40 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({
   return (
     <div className="fixed inset-0 z-[40] flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/30 backdrop-blur-sm"
         onClick={onClose}
       />
-      
-      {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-[500px] mx-4 p-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-normal text-primary-900">
-            Cambiar idioma
-          </h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="flex items-center gap-2 text-primary-900 hover:bg-gray-100 p-2"
-          >
-            <span className="text-sm">Cerrar</span>
-            <X className="w-4 h-4" />
-          </Button>
-        </div>
 
-        {/* Language Options */}
-        <div className="space-y-4">
+      {/* Modal */}
+      <div className="relative bg-primary-50 rounded-2xl shadow-lg w-full max-w-[420px] mx-4 p-10 flex flex-col items-center">
+        {/* Botón cerrar arriba a la derecha */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 flex items-center gap-2 text-primary-900 hover:opacity-70"
+        >
+          <span className="text-sm">Cerrar</span>
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Título */}
+        <h2 className="text-3xl font-normal text-primary-900 text-center mb-10">
+          Cambiar idioma
+        </h2>
+
+        {/* Opciones de idioma */}
+        <div className="flex flex-col gap-4 w-full">
           {languages.map((language) => (
-            <Button
+            <button
               key={language.code}
-              variant="outline"
-              className="w-full py-4 px-6 text-left justify-start bg-white border-gray-200 rounded-lg hover:bg-gray-50 text-primary-900"
               onClick={onClose}
+              className="w-[70%] h-14 mx-auto bg-white text-green-900 font-semibold rounded-xl shadow-sm hover:bg-gray-50 transition"
             >
-              <span className="text-base font-normal">
-                {language.name}
-              </span>
-            </Button>
+              {language.name}
+            </button>
           ))}
         </div>
+
       </div>
     </div>
   );

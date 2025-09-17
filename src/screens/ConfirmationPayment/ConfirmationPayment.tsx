@@ -7,7 +7,7 @@ export const ConfirmationPayment = (): JSX.Element => {
 
   return (
     <>
-      <TopNav />
+      <TopNav isPrefilledView />
       <div className="relative w-full bg-white overflow-hidden">
       
       <div className="w-full relative z-10 bg-white">

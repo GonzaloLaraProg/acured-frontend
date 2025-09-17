@@ -1,11 +1,8 @@
-
-import { XIcon, ArrowRightIcon } from "lucide-react";
-
+import { X, ArrowRightIcon } from "lucide-react";
 import React, { useState } from "react";
 import { FeedbackSection } from "./FeedbackSection";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
 interface ContactFormSectionProps {
@@ -13,13 +10,14 @@ interface ContactFormSectionProps {
   onClose: () => void;
 }
 
-
-export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps): JSX.Element => {
-
+export const ContactFormSection = ({
+  isOpen,
+  onClose,
+}: ContactFormSectionProps): JSX.Element => {
   const [showFeedback, setShowFeedback] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setShowFeedback(true);
   };
 
@@ -32,99 +30,76 @@ export const ContactFormSection = ({ isOpen, onClose }: ContactFormSectionProps)
 
   return (
     <>
-
       <div className="fixed inset-0 z-[40] flex items-center justify-center">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      
-      {/* Modal */}
-      <div className="relative max-w-4xl mx-auto bg-primary-50 rounded-lg p-6 shadow-lg border border-primary-200">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="absolute top-4 right-4 h-auto p-1 text-primary-700 hover:text-primary-900 hover:bg-primary-100"
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/20 backdrop-blur-sm z-0"
           onClick={onClose}
-        >
-          <XIcon className="w-4 h-4" />
-          <span className="ml-1 text-sm">Cerrar</span>
-        </Button>
+        />
 
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-semibold text-primary-900 mb-2">
-            ¡Contáctanos!
-          </h2>
-          <p className="text-primary-700 text-sm">
-            Te contactaremos lo antes posible.
-          </p>
-        </div>
+        {/* Modal */}
+        <div className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-lg p-8">
+          {/* Botón cerrar */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="absolute top-4 right-4 text-primary-700 hover:text-primary-900 hover:bg-primary-100 p-1"
+          >
+            <span className="text-sm">Cerrar</span>
+            <X className="w-4 h-4 ml-1" />
+          </Button>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="space-y-2">
-            <Label htmlFor="nombre" className="sr-only">
-              Nombre
-            </Label>
+          {/* Título */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-semibold text-primary-900 mb-2">
+              ¡Contáctanos!
+            </h2>
+            <p className="text-primary-700 text-lg">
+              Te contactaremos lo antes posible.
+            </p>
+          </div>
+
+          {/* Formulario */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <Input
-              id="nombre"
               type="text"
               placeholder="Nombre"
-              className="w-full bg-primary-100 border-primary-300 rounded-md px-3 py-2 text-sm text-primary-900 placeholder-primary-600"
+              className="w-full bg-primary-100 border border-primary-300 rounded-md px-3 py-2 text-primary-900 placeholder-primary-600"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="apellidos" className="sr-only">
-              Apellidos
-            </Label>
             <Input
-              id="apellidos"
               type="text"
               placeholder="Apellidos"
-              className="w-full bg-primary-100 border-primary-300 rounded-md px-3 py-2 text-sm text-primary-900 placeholder-primary-600"
+              className="w-full bg-primary-100 border border-primary-300 rounded-md px-3 py-2 text-primary-900 placeholder-primary-600"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="mail" className="sr-only">
-              Mail
-            </Label>
             <Input
-              id="mail"
               type="email"
               placeholder="Mail"
-              className="w-full bg-primary-100 border-primary-300 rounded-md px-3 py-2 text-sm text-primary-900 placeholder-primary-600"
+              className="w-full bg-primary-100 border border-primary-300 rounded-md px-3 py-2 text-primary-900 placeholder-primary-600"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="mensaje" className="sr-only">
-              Mensaje
-            </Label>
             <Textarea
-              id="mensaje"
               placeholder="Escribe tu mensaje aquí"
               rows={4}
-              className="w-full bg-primary-100 border-primary-300 rounded-md px-3 py-2 text-sm resize-none text-primary-900 placeholder-primary-600"
+              className="w-full bg-primary-100 border border-primary-300 rounded-md px-3 py-2 text-primary-900 placeholder-primary-600 resize-none"
             />
-          </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-primary-800 hover:bg-primary-900 text-white rounded-md py-2 px-4 text-sm font-medium h-auto"
-          >
-            Confirmar
-          </Button>
-        </form>
-      </div>
+            {/* Botón confirmar */}
+            <div className="flex justify-start">
+              <Button
+                type="submit"
+                onClick={() => handleSubmit()}
+                className="bg-primary-900 hover:bg-primary-800 text-white rounded-full px-6 py-2 flex items-center gap-2"
+              >
+                Confirmar
+                <ArrowRightIcon className="w-4 h-4" />
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <FeedbackSection
-        isOpen={showFeedback}
-        onClose={handleFeedbackClose}
-      />
+      {/* Feedback */}
+      <FeedbackSection isOpen={showFeedback} onClose={handleFeedbackClose} />
     </>
   );
 };
-
