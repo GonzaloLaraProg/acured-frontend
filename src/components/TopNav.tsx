@@ -65,13 +65,13 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
                 {isPrefilledView ? (
                   <Link to="/search-results" className="text-decoration-none">
                     <span className="font-normal text-lg text-primary-900">
-                      Agendar hora
+                      Agenda una cita
                     </span>
                   </Link>
                   
                 ) : (
                   <Link to="/login" className="text-decoration-none">
-                    <span className="font-normal text-lg text-primary-900">
+                    <span className="font-bold text-lg text-primary-900">
                       Inicia sesión
                     </span>
                   </Link>
@@ -94,13 +94,13 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
       <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
         <Button
           variant="ghost"
-          className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
+          className="flex items-center gap-2 px-3 py-5 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
           onClick={() => setIsLanguageModalOpen(true)}
         >
           <span className="text-sm text-gray-700 font-medium">Idioma</span>
           <GlobeIcon className="w-4 h-4 text-gray-600" />
         </Button>
-
+        <div className="flex items-center gap-2 px-1 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
         <Button
           ref={menuButtonRef}
           variant="ghost"
@@ -113,11 +113,12 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
 
         <Button
           variant="ghost"
-          className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#d3e0d7] hover:bg-[#c5d4cc]"
         >
           <span className="text-sm text-gray-700 font-medium">Nombre</span>
           <UserIcon className="w-4 h-4 text-gray-600" />
         </Button>
+         </div>
       </div>
 
       {/* 👇 Renderiza los modales */}

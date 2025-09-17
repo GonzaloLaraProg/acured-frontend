@@ -52,49 +52,24 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
   ];
 
   const distances = ["< 1km", "< 2km", "< 5km", "< 10km", "< 20km"];
-
   const modalities = ["Presencial", "Online"];
-
-  const timeSlots = [
-    "05:00 AM",
-    "06:00 AM",
-    "07:00 AM",
-    "08:00 AM",
-    "09:00 AM",
-    "10:00 AM",
-  ];
-
+  const timeSlots = ["05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM"];
   const services = [
-    "Medicina China Integral",
-    "Acupuntura",
-    "Moxibustión",
-    "Ventosas",
-    "Masaje Tuina",
-    "Fitoterapia",
-    "Auriculoterapia",
-    "Dietoterapia",
-    "Sangría",
-    "Agua de fuego",
-    "Gua Sha",
-    "Qigong",
-    "Otros",
+    "Medicina China Integral", "Acupuntura", "Moxibustión", "Ventosas",
+    "Masaje Tuina", "Fitoterapia", "Auriculoterapia", "Dietoterapia",
+    "Sangría", "Agua de fuego", "Gua Sha", "Qigong", "Otros",
   ];
-
   const genders = ["Femenino", "Masculino", "Otro"];
 
   const handleServiceToggle = (service: string) => {
     setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((s) => s !== service)
-        : [...prev, service]
+      prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
     );
   };
 
   const handleGenderToggle = (gender: string) => {
     setSelectedGenders((prev) =>
-      prev.includes(gender)
-        ? prev.filter((g) => g !== gender)
-        : [...prev, gender]
+      prev.includes(gender) ? prev.filter((g) => g !== gender) : [...prev, gender]
     );
   };
 
@@ -126,16 +101,14 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-lg 
-      w-full max-w-[500px] mx-4 
-      mt-[90px]          /* 👈 margen para no tapar navbar */
-      max-h-[85vh]       /* 👈 controla altura máxima */
-      overflow-y-auto">
+      <div
+        className="relative bg-white rounded-2xl shadow-lg 
+        w-full max-w-[700px] mx-4 mt-[90px] 
+        max-h-[85vh] flex flex-col overflow-hidden"
+      >
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-900">
-            Filtros avanzados
-          </h2>
+          <h2 className="text-lg font-medium text-gray-900">Filtros avanzados</h2>
           <button
             onClick={onClose}
             className="flex items-center gap-1 text-gray-600 hover:bg-gray-100 px-2 py-1 rounded"
@@ -145,18 +118,13 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
           </button>
         </div>
 
-        {/* Contenido */}
-        <div className="divide-y divide-gray-200">
+        {/* Body con scroll */}
+        <div className="flex-1 overflow-y-auto divide-y divide-gray-200">
           {/* Especialidad */}
           <div className="flex items-start justify-between px-6 py-4">
-            <label className="text-sm font-medium text-gray-900">
-              Especialidad
-            </label>
+            <label className="text-sm font-medium text-gray-900">Especialidad</label>
             <div className="w-[280px]">
-              <Select
-                value={selectedSpecialty}
-                onValueChange={setSelectedSpecialty}
-              >
+              <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
                 <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
                   <SelectValue placeholder="Selecciona Especialidad" />
                 </SelectTrigger>
@@ -173,14 +141,9 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 
           {/* Distancia */}
           <div className="flex items-start justify-between px-6 py-4">
-            <label className="text-sm font-medium text-gray-900">
-              Distancia (km)
-            </label>
+            <label className="text-sm font-medium text-gray-900">Distancia (km)</label>
             <div className="w-[280px]">
-              <Select
-                value={selectedDistance}
-                onValueChange={setSelectedDistance}
-              >
+              <Select value={selectedDistance} onValueChange={setSelectedDistance}>
                 <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
                   <SelectValue placeholder="Selecciona Distancia (km)" />
                 </SelectTrigger>
@@ -197,14 +160,9 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 
           {/* Modalidad */}
           <div className="flex items-start justify-between px-6 py-4">
-            <label className="text-sm font-medium text-gray-900">
-              Modalidad
-            </label>
+            <label className="text-sm font-medium text-gray-900">Modalidad</label>
             <div className="w-[280px]">
-              <Select
-                value={selectedModality}
-                onValueChange={setSelectedModality}
-              >
+              <Select value={selectedModality} onValueChange={setSelectedModality}>
                 <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg">
                   <SelectValue placeholder="Selecciona Modalidad" />
                 </SelectTrigger>
@@ -221,9 +179,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 
           {/* Rango de Fechas */}
           <div className="flex items-start justify-between px-6 py-4">
-            <label className="text-sm font-medium text-gray-900">
-              Rango de Fechas
-            </label>
+            <label className="text-sm font-medium text-gray-900">Rango de Fechas</label>
             <div className="w-[280px]">
               <button
                 type="button"
@@ -232,17 +188,13 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
               >
                 <span
                   className={
-                    dateRange.start && dateRange.end
-                      ? "text-primary-900"
-                      : "text-gray-500"
+                    dateRange.start && dateRange.end ? "text-primary-900" : "text-gray-500"
                   }
                 >
                   {rangeLabel}
                 </span>
                 <svg
-                  className={`w-4 h-4 transition-transform ${
-                    showCalendar ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition-transform ${showCalendar ? "rotate-180" : ""}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -321,9 +273,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                   max="100000"
                   step="5000"
                   value={priceRange[0]}
-                  onChange={(e) =>
-                    handlePriceChange(0, parseInt(e.target.value))
-                  }
+                  onChange={(e) => handlePriceChange(0, parseInt(e.target.value))}
                   className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-500 [&::-webkit-slider-thumb]:rounded-full"
                 />
                 <input
@@ -332,9 +282,7 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                   max="100000"
                   step="5000"
                   value={priceRange[1]}
-                  onChange={(e) =>
-                    handlePriceChange(1, parseInt(e.target.value))
-                  }
+                  onChange={(e) => handlePriceChange(1, parseInt(e.target.value))}
                   className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-500 [&::-webkit-slider-thumb]:rounded-full"
                 />
               </div>
@@ -343,56 +291,49 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 
           {/* Servicio o técnica */}
           <div className="flex items-start justify-between px-6 py-4">
-            <label className="text-sm font-medium text-gray-900">
-              Servicio o técnica
-            </label>
+            <label className="text-sm font-medium text-gray-900">Servicio o técnica</label>
             <div className="w-[280px]">
-            
-            <Select>
-            <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg min-h-[44px]">
-              <div className="flex flex-wrap gap-1">
-                {selectedServices.length > 0 ? (
-                  selectedServices.map((s) => (
-                    <span
-                      key={s}
-                      className="px-2 py-0.5 text-xs bg-green-100 text-green-800 rounded-full whitespace-nowrap"
-                    >
-                      {s}
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-400">Selecciona servicio o técnica</span>
-                )}
-              </div>
-            </SelectTrigger>
-
-            <SelectContent>
-              <div className="p-2 space-y-2 max-h-[200px] overflow-y-auto">
-                {services.map((service) => (
-                  <div
-                    key={service}
-                    className="flex items-center justify-between space-x-2 py-1"
-                  >
-                    <Label
-                      htmlFor={service}
-                      className="text-sm text-gray-900 flex-1 cursor-pointer"
-                    >
-                      {service}
-                    </Label>
-                    <Checkbox
-                      id={service}
-                      checked={selectedServices.includes(service)}
-                      onCheckedChange={() => handleServiceToggle(service)}
-                      className="rounded border-gray-300"
-                    />
+              <Select>
+                <SelectTrigger className="w-full bg-gray-50 border-gray-200 rounded-lg min-h-[44px]">
+                  <div className="flex flex-wrap gap-1">
+                    {selectedServices.length > 0 ? (
+                      selectedServices.map((s) => (
+                        <span
+                          key={s}
+                          className="px-2 py-0.5 text-xs bg-green-100 text-green-800 rounded-full whitespace-nowrap"
+                        >
+                          {s}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-400">Selecciona servicio o técnica</span>
+                    )}
                   </div>
-                ))}
-              </div>
-            </SelectContent>
-          </Select>
-
-
-
+                </SelectTrigger>
+                <SelectContent>
+                  <div className="p-2 space-y-2 max-h-[200px] overflow-y-auto">
+                    {services.map((service) => (
+                      <div
+                        key={service}
+                        className="flex items-center justify-between space-x-2 py-1"
+                      >
+                        <Label
+                          htmlFor={service}
+                          className="text-sm text-gray-900 flex-1 cursor-pointer"
+                        >
+                          {service}
+                        </Label>
+                        <Checkbox
+                          id={service}
+                          checked={selectedServices.includes(service)}
+                          onCheckedChange={() => handleServiceToggle(service)}
+                          className="rounded border-gray-300"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -417,7 +358,6 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                     )}
                   </div>
                 </SelectTrigger>
-
                 <SelectContent>
                   <div className="p-2 space-y-2">
                     {genders.map((gender) => (
@@ -442,13 +382,12 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
                   </div>
                 </SelectContent>
               </Select>
-
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end p-6 border-t border-gray-200 rounded-b-2xl">
+        <div className="sticky bottom-0 bg-white flex justify-end p-6 border-t border-gray-200">
           <Button
             className="px-10 py-3 bg-primary-900 text-white rounded-full hover:bg-primary-800"
             onClick={onClose}
@@ -456,7 +395,6 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
             Buscar resultados
           </Button>
         </div>
-
       </div>
     </div>
   );

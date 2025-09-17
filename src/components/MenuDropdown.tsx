@@ -5,30 +5,43 @@ interface MenuDropdownProps {
   isOpen: boolean;
   onClose: () => void;
   buttonRef: React.RefObject<HTMLButtonElement>;
-  setPositionFromButton: () => void; // 👈 nueva prop para calcular posición
+  setPositionFromButton: () => void;
 }
 
 export const MenuDropdown: React.FC<MenuDropdownProps> = ({
   isOpen,
   onClose,
   buttonRef,
-  setPositionFromButton,
 }) => {
   const [position, setPosition] = React.useState<{ top: number; right: number } | null>(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // 👇 usamos la prop para calcular la posición
-  React.useEffect(() => {
+  // 👉 función para calcular la posición (sin scrollY, porque usamos fixed)
+  const updatePosition = React.useCallback(() => {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.top + rect.height + window.scrollY + 8,
+        top: rect.top + rect.height + 8, // 👈 ya no sumamos scrollY
         right: window.innerWidth - rect.right,
       });
     }
   }, [isOpen, buttonRef]);
 
+  // 👉 calcular posición inicial + actualizar en scroll/resize
+  React.useEffect(() => {
+    if (isOpen) {
+      updatePosition();
+      window.addEventListener("scroll", updatePosition);
+      window.addEventListener("resize", updatePosition);
+    }
+    return () => {
+      window.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, updatePosition]);
+
+  // 👉 cerrar al hacer click fuera
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -43,7 +56,7 @@ export const MenuDropdown: React.FC<MenuDropdownProps> = ({
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen, onClose, buttonRef]);
 
-  if (!isOpen || !position) return null; // 👈 no renderiza hasta tener posición
+  if (!isOpen || !position) return null;
 
   const menuItems = [
     { label: "Quiénes somos", path: "/about" },
