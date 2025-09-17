@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Input } from "../../../../components/ui/input";
 import { Label } from "../../../../components/ui/label";
+
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+ 
 } from "../../../../components/ui/select";
 
 const monthOptions = [
@@ -67,9 +69,6 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
     onGenderChange?.(value);
     setOpen(false); // cerrar en selecciones "reales"
   };
-
-
-
 
   return (
     <section className="flex flex-col items-center gap-8 relative self-stretch w-full flex-[0_0_auto]">
@@ -154,9 +153,11 @@ export const PersonalDataFormSection = ({ onGenderChange }: PersonalDataFormSect
                     onOpenChange={setOpen}
                   >
 
-                  <SelectTrigger className="flex-col self-stretch w-full flex-[0_0_auto] mb-[-1.00px] ml-[-1.00px] mr-[-1.00px] overflow-hidden border border-solid border-[#bbcac0] shadow-shadow-sm flex items-center relative bg-primary-50 rounded h-auto">
+                  <SelectTrigger className="w-full flex items-center justify-between border border-[#bbcac0] shadow-shadow-sm relative bg-primary-50 rounded px-3 py-2">
                     <SelectValue placeholder="Género" />
                   </SelectTrigger>
+
+
                   <SelectContent
                     // evita cambios de foco bruscos al actualizar opciones
                     onCloseAutoFocus={(e) => e.preventDefault()}

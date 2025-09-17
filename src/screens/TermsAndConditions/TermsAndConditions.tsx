@@ -9,7 +9,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 import { ServicesSection } from "./sections/ServicesSection";
 
 export const TermsAndConditions = (): JSX.Element => {
@@ -32,6 +33,7 @@ export const TermsAndConditions = (): JSX.Element => {
   const showServicesSection = searchParams.get('from') === 'reembolsos';
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -110,7 +112,7 @@ export const TermsAndConditions = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection />
+        <Footer />
       </div>
 
       <LanguageModal

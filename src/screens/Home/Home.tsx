@@ -1,16 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { CalendarIcon, FilterIcon, GlobeIcon, MapPinIcon, MenuIcon, SearchIcon, UserIcon } from "lucide-react";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
-import { Button } from "../../components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "../../components/ui/navigation-menu";
 import { AboutUsSection } from "./sections/AboutUsSection";
-import { FooterSection } from "./sections/FooterSection";
+import { Footer } from "../../components/Footer";
 import { HeroSection } from "./sections/HeroSection";
 import { ServicesListSection } from "./sections/ServicesListSection/ServicesListSection";
 import { ServicesSection } from "./sections/ServicesSection";
@@ -36,7 +28,7 @@ export const Home = (): JSX.Element => {
           <ServicesSection />
           <ServicesListSection />
           <AboutUsSection />
-          <FooterSection />
+          <Footer />
         </div>
       </div>
     </div>

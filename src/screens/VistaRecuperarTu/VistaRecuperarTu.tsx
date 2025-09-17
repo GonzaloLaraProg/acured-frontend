@@ -12,7 +12,8 @@ import {
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
 import { SupportModal } from "../../components/SupportModal";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
@@ -62,6 +63,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -372,7 +374,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection 
+        <Footer 
           onFAQClick={() => setIsFAQModalOpen(true)}
           onSupportClick={() => setIsSupportModalOpen(true)}
         />

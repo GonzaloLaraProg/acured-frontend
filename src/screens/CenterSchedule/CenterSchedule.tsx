@@ -29,7 +29,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 
 export const CenterSchedule = (): JSX.Element => {
   const navigate = useNavigate();
@@ -175,6 +176,7 @@ export const CenterSchedule = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -686,7 +688,7 @@ export const CenterSchedule = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection />
+        <Footer />
       </div>
 
       <LanguageModal

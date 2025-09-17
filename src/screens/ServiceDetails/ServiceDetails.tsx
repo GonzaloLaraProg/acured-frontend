@@ -7,7 +7,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
 
 export const ServiceDetails = (): JSX.Element => {
   const { serviceId } = useParams();
@@ -201,10 +201,6 @@ export const ServiceDetails = (): JSX.Element => {
           </NavigationMenuList>
         </NavigationMenu>
 
-
-
-
-
       {/* Main Content - Full height layout */}
       <div className="pt-0 flex relative z-10 min-h-screen">
         {/* Left Sidebar */}
@@ -239,7 +235,7 @@ export const ServiceDetails = (): JSX.Element => {
       </div>
 
       {/* Footer */}
-      <FooterSection />
+      <Footer />
     </div>
   );
 };

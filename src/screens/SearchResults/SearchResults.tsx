@@ -13,7 +13,8 @@ import { CalendarModal } from "../../components/CalendarModal";
 import { TimeSelectionModal } from "../../components/TimeSelectionModal";
 import { MapModal } from "../../components/MapModal";
 import { CenterScheduleModal } from "../../components/CenterScheduleModal.tsx";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 import { LanguageModal } from "../../components/LanguageModal";
 import { MenuDropdown } from "../../components/MenuDropdown";
 
@@ -191,6 +192,7 @@ export const SearchResults = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -458,7 +460,7 @@ export const SearchResults = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection />
+        <Footer />
       </div>
 
       <AdvancedFiltersModal

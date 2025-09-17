@@ -14,7 +14,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 
 export const LoginRegistration = (): JSX.Element => {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ export const LoginRegistration = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -378,7 +380,7 @@ export const LoginRegistration = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection />
+        <Footer />
       </div>
 
       <LanguageModal

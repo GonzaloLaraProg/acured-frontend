@@ -16,7 +16,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 
 export const CenterPayment = (): JSX.Element => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = React.useState<string>("online");
@@ -70,6 +71,7 @@ export const CenterPayment = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}

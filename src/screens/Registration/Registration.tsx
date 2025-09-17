@@ -33,7 +33,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "../../components/ui/input-otp";
-import { FooterSection } from "../Home/sections/FooterSection";
+import { Footer } from "../../components/Footer";
+import TopNav from "../../components/TopNav";
 
 export const Registration = (): JSX.Element => {
   const navigate = useNavigate();
@@ -169,6 +170,7 @@ export const Registration = (): JSX.Element => {
 
   return (
     <>
+      <TopNav />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
         {/* Fondo blanco detrás del navbar */}
@@ -709,7 +711,7 @@ export const Registration = (): JSX.Element => {
         </div>
 
         {/* Footer */}
-        <FooterSection
+        <Footer
           onFAQClick={() => setIsFAQModalOpen(true)}
           onSupportClick={() => setIsSupportModalOpen(true)}
         />
