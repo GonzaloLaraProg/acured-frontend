@@ -40,7 +40,7 @@ export const Login = (): JSX.Element => {
               <CardContent className="p-8">
                 {currentStep === "patient-login" || currentStep === "therapist-login" ? (
                   <>
-                    <h1 className="font-haas text-center text-2xl font-medium text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-haas text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
                       Ingresa tu correo electrónico y contraseña para iniciar sesión.
                     </h1>
 
@@ -92,7 +92,7 @@ export const Login = (): JSX.Element => {
                   </>
                 ) : (
                   <>
-                    <h1 className="font-haas text-center text-2xl text-gray-900 mb-6">
+                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
                       ¡Inicia sesión!
                     </h1>
 

@@ -62,7 +62,7 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
 
   return (
     <>
-    <br />
+   
       <footer className="flex items-start justify-end gap-4 pt-28 pb-16 px-16 relative self-stretch w-full flex-[0_0_auto] bg-white">
         {/* Left section - Call to action buttons */}
         <div className="flex flex-col items-start gap-2.5 relative flex-1 self-stretch grow">

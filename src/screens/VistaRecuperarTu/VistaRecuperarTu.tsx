@@ -49,12 +49,21 @@ export const VistaRecuperarTu = (): JSX.Element => {
     setIsComplete(code.every((digit) => digit !== ""));
   }, [code]);
 
-  // ⏳ Temporizador
+    // Reinicia el contador al entrar a la pantalla de verificación
   useEffect(() => {
+    if (currentStep === "verification") {
+      setTimeLeft(30); // ⏳ cada vez que entras aquí, reinicia en 30
+    }
+  }, [currentStep]);
+
+  // Temporizador (solo corre en verification)
+  useEffect(() => {
+    if (currentStep !== "verification") return; // 👉 corre solo en verification
     if (timeLeft <= 0) return;
-    const interval = setInterval(() => setTimeLeft((prev: number) => prev - 1), 1000);
-    return () => clearInterval(interval);
-  }, [timeLeft]);
+
+    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [currentStep, timeLeft]);
 
   // Manejo de inputs con auto-focus
   const handleChange = (value: string, index: number) => {

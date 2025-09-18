@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronRightIcon,
@@ -36,13 +36,22 @@ import {
 import { Footer } from "../../components/Footer";
 import TopNav from "../../components/TopNav";
 
-export const Registration = (): JSX.Element => {
+interface Registration {
+  onGenderChange?: (gender: string) => void;
+}
+
+export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
   const navigate = useNavigate();
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+  const [code, setCode] = useState(Array(6).fill("")); 
+  const [timeLeft, setTimeLeft] = useState(30);
+  const [error, setError] = useState<string | null>(null);
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const [isComplete, setIsComplete] = useState(false);
   
 // 👇 Aquí agregamos el estado del scroll
   const [scrolled, setScrolled] = React.useState(false);
@@ -52,10 +61,16 @@ export const Registration = (): JSX.Element => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+    React.useEffect(() => {
+      if (timeLeft <= 0) return;
+      const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+      return () => clearInterval(timer);
+    }, [timeLeft]);
+    React.useEffect(() => {
+      setIsComplete(code.every((digit) => digit !== ""));
+    }, [code]);
 
-
-
-  const [currentStep, setCurrentStep] = React.useState<
+    const [currentStep, setCurrentStep] = React.useState<
     | "choose-role"
     | "create-account"
     | "name-form"
@@ -64,6 +79,105 @@ export const Registration = (): JSX.Element => {
     | "sms-verification"
     | "success-confirmation"
   >("choose-role");
+  
+        // Reinicia el contador SOLO cuando entras en sms-verification
+    useEffect(() => {
+      if (currentStep === "sms-verification") {
+        setTimeLeft(30); // reinicia a 30 segundos
+      }
+    }, [currentStep]);
+
+    // Temporizador
+    useEffect(() => {
+      if (currentStep !== "sms-verification") return; // 👈 solo corre en sms-verification
+      if (timeLeft <= 0) return;
+
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }, [currentStep, timeLeft]);
+
+    // 🔹 Cuando entras en sms-verification, limpia los inputs
+    useEffect(() => {
+      if (currentStep === "sms-verification") {
+        setCode(Array(6).fill(""));   // 👈 limpia los 6 dígitos
+        setError(null);               // limpia errores previos
+        setIsComplete(false);         // reinicia validación
+      }
+    }, [currentStep]);
+
+  
+    // Manejo de inputs con auto-focus
+    const handleChange = (value: string, index: number) => {
+      if (/^[0-9]?$/.test(value)) {
+        const newCode = [...code];
+        newCode[index] = value;
+        setCode(newCode);
+        setError(null);
+  
+        if (value && index < 5) {
+          inputsRef.current[index + 1]?.focus();
+        }
+      }
+    };
+  
+    // Permitir retroceso al input anterior
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+      if (e.key === "Backspace" && !code[index] && index > 0) {
+        inputsRef.current[index - 1]?.focus();
+      }
+    };
+  
+    // ✅ Validación al confirmar
+    const handleConfirm = () => {
+      const enteredCode = code.join("");
+      if (enteredCode === "111111") {
+        setError("Código de verificación incorrecto");
+      } else {
+        setError(null);
+        alert("✅ Código válido: " + enteredCode);
+      }
+    };
+     
+    const [selectedGender, setSelectedGender] = useState<string>("");
+    const [open, setOpen] = useState(false);
+    const [genderExpansionLevel, setGenderExpansionLevel] = useState<number>(0);
+      
+    const getGenderOptions = () => {
+        if (genderExpansionLevel === 0) {
+           return [
+             { value: "femenino", label: "Femenino" },
+              { value: "masculino", label: "Masculino" },
+              { value: "otro", label: "Otro" },
+            ];
+          }
+      
+          return [
+            { value: "no-binario", label: "No binario" },
+            { value: "transfemenino", label: "Transfemenino" },
+            { value: "transmasculino", label: "Transmasculino" },
+            { value: "prefiero-no-informar", label: "Prefiero no informar" },
+            { value: "otro", label: "Otro" },
+          ];
+        };
+    
+      const handleGenderChange = (value: string) => {
+        if (value === "otro" && genderExpansionLevel === 0) {
+          // No debería dispararse si prevenimos el pointerdown para "otro",
+          // pero lo dejamos por seguridad si se selecciona por teclado.
+          setGenderExpansionLevel(1);
+          setSelectedGender("");
+          return; // no cerrar
+        }
+    
+        setSelectedGender(value);
+        onGenderChange?.(value);
+        setOpen(false); // cerrar en selecciones "reales"
+      };
+
+  
 
   const monthOptions = [
     { value: "enero", label: "Enero" },
@@ -92,33 +206,16 @@ export const Registration = (): JSX.Element => {
     "• Al menos un número",
   ];
 
-  const [selectedGender, setSelectedGender] = React.useState<string>("");
+
   const [selectedOption, setSelectedOption] = React.useState<string>("");
   const [expandedGender, setExpandedGender] = React.useState(false);
   const [isGenderOpen, setIsGenderOpen] = React.useState(false);
 
-  const getGenderOptions = () => {
-    if (!expandedGender) {
-      return [
-        { value: "masculino", label: "Masculino" },
-        { value: "femenino", label: "Femenino" },
-        { value: "otro", label: "Otro" },
-      ];
-    }
-    return [
-      { value: "no-binario", label: "No binario" },
-      { value: "transfemenino", label: "Transfemenino" },
-      { value: "transmasculino", label: "Transmasculino" },
-      { value: "prefiero-no-informar", label: "Prefiero no informar" },
-      { value: "otro", label: "Otro" },
-    ];
-  };
+ 
 
   const handleVerificationOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
-    if (optionId === "sms") {
-      setCurrentStep("sms-verification");
-    }
+    setCurrentStep("sms-verification");
   };
 
   const verificationOptions = [
@@ -149,6 +246,13 @@ export const Registration = (): JSX.Element => {
   const handleBasicInfo = () => setCurrentStep("basic-info");
   const handleVerificationCode = () => setCurrentStep("verification-code");
 
+  const verificationMessages: Record<string, string> = {
+    email: "acu***@gmail.com",
+    sms: "+569 **** 8823",
+    whatsapp: "+569 **** 8823",
+  };
+
+
   const handleBack = () => {
     switch (currentStep) {
       case "name-form":
@@ -178,7 +282,7 @@ export const Registration = (): JSX.Element => {
         {/* Main Content */}
         <div className="flex min-h-screen">
           {/* Left side - Registration or Success */}
-          <div className="flex-1 flex items-center justify-center px-8">
+          <div className={`flex-1 flex ${currentStep === "basic-info" ? "items-start pt-16" : "items-center"} justify-center px-8`}>
             {currentStep === "success-confirmation" ? (
               /* ✅ Success fuera del Card general */
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
@@ -217,15 +321,14 @@ export const Registration = (): JSX.Element => {
                 </Card>
               </div>
             ) : (
-              /* ✅ Todos los demás pasos dentro del Card general */
-              <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
-                
 
+                  <div className="flex-1 flex justify-center px-8">
                   {/* Step: choose-role */}
                   
               
                   {currentStep === "choose-role" && (
                     <>
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
                       <div className="space-y-4">
                         {/* Opción Pacientes */}
@@ -266,12 +369,14 @@ export const Registration = (): JSX.Element => {
                         </div>
                       </div>
                       </CardContent>
+                      </Card>
                     </>
                   )}
 
                   {/* Step: create-account */}
                   {currentStep === "create-account" && (
-                    <>
+                    
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
                     {/* Título principal */}
                     <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
@@ -303,11 +408,13 @@ export const Registration = (): JSX.Element => {
                         </button>
                       </div>
                       </CardContent>
-                    </>
+                      </Card>
+                    
                   )}
 
                   {/* Step: name-form */}
                   {currentStep === "name-form" && (
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
                       <div className="space-y-4">
                         {/* Título principal */}
@@ -347,21 +454,28 @@ export const Registration = (): JSX.Element => {
                         </div>
                       </div>
                       </CardContent>
+                      </Card>
 
                   )}
 
 
                   {/* Step: basic-info */}
                   {currentStep === "basic-info" && (
-                    <CardContent className="p-8 space-y-4">
+                    <Card className="w-full bg-white rounded-2xl shadow-lg mb-20">
 
-                    <div className="flex flex-col items-center justify-center w-full px-6 py-8">
+                    <CardContent className="p-8 space-y-4 ">
+
+                    <div className="flex flex-col items-center justify-center w-full px-6  ">
 
                       <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
                         <div className="flex flex-col items-center gap-6 w-full">
+                          <h1 className="font-haas text-center text-2xl text-gray-900 mb-4 leading-snug">
+                                Información Básica
+                              </h1>
                           <div className="flex flex-col items-start gap-6 pb-4 w-full">
+                            
                             <div className="flex flex-col items-start gap-4 w-full">
-                              <h3 className="font-heading-h7 text-shadow-900">
+                              <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
                                 Información personal
                               </h3>
 
@@ -408,49 +522,69 @@ export const Registration = (): JSX.Element => {
                                 </div>
 
                                 <div className="flex flex-col items-start gap-2 w-full">
-                                  <Select
+                                <Select
                                     value={selectedGender}
-                                    open={isGenderOpen}
-                                    onOpenChange={setIsGenderOpen}
-                                    onValueChange={(value) => {
-                                      if (value === "otro" && !expandedGender) {
-                                        setExpandedGender(true);
-                                        setTimeout(() => setIsGenderOpen(true), 0);
-                                        setSelectedGender("");
-                                      } else {
-                                        setSelectedGender(value);
-                                        setIsGenderOpen(false);
-                                      }
-                                    }}
+                                    onValueChange={handleGenderChange}
+                                    open={open}
+                                    onOpenChange={setOpen}
                                   >
-                                    <SelectTrigger className="flex-col w-full border border-[#bbcac0] bg-primary-50 rounded">
-                                      <SelectValue placeholder="Género" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      {getGenderOptions().map((option) => (
-                                        <SelectItem
-                                          key={option.value}
-                                          value={option.value}
-                                          onSelect={(e) => {
-                                            if (option.value === "otro" && !expandedGender) {
+
+                                  <SelectTrigger className="w-full flex items-center justify-between border border-[#bbcac0] shadow-shadow-sm relative bg-primary-50 rounded px-3 py-2">
+                                    <SelectValue placeholder="Género" />
+                                  </SelectTrigger>
+
+
+                                  <SelectContent
+                                    // evita cambios de foco bruscos al actualizar opciones
+                                    onCloseAutoFocus={(e) => e.preventDefault()}
+                                  >
+                                    {getGenderOptions().map((opt) => {
+                                      // --- Item especial: "Otro" en nivel 0 (no cerrar al hacer click) ---
+                                      if (opt.value === "otro" && genderExpansionLevel === 0) {
+                                        return (
+                                          <SelectItem
+                                            key="otro"
+                                            value="otro"
+                                            // Evitamos que Radix seleccione y cierre:
+                                            onPointerDown={(e) => {
                                               e.preventDefault();
-                                              setExpandedGender(true);
-                                              setIsGenderOpen(true);
-                                            }
-                                          }}
-                                        >
-                                          {option.label}
+                                              e.stopPropagation();
+                                              setGenderExpansionLevel(1);
+                                              setSelectedGender("");
+                                              // No tocamos `open`: el menú sigue abierto
+                                            }}
+                                            onKeyDown={(e) => {
+                                              // Soporte teclado: Enter o Space
+                                              if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                setGenderExpansionLevel(1);
+                                                setSelectedGender("");
+                                              }
+                                            }}
+                                          >
+                                            {opt.label}
+                                          </SelectItem>
+                                        );
+                                      }
+
+                                      // --- Resto de items (flujo normal) ---
+                                      return (
+                                        <SelectItem key={opt.value} value={opt.value}>
+                                          {opt.label}
                                         </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
+                                      );
+                                    })}
+                                  </SelectContent>
+
+                                </Select>
                                 </div>
                               </div>
                             </div>
 
                             <div className="flex flex-col items-start gap-4 w-full">
                               <div className="inline-flex items-center">
-                                <h3 className="font-heading-h7 text-shadow-900">
+                                <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
                                   Información de contacto
                                 </h3>
                               </div>
@@ -479,12 +613,12 @@ export const Registration = (): JSX.Element => {
                             </div>
 
                             <div className="flex flex-col items-start gap-2 w-full">
-                              <h3 className="font-heading-h7 text-shadow-900">
+                              <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
                                 Email y contraseña
                               </h3>
 
                               <div className="flex flex-col items-start gap-3 w-full">
-                                <p className="font-paragraph-p1-semi-bold text-shadow-600">
+                                <p className="font-inter font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
                                   Recibirás un email con un código de confirmación
                                 </p>
 
@@ -493,9 +627,10 @@ export const Registration = (): JSX.Element => {
                                   placeholder="Email"
                                 />
 
-                                <p className="font-paragraph-p1-semi-bold text-shadow-600">
-                                  Tu contraseña debe tener mínimo 8 números o caracteres
+                                <p className="font-inter font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
+                                  Tu contraseña debe tener mínimo 8 números o caracteres 
                                 </p>
+
 
                                 <Input
                                   type="password"
@@ -503,16 +638,7 @@ export const Registration = (): JSX.Element => {
                                   placeholder="Crea una contraseña"
                                 />
 
-                                <div className="inline-flex flex-col items-start pl-2">
-                                  {passwordRequirements.map((req, i) => (
-                                    <div
-                                      key={i}
-                                      className="font-paragraph-p1-semi-bold text-shadow-600"
-                                    >
-                                      {req}
-                                    </div>
-                                  ))}
-                                </div>
+                                
 
                                 <Input
                                   type="password"
@@ -523,7 +649,7 @@ export const Registration = (): JSX.Element => {
                             </div>
                           </div>
                         </div>
-
+                        <div className="flex w-full justify-end">
                         <Button
                           className="inline-flex px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center"
                           onClick={handleVerificationCode}
@@ -531,130 +657,161 @@ export const Registration = (): JSX.Element => {
                           <span className="font-semibold text-neutralswhite text-sm leading-5">
                             Confirmar
                           </span>
-                          <ArrowRightIcon className="w-5 h-5 ml-1" />
+                          <ChevronRightIcon className="w-5 h-5 text-gray-100" />
                         </Button>
+                      
+                          </div>
                       </div>
                     </div>
                     </CardContent>
+                    </Card>
+                    
                   )}
 
                   {/* Step: verification-code */}
                   {currentStep === "verification-code" && (
-                    <div className="w-full">
-                      <header className="flex flex-col items-center gap-6 w-full">
-                        <div className="flex flex-col items-center gap-3 w-full">
-                          <p className="font-heading-h7 text-black text-center">
+                    <Card className="max-w-lg bg-white rounded-2xl shadow-md">
+                      <CardContent className="p-8 space-y-6">
+                        {/* Encabezado */}
+                        <header className="text-center space-y-2">
+                          <h1 className="font-haas text-[30px] font-haas text-gray-900">
+                            Código de verificación
+                          </h1>
+                          <p className="font-inter text-[16px] font-bold text-gray-800">
                             Elige cómo quieres recibir tu código de verificación.
                           </p>
+                        </header>
+
+                        {/* Opciones */}
+                        <div className="space-y-4">
+                          {verificationOptions.map((option) => (
+                            <button
+                              key={option.id}
+                              onClick={() => handleVerificationOptionSelect(option.id)}
+                              className={`flex items-center justify-between w-full p-5 text-left rounded-lg border shadow-sm transition ${
+                                selectedOption === option.id
+                                  ? "bg-[#F2F7F4] border-[#d3e0d7]"
+                                  : "bg-white border-gray-200 hover:bg-gray-50"
+                              }`}
+                            >
+                              <div>
+                                <h3 className="font-inter font-bold text-gray-800 text-[20px]">
+                                  {option.title}
+                                </h3>
+                                <p className="mt-1 font-inter text-[13px] font-semibold text-gray-600">{option.description}</p>
+                              </div>
+                              <ChevronRightIcon className="w-5 h-5 text-gray-500" />
+                            </button>
+                          ))}
                         </div>
-                      </header>
-
-                      <div className="h-4" />
-
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        {verificationOptions.map((option) => (
-                          <button
-                            key={option.id}
-                            onClick={() => handleVerificationOptionSelect(option.id)}
-                            className={`flex items-center gap-3 p-6 w-full rounded border border-solid shadow-shadow-xs transition-colors ${
-                              selectedOption === option.id
-                                ? "bg-primary-50 border-[#d3e0d7]"
-                                : "bg-neutralswhite border-gray-200 hover:bg-gray-50"
-                            }`}
-                          >
-                            <div className="flex flex-col items-start justify-center gap-2 flex-1">
-                              <h3 className="font-heading-h6 text-primary-800">
-                                {option.title}
-                              </h3>
-                              <p className="font-paragraph-p1-semi-bold text-primary-800 text-left">
-                                {option.description}
-                              </p>
-                            </div>
-                            <ChevronRightIcon className="w-5 h-5 text-primary-800" />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   )}
 
                   {/* Step: sms-verification */}
                   {currentStep === "sms-verification" && (
-                    <div className="w-full">
-                      <div className="flex flex-col items-center gap-6 w-full">
-                        <div className="flex flex-col items-center gap-3 w-full">
-                          <p className="text-black text-sm text-center leading-[14px]">
-                            <span>Ingrese el código de verificación de 6 dígitos enviado a </span>
-                            <span className="font-semibold">+569 ****8823</span>
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
+                      <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
+                        <div className="flex flex-col items-center gap-2 w-full">
+                          {/* Título */}
+                          <header className="flex flex-col items-center gap-2 w-full">
+                            <h1 className="text-center text-[30px] font-haas text-primary-900">
+                              Código de verificación
+                            </h1>
+                            <p className="text-center text-md text-gray-700">
+                              Ingrese el código de verificación de 6 dígitos 
+                              <br />
+                              enviado a{" "}
+                              <span className="font-bold">
+                                {verificationMessages[selectedOption] || "+569 **** 8823"}
+                              </span>.
+                            </p>
+
+                          </header>
+
+                          {/* Inputs */}
+                          <div className="flex justify-center gap-3 mb-2">
+                            {code.map((digit: string, index: number) => (
+                              <input
+                                key={index}
+                                type="text"
+                                maxLength={1}
+                                value={digit}
+                                onChange={(e) => handleChange(e.target.value, index)}
+                                onKeyDown={(e) => handleKeyDown(e, index)}
+                                ref={(el) => (inputsRef.current[index] = el)}
+                                className={`w-12 h-12 text-center rounded-md border text-lg font-medium ${
+                                  error
+                                    ? "border-red-500 bg-red-50 text-red-600"
+                                    : "border-gray-300 bg-gray-100 text-gray-900"
+                                }`}
+                              />
+                            ))}
+                          </div>
+
+                          {/* Error */}
+                        {error && (
+                          <p className="text-red-600 text-sm font-medium text-left w-full">
+                            &nbsp; &nbsp; &nbsp; {error}
                           </p>
-                        </div>
+                        )}
 
-                        <div className="flex flex-col items-center gap-4 w-full">
-                          <InputOTP
-                            maxLength={6}
-                            className="flex items-start justify-center gap-2 w-full"
-                          >
-                            <InputOTPGroup className="flex items-start justify-center gap-2 w-full">
-                              <InputOTPSlot
-                                index={0}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                              <InputOTPSlot
-                                index={1}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                              <InputOTPSlot
-                                index={2}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                              <InputOTPSlot
-                                index={3}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                              <InputOTPSlot
-                                index={4}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                              <InputOTPSlot
-                                index={5}
-                                className="flex items-center p-2 flex-1 bg-primary-50 rounded border border-solid border-[#dcdce2]"
-                              />
-                            </InputOTPGroup>
-                          </InputOTP>
 
-                          <div className="flex flex-col items-center gap-2.5 w-full">
-                            <div className="font-medium text-primary-900 text-xs">00:30</div>
-                            <button className="w-[206px] opacity-40 font-text-xs-medium-underline text-primary-900 text-center underline">
-                              Si aún no has recibido el código ¡Haz click aquí!
+                          {/* Timer */}
+                          <div className="text-center text-sm text-gray-600">
+                            {`00:${timeLeft.toString().padStart(2, "0")}`}
+                          </div>
+                          {/* Reenviar (siempre visible) */}
+                          <div className="text-center">
+                            <button
+                              className="text-primary-900 underline text-[14px]"
+                              onClick={() => setCurrentStep("verification-code")} // 👈 vuelve al paso de selección
+                            >
+                              Si no recibiste ningun código,
+                              <br />
+                              selecciona otro método de envío 
                             </button>
                           </div>
+
                         </div>
-                      </div>
 
-                      <div className="flex items-start justify-between w-full mt-6">
-                        <Button
-                          variant="outline"
-                          className="px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs h-auto"
-                          onClick={handleBack}
-                        >
-                          <span className="text-primary-800 text-xs">Atrás</span>
-                        </Button>
-
-                        <Button
-                          className="px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center h-auto"
-                          onClick={() => setCurrentStep("success-confirmation")}
-                        >
-                          <span className="text-neutralswhite text-sm font-semibold">
-                            Confirmar
-                          </span>
-                          <ChevronRightIcon className="w-5 h-5 ml-1" />
-                        </Button>
-                      </div>
-                    </div>
+                        {/* Botones */}
+                        <div className="flex justify-between w-full">
+                          <button
+                            onClick={() => setCurrentStep("verification-code")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
+                          <button
+                            onClick={() => {
+                              const enteredCode = code.join("");
+                              if (enteredCode === "111111") {
+                                setError("Código de verificación incorrecto");
+                              } else if (!code.includes("")) {
+                                setError(null);
+                                setCurrentStep("success-confirmation"); // 👉 pasa al paso de nueva contraseña
+                              }
+                            }}
+                            disabled={code.includes("")}
+                            className={`px-6 py-2 rounded-3xl flex items-center gap-2 ${
+                              code.includes("")
+                                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                : "bg-primary-900 text-white hover:bg-primary-800"
+                            }`}
+                          >
+                            Confirmar <ChevronRightIcon className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
                   )}
-                
-              </Card>
+                </div>
             )}
+           
           </div>
+          
 
           {/* Right side - Image */}
           <div className="flex-1 relative">
@@ -667,6 +824,7 @@ export const Registration = (): JSX.Element => {
         </div>
 
         {/* Footer */}
+        
         <Footer
           onFAQClick={() => setIsFAQModalOpen(true)}
           onSupportClick={() => setIsSupportModalOpen(true)}

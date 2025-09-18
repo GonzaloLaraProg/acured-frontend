@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobeIcon, MenuIcon, UserIcon } from "lucide-react";
 import { EmailVerificationModal } from "../../components/EmailVerificationModal";
@@ -17,13 +17,18 @@ import {
 import { Footer } from "../../components/Footer";
 import TopNav from "../../components/TopNav";
 
-export const LoginRegistration = (): JSX.Element => {
+interface LoginRegistration {
+  onGenderChange?: (gender: string) => void;
+}
+
+ export const LoginRegistration = ({ onGenderChange }: LoginRegistration): JSX.Element => {
   const navigate = useNavigate();
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
   const [isEmailVerificationOpen, setIsEmailVerificationOpen] = React.useState(false);
   const [isFormChoiceOpen, setIsFormChoiceOpen] = React.useState(false);
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
+ 
   
 // 👇 Aquí agregamos el estado del scroll
   const [scrolled, setScrolled] = React.useState(false);
@@ -54,6 +59,47 @@ export const LoginRegistration = (): JSX.Element => {
     setIsEmailVerificationOpen(false);
     setIsFormChoiceOpen(true);
   };
+
+
+
+    const [selectedGender, setSelectedGender] = useState<string>("");
+   
+  
+    const [open, setOpen] = useState(false);
+    const [genderExpansionLevel, setGenderExpansionLevel] = useState<number>(0);
+  
+    const getGenderOptions = () => {
+      if (genderExpansionLevel === 0) {
+        return [
+          { value: "femenino", label: "Femenino" },
+          { value: "masculino", label: "Masculino" },
+          { value: "otro", label: "Otro" },
+        ];
+      }
+  
+      return [
+        { value: "no-binario", label: "No binario" },
+        { value: "transfemenino", label: "Transfemenino" },
+        { value: "transmasculino", label: "Transmasculino" },
+        { value: "prefiero-no-informar", label: "Prefiero no informar" },
+        { value: "otro", label: "Otro" },
+      ];
+    };
+
+  const handleGenderChange = (value: string) => {
+    if (value === "otro" && genderExpansionLevel === 0) {
+      // No debería dispararse si prevenimos el pointerdown para "otro",
+      // pero lo dejamos por seguridad si se selecciona por teclado.
+      setGenderExpansionLevel(1);
+      setSelectedGender("");
+      return; // no cerrar
+    }
+
+    setSelectedGender(value);
+    onGenderChange?.(value);
+    setOpen(false); // cerrar en selecciones "reales"
+  };
+
 
   return (
     <>
@@ -203,22 +249,64 @@ export const LoginRegistration = (): JSX.Element => {
                         />
                       </div>
                     </div>
-                    
-                    <Select>
-                      <SelectTrigger className="w-full bg-gray-100 border-0 rounded-lg">
-                        <SelectValue placeholder="Género" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="femenino">Femenino</SelectItem>
-                        <SelectItem value="masculino">Masculino</SelectItem>
-                        <SelectItem value="otro">Otro</SelectItem>
-                        <SelectItem value="no-binario">No binario</SelectItem>
-                        <SelectItem value="transfemenino">Transfemenino</SelectItem>
-                        <SelectItem value="transmasculino">Transmasculino</SelectItem>
-                        <SelectItem value="otro-final">Otro</SelectItem>
-                        <SelectItem value="prefiero-no-informar">Prefiero no informar</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="flex flex-col items-start gap-2 w-full">
+                    <Select
+                      value={selectedGender}
+                      onValueChange={handleGenderChange}
+                      open={open}
+                      onOpenChange={setOpen}
+                    >
+
+                    <SelectTrigger className="w-full flex items-center justify-between border border-[#bbcac0] shadow-shadow-sm relative bg-primary-50 rounded px-3 py-2">
+                      <SelectValue placeholder="Género" />
+                    </SelectTrigger>
+
+
+                    <SelectContent
+                      // evita cambios de foco bruscos al actualizar opciones
+                      onCloseAutoFocus={(e) => e.preventDefault()}
+                    >
+                      {getGenderOptions().map((opt) => {
+                        // --- Item especial: "Otro" en nivel 0 (no cerrar al hacer click) ---
+                        if (opt.value === "otro" && genderExpansionLevel === 0) {
+                          return (
+                            <SelectItem
+                              key="otro"
+                              value="otro"
+                              // Evitamos que Radix seleccione y cierre:
+                              onPointerDown={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setGenderExpansionLevel(1);
+                                setSelectedGender("");
+                                // No tocamos `open`: el menú sigue abierto
+                              }}
+                              onKeyDown={(e) => {
+                                // Soporte teclado: Enter o Space
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setGenderExpansionLevel(1);
+                                  setSelectedGender("");
+                                }
+                              }}
+                            >
+                              {opt.label}
+                            </SelectItem>
+                          );
+                        }
+
+                        // --- Resto de items (flujo normal) ---
+                        return (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+
+                  </Select>
+                    </div>
                   </div>
                 </div>
                 
