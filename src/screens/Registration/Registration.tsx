@@ -170,85 +170,15 @@ export const Registration = (): JSX.Element => {
 
   return (
     <>
-      <TopNav />
+      
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
         {/* Navigation */}
-        {/* Fondo blanco detrás del navbar */}
-        <div
-          className={`fixed top-0 left-0 w-full h-[90px] bg-white shadow-sm transition-opacity duration-300 z-40 ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-        />
-        <NavigationMenu className="fixed top-[29px] left-1/2 transform -translate-x-1/2 bg-primary-50 rounded-[32px] border border-solid border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(5.85px)_brightness(100%)] z-50">
-          <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
-            <NavigationMenuItem>
-              <Link
-                className="relative w-[92px] h-[21px] bg-[url(/acured-logo-1.png)] bg-cover bg-[50%_50%] block"
-                to="/"
-              />
-            </NavigationMenuItem>
-
-            <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
-              <div className="inline-flex items-center">
-                <Button
-                  variant="ghost"
-                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
-                >
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-lg text-primary-900">
-                    Inicia sesión
-                  </span>
-                </Button>
-              </div>
-
-              <Button className="inline-flex flex-col justify-center gap-4 px-4 py-2 bg-primary-900 items-center rounded-3xl">
-                <Link to="/therapist-dashboard" className="text-decoration-none">
-                  <span className="[font-family:'Neue_Haas_Grotesk_Display_Pro-65Md',Helvetica] font-normal text-neutralswhite text-lg leading-[normal] whitespace-nowrap">
-                    ¿Eres acupunturista?
-                  </span>
-                </Link>
-              </Button>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-
-
-
-
-
-        {/* Right side buttons */}
-        <div className="fixed top-[29px] right-8 flex items-center gap-2 z-50">
-          <Button
-            variant="ghost"
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-            onClick={() => setIsLanguageModalOpen(true)}
-          >
-            <span className="text-sm text-gray-700 font-medium">Idioma</span>
-            <GlobeIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-
-          <Button
-            ref={menuButtonRef}
-            variant="ghost"
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-            onClick={() => setIsMenuDropdownOpen(!isMenuDropdownOpen)}
-          >
-            <span className="text-sm text-gray-700 font-medium">Menú</span>
-            <MenuIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 shadow-sm"
-          >
-            <span className="text-sm text-gray-700 font-medium">Nombre</span>
-            <UserIcon className="w-4 h-4 text-gray-600" />
-          </Button>
-        </div>
+      <TopNav />
 
         {/* Main Content */}
         <div className="flex min-h-screen">
           {/* Left side - Registration or Success */}
-          <div className="flex-1 flex items-center justify-center pt-32 pb-16 px-16">
+          <div className="flex-1 flex items-center justify-center px-8">
             {currentStep === "success-confirmation" ? (
               /* ✅ Success fuera del Card general */
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
@@ -288,120 +218,145 @@ export const Registration = (): JSX.Element => {
               </div>
             ) : (
               /* ✅ Todos los demás pasos dentro del Card general */
-              <Card className="w-full max-w-[500px] bg-white rounded-2xl shadow-lg">
-                <CardContent className="p-8">
-                  {/* Title */}
-                  <h1 className="text-center mb-8 text-2xl font-normal text-primary-900">
-                    {currentStep === "create-account"
-                      ? "Crea una cuenta o regístrate a través de google"
-                      : currentStep === "name-form"
-                      ? "Crea una Cuenta en Acured"
-                      : currentStep === "basic-info"
-                      ? "Información básica"
-                      : currentStep === "verification-code"
-                      ? "Código de verificación"
-                      : currentStep === "sms-verification"
-                      ? "Código de verificación"
-                      : "Registro"}
-                  </h1>
-
-                  {currentStep === "name-form" && (
-                    <p className="text-center mb-6 text-sm text-gray-600">
-                      Ingresa tu nombre y apellido
-                    </p>
-                  )}
+              <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
+                
 
                   {/* Step: choose-role */}
+                  
+              
                   {currentStep === "choose-role" && (
-                    <div className="space-y-4">
-                      <div
-                        className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                        onClick={handleChoosePatient}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-col">
-                            <span className="font-paragraph-p2-semi-bold text-primary-900">
+                    <>
+                    <CardContent className="p-8">
+                      <div className="space-y-4">
+                        {/* Opción Pacientes */}
+                        {/* Título principal */}
+                        
+                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                      ¡Regístrate!
+                    </h1>
+                        <div
+                          className="p-5 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
+                          onClick={handleChoosePatient}
+                        >
+                          <div>
+                            <p className="font-haas text-gray-900 font-semibold text-lg">
                               Acured para pacientes
-                            </span>
-                            <span className="font-paragraph-p3 text-gray-600">
+                            </p>
+                            <p className="font-inter text-gray-600 text-sm">
                               Soy paciente y quiero registrarme
-                            </span>
+                            </p>
                           </div>
-                          <ChevronRightIcon className="w-5 h-5 text-gray-400" />
+                          <ChevronRightIcon className="w-5 h-5 text-gray-500" />
                         </div>
-                      </div>
 
-                      <div
-                        className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                        onClick={handleChooseTherapist}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-col">
-                            <span className="font-paragraph-p2-semi-bold text-primary-900">
+                        {/* Opción Acupunturistas */}
+                        <div
+                          className="p-5 rounded-lg bg-white hover:bg-gray-50 cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
+                          onClick={handleChooseTherapist}
+                        >
+                          <div>
+                            <p className="font-haas text-gray-900 font-semibold text-lg">
                               Acured para acupunturistas
-                            </span>
-                            <span className="font-paragraph-p3 text-gray-600">
+                            </p>
+                            <p className="font-inter text-gray-600 text-sm">
                               Soy acupunturista y me interesa administrar mis pacientes
-                            </span>
+                            </p>
                           </div>
-                          <ChevronRightIcon className="w-5 h-5 text-gray-400" />
+                          <ChevronRightIcon className="w-5 h-5 text-gray-500" />
                         </div>
                       </div>
-                    </div>
+                      </CardContent>
+                    </>
                   )}
 
                   {/* Step: create-account */}
                   {currentStep === "create-account" && (
-                    <div className="space-y-4">
-                      <Button
-                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors"
-                        onClick={handleNameForm}
-                      >
-                        <span className="font-medium">Crear cuenta</span>
-                      </Button>
+                    <>
+                    <CardContent className="p-8">
+                    {/* Título principal */}
+                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                      Crea una cuenta o regístrate a
+                      <br />
+                      través de Google
+                    </h1>
 
-                      <Button className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                        <span className="text-xl">G</span>
-                        <span className="font-medium">Continuar con google</span>
-                      </Button>
-                    </div>
+
+                      <div className="space-y-4">
+                        {/* Botón Crear cuenta */}
+                        <button
+                          onClick={handleNameForm}
+                          className="w-full p-3 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] 
+                                    border border-gray-200 shadow-sm text-primary-900 font-haas font-semibold 
+                                    transition"
+                        >
+                          Crear cuenta
+                        </button>
+
+                        {/* Botón Google */}
+                        <button
+                          className="w-full p-3 rounded-lg bg-white hover:bg-gray-50 
+                                    border border-gray-200 shadow-sm flex items-center justify-center gap-2 
+                                    text-primary-900 font-haas font-semibold transition"
+                        >
+                          <span className="text-lg">G</span>
+                          <span>Continuar con Google</span>
+                        </button>
+                      </div>
+                      </CardContent>
+                    </>
                   )}
 
                   {/* Step: name-form */}
                   {currentStep === "name-form" && (
-                    <div className="space-y-4">
-                      <input
-                        type="text"
-                        placeholder="Nombres"
-                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      />
+                    <CardContent className="p-8">
+                      <div className="space-y-4">
+                        {/* Título principal */}
+                        <h1 className="font-haas text-center text-3xl text-gray-900 mb-4 leading-snug">
+                          Crea una cuenta para
+                          <br />
+                          pacientes en Acured
+                        </h1>
 
-                      <input
-                        type="text"
-                        placeholder="Apellidos"
-                        className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-primary-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      />
+                        {/* Subtítulo */}
+                        <p className="font-inter text-center text-base text-gray-900 font-semibold mb-6">
+                          Ingresa tu nombre y apellido
+                        </p>
 
-                      <div className="flex items-center justify-between pt-4">
-                        <button
-                          className="text-primary-900 text-sm hover:underline"
-                          onClick={handleBack}
-                        >
-                          Atrás
-                        </button>
-                        <button
-                          className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800"
-                          onClick={handleBasicInfo}
-                        >
-                          Siguiente
-                        </button>
+                        {/* Inputs */}
+                        <div className="space-y-4 mb-6">
+                          <input
+                            type="text"
+                            placeholder="Nombres"
+                            className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332]"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Apellidos"
+                            className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332]"
+                          />
+                        </div>
+
+                        {/* Botón */}
+                        <div className="flex justify-end">
+                          <button
+                            className="px-6 py-2 bg-[#1B4332] text-white rounded-full shadow-md hover:bg-[#163828] transition"
+                            onClick={handleBasicInfo}
+                          >
+                            Siguiente
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                      </CardContent>
+
                   )}
+
 
                   {/* Step: basic-info */}
                   {currentStep === "basic-info" && (
-                    <div className="flex flex-col items-center justify-center gap-2.5 relative flex-1 grow">
+                    <CardContent className="p-8 space-y-4">
+
+                    <div className="flex flex-col items-center justify-center w-full px-6 py-8">
+
                       <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
                         <div className="flex flex-col items-center gap-6 w-full">
                           <div className="flex flex-col items-start gap-6 pb-4 w-full">
@@ -580,6 +535,7 @@ export const Registration = (): JSX.Element => {
                         </Button>
                       </div>
                     </div>
+                    </CardContent>
                   )}
 
                   {/* Step: verification-code */}
@@ -695,7 +651,7 @@ export const Registration = (): JSX.Element => {
                       </div>
                     </div>
                   )}
-                </CardContent>
+                
               </Card>
             )}
           </div>

@@ -30,7 +30,7 @@ export const AIQuestionSection = (): JSX.Element => {
                   <RadioGroupItem
                     value="si"
                     id="si"
-                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-sm data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
+                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-full data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
                   />
                   <Label
                     htmlFor="si"
@@ -44,7 +44,7 @@ export const AIQuestionSection = (): JSX.Element => {
                   <RadioGroupItem
                     value="no"
                     id="no"
-                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-sm data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
+                    className="w-4 h-4 bg-primary-50 border-[#3c5043] rounded-full data-[state=checked]:bg-primary-800 data-[state=checked]:border-primary-800"
                   />
                   <Label
                     htmlFor="no"

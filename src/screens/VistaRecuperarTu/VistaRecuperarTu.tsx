@@ -179,6 +179,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
               </Card>
             ) : currentStep === 'new-password' ? (
               /* New Password Step */
+              
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
                 <Card className="w-[390px] bg-neutralswhite rounded-lg shadow-shadow-sm">
                   <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
@@ -208,7 +209,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
                               <Input
                                 type="password"
                                 placeholder="Repite tu contraseña aquí"
-                                className="h-auto bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
+                                className="h-[33px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
                               />
                             </div>
                           </div>
