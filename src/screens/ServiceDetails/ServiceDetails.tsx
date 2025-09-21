@@ -61,7 +61,8 @@ export const ServiceDetails = (): JSX.Element => {
 
         {/* Contenido principal */}
         <div className="flex-1 bg-primary-50 min-h-screen pt-32">
-          <div className="p-8 pt-12 max-w-4xl">
+          <div className="p-8 pt-12 pl-20 ml-20 max-w-4xl">
+
             <h1 className="text-2xl font-bold text-primary-900 mb-6">
               {currentService?.title || "Servicio"}
             </h1>
@@ -73,12 +74,14 @@ export const ServiceDetails = (): JSX.Element => {
 
             {/* Botón de reservar */}
             <div className="pt-8">
+            <Link to="/search-results">
               <Button className="px-6 py-2 bg-primary-200 text-primary-900 rounded-3xl hover:bg-primary-300">
                 <span className="font-medium text-sm">
                   Quiero reservar una cita
                 </span>
               </Button>
-            </div>
+            </Link>
+          </div>
           </div>
         </div>
       </div>

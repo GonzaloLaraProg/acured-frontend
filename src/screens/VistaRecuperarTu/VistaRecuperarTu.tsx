@@ -56,10 +56,22 @@ export const VistaRecuperarTu = (): JSX.Element => {
     }
   }, [currentStep]);
 
+  // 🔹 Cuando entras en verification, limpia los inputs
+  useEffect(() => {
+    if (currentStep === "verification") {
+      setCode(Array(6).fill(""));   // limpia los 6 dígitos
+      setError(null);               // limpia errores previos
+      setIsComplete(false);         // reinicia validación
+    }
+  }, [currentStep]);
+
+
   // Temporizador (solo corre en verification)
   useEffect(() => {
     if (currentStep !== "verification") return; // 👉 corre solo en verification
     if (timeLeft <= 0) return;
+
+    
 
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
@@ -190,12 +202,12 @@ export const VistaRecuperarTu = (): JSX.Element => {
               /* New Password Step */
               
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
-                <Card className="w-[390px] bg-neutralswhite rounded-lg shadow-shadow-sm">
+                <Card className="w-[480px] bg-neutralswhite rounded-lg shadow-shadow-sm">
                   <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
                     <div className="flex flex-col items-start gap-6 w-full">
                       <div className="flex flex-col items-center gap-8 w-full">
                         <div className="flex flex-col items-center gap-3 w-full">
-                          <h1 className="font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
+                          <h1 className="font-haas text-[30px]  text-primary-900 text-center">
                             Ingresa tu contraseña nueva
                           </h1>
                         </div>
@@ -205,20 +217,21 @@ export const VistaRecuperarTu = (): JSX.Element => {
                         <div className="flex flex-col items-start gap-6 pt-0 pb-4 px-0 w-full">
                           <div className="flex flex-col items-start gap-2 w-full">
                             <div className="flex flex-col items-start gap-3 w-full">
-                              <p className="font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
+                              <p className="font-inter font-semibold text-gray-600 text-[14px]">
                                 Tu contraseña debe tener mínimo 8 caracteres
                               </p>
+
 
                               <Input
                                 type="password"
                                 placeholder="Crea una contraseña"
-                                className="h-[33px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
+                                className="h-[50px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
                               />
 
                               <Input
                                 type="password"
                                 placeholder="Repite tu contraseña aquí"
-                                className="h-[33px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
+                                className="h-[50px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
                               />
                             </div>
                           </div>
