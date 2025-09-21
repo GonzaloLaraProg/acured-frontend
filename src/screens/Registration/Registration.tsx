@@ -275,7 +275,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
   return (
     <>
       
-      <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
+<div className="relative w-full bg-[#F8FAF9] overflow-hidden min-h-screen">
         {/* Navigation */}
       <TopNav />
 
