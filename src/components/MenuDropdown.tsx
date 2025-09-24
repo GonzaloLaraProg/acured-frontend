@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // 👈 usamos el contexto
 
 interface MenuDropdownProps {
   isOpen: boolean;
@@ -17,18 +18,19 @@ export const MenuDropdown: React.FC<MenuDropdownProps> = ({
   const menuRef = React.useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // 👉 función para calcular la posición (sin scrollY, porque usamos fixed)
+  const { user, logout } = useAuth(); // 👈 traemos sesión y logout
+
+  // 👉 calcular posición del menú
   const updatePosition = React.useCallback(() => {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.top + rect.height + 8, // 👈 ya no sumamos scrollY
+        top: rect.top + rect.height + 8,
         right: window.innerWidth - rect.right,
       });
     }
   }, [isOpen, buttonRef]);
 
-  // 👉 calcular posición inicial + actualizar en scroll/resize
   React.useEffect(() => {
     if (isOpen) {
       updatePosition();
@@ -41,7 +43,7 @@ export const MenuDropdown: React.FC<MenuDropdownProps> = ({
     };
   }, [isOpen, updatePosition]);
 
-  // 👉 cerrar al hacer click fuera
+  // 👉 cerrar si se hace click fuera
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -58,54 +60,126 @@ export const MenuDropdown: React.FC<MenuDropdownProps> = ({
 
   if (!isOpen || !position) return null;
 
-  const menuItems = [
-    { label: "Quiénes somos", path: "/about" },
-    { label: "Regístrate", path: "/registration" },
-    { label: "Inicia sesión", path: "/login" },
-    { label: "Ayuda/servicio al cliente", path: "/support" },
-  ];
-
   return (
-    <div
-      ref={menuRef}
-      className="fixed z-[60] bg-white rounded-xl shadow-md border border-gray-200 py-4 px-0 min-w-[240px]"
-      style={{ top: `${position.top}px`, right: `${position.right}px` }}
-      onMouseDown={(e) => e.stopPropagation()}
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Header */}
-      <div className="px-4 pb-3">
-        <h3 className="font-bold text-primary-900 text-base">Para pacientes</h3>
-      </div>
-
-      {/* Items */}
-      <div className="flex flex-col">
-        {menuItems.map((item) => (
-          <button
-            key={item.path}
-            className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
-            onClick={() => {
-              navigate(item.path);
-              onClose();
-            }}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Footer link */}
-      <div className="px-4 pt-3 border-t border-gray-200">
-        <button
-          onClick={() => {
-            navigate("/therapist-dashboard");
-            onClose();
-          }}
-          className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
+    <>
+      {/* ------------------ MENU SIN SESIÓN ------------------ */}
+      {!user && (
+        <div
+          ref={menuRef}
+          className="fixed z-[60] bg-white rounded-xl shadow-md border border-gray-200 py-4 px-0 min-w-[240px]"
+          style={{ top: `${position.top}px`, right: `${position.right}px` }}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
-          Para acupunturistas
-        </button>
-      </div>
-    </div>
+          {/* Header */}
+          <div className="px-4 pb-3">
+            <h3 className="font-bold text-primary-900 text-base">Para pacientes</h3>
+          </div>
+
+          {/* Items */}
+          <div className="flex flex-col">
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/about");
+                onClose();
+              }}
+            >
+              Quiénes somos
+            </button>
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/registration");
+                onClose();
+              }}
+            >
+              Regístrate
+            </button>
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/login");
+                onClose();
+              }}
+            >
+              Inicia sesión
+            </button>
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/support");
+                onClose();
+              }}
+            >
+              Ayuda/servicio al cliente
+            </button>
+          </div>
+
+          {/* Footer */}
+          <div className="px-4 pt-3 border-t border-gray-200">
+            <button
+              onClick={() => {
+                navigate("/therapist-dashboard");
+                onClose();
+              }}
+              className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
+            >
+              Para acupunturistas
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ------------------ MENU CON SESIÓN ------------------ */}
+      {user && (
+        <div
+          ref={menuRef}
+          className="fixed z-[60] bg-white rounded-xl shadow-md border border-gray-200 py-4 px-0 min-w-[240px]"
+          style={{ top: `${position.top}px`, right: `${position.right}px` }}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
+
+          {/* Items */}
+          <div className="flex flex-col">
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/patient-dashboard");
+                onClose();
+              }}
+            >
+              Ir a mis reservas
+            </button>
+          
+            <button
+              className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
+              onClick={() => {
+                navigate("/support");
+                onClose();
+              }}
+            >
+              Ayuda/servicio al cliente
+            </button>
+          </div>
+
+          {/* Footer */}
+          <div className="px-4 pt-3 border-t border-gray-200">
+            <button
+              onClick={() => {
+                logout();       // 👈 cerrar sesión desde AuthContext
+                onClose();
+                navigate("/");  // opcional: redirigir al inicio
+              }}
+              className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
+            >
+              Cerrar sesión
+            </button>
+
+          </div>
+        </div>
+      )}
+    </>
   );
 };

@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import { useEffect } from "react";
 import WithTopNav from "./components/WithTopNav";
 import { Home } from "./screens/Home";
@@ -81,5 +82,10 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
+

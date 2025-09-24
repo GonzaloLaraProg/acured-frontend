@@ -1,11 +1,12 @@
+// src/components/MenuDropdownTerapeuta.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // 👈 para manejar sesión
 
 interface MenuDropdownProps {
   isOpen: boolean;
   onClose: () => void;
   buttonRef: React.RefObject<HTMLButtonElement>;
-  setPositionFromButton: () => void;
 }
 
 export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
@@ -17,18 +18,19 @@ export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
   const menuRef = React.useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  const { user, logout } = useAuth(); // 👈 obtenemos estado y logout
+
   // 👉 función para calcular la posición (sin scrollY, porque usamos fixed)
   const updatePosition = React.useCallback(() => {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.top + rect.height + 8, // 👈 ya no sumamos scrollY
+        top: rect.top + rect.height + 8,
         right: window.innerWidth - rect.right,
       });
     }
   }, [isOpen, buttonRef]);
 
-  // 👉 calcular posición inicial + actualizar en scroll/resize
   React.useEffect(() => {
     if (isOpen) {
       updatePosition();
@@ -58,11 +60,18 @@ export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
 
   if (!isOpen || !position) return null;
 
-  const menuItems = [
+  // ------------------- MENÚ SIN SESIÓN -------------------
+  const menuItemsSinSesion = [
     { label: "Quiénes somos", path: "/about" },
-    { label: "Regístrate", path: "/registration" },
+    { label: "Regístrate", path: "/registration-acupunturist" },
     { label: "Inicia sesión", path: "/login" },
     { label: "Ayuda/servicio al cliente", path: "/support" },
+  ];
+
+  // ------------------- MENÚ CON SESIÓN -------------------
+  const menuItemsConSesion = [
+    { label: "Ir a mi acured", path: "/therapist-dashboard" },
+    { label: "Ayuda/servicio al cliente", path: "/therapist-patients" },
   ];
 
   return (
@@ -74,13 +83,19 @@ export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
       onClick={(e) => e.stopPropagation()}
     >
       {/* Header */}
-      <div className="px-4 pb-3">
-        <h3 className="font-bold text-primary-900 text-base">Para pacientes</h3>
-      </div>
+      {/* Header → solo cuando NO hay sesión */}
+      {!user && (
+        <div className="px-4 pb-3">
+          <h3 className="font-bold text-primary-900 text-base">
+            Para acupunturistas
+          </h3>
+        </div>
+      )}
+
 
       {/* Items */}
       <div className="flex flex-col">
-        {menuItems.map((item) => (
+        {(user ? menuItemsConSesion : menuItemsSinSesion).map((item) => (
           <button
             key={item.path}
             className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-50 text-sm"
@@ -94,17 +109,30 @@ export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
         ))}
       </div>
 
-      {/* Footer link */}
+      {/* Footer link → depende del estado de sesión */}
       <div className="px-4 pt-3 border-t border-gray-200">
-        <button
-          onClick={() => {
-            navigate("/");
-            onClose();
-          }}
-          className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
-        >
-          Para pacientes
-        </button>
+        {user ? (
+          <button
+            onClick={() => {
+              logout(); // 👈 cierra sesión
+              navigate("/");
+              onClose();
+            }}
+            className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
+          >
+            Cerrar sesión
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              navigate("/");
+              onClose();
+            }}
+            className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
+          >
+            Para pacientes
+          </button>
+        )}
       </div>
     </div>
   );

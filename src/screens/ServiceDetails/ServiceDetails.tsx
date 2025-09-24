@@ -41,7 +41,7 @@ export const ServiceDetails = (): JSX.Element => {
       {/* Layout principal */}
       <div className="pt-0 flex relative z-10 min-h-screen">
         {/* Sidebar izquierda */}
-        <div className="w-[280px] bg-primary-200 flex-shrink-0 min-h-screen pt-32">
+        <div className="w-[280px] bg-primary-50flex-shrink-0 min-h-screen pt-0">
           <div className="p-0 pt-4">
             {serviceMenuItems.map((item) => (
               <Link
@@ -60,30 +60,36 @@ export const ServiceDetails = (): JSX.Element => {
         </div>
 
         {/* Contenido principal */}
-        <div className="flex-1 bg-primary-50 min-h-screen pt-32">
-          <div className="p-8 pt-12 pl-20 ml-20 max-w-4xl">
+        <div className="flex-1 bg-white min-h-screen pt-32">
+          <div className="w-[1100px] min-h-[300px] mx-auto bg-white rounded-lg p-8  mb-40 custom-shadow">
 
-            <h1 className="text-2xl font-bold text-primary-900 mb-6">
-              {currentService?.title || "Servicio"}
-            </h1>
-            {currentService?.content || (
-              <p className="text-gray-600">
-                No se encontró información para este servicio.
-              </p>
-            )}
+            
+            {/* Scroll interno */}
+            <div className="overflow-y-auto max-h-[calc(400vh-250px)] pr-4">
+              <h1 className="text-2xl font-bold text-primary-900 mb-6">
+                {currentService?.title || "Servicio"}
+              </h1>
+
+              {currentService?.content || (
+                <p className="text-gray-600">
+                  No se encontró información para este servicio.
+                </p>
+              )}
+            </div>
 
             {/* Botón de reservar */}
-            <div className="pt-8">
-            <Link to="/search-results">
-              <Button className="px-6 py-2 bg-primary-200 text-primary-900 rounded-3xl hover:bg-primary-300">
-                <span className="font-medium text-sm">
-                  Quiero reservar una cita
-                </span>
-              </Button>
-            </Link>
-          </div>
+            <div className="pt-6">
+              <Link to="/search-results">
+                <Button className="px-6 py-2 bg-primary-200 text-primary-900 rounded-3xl hover:bg-primary-300">
+                  <span className="font-medium text-sm">
+                    Quiero reservar una cita
+                  </span>
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
+
       </div>
 
       {/* Footer */}

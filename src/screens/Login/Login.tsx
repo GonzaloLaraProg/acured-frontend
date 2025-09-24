@@ -1,20 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ChevronRightIcon } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Footer } from "../../components/Footer";
 import TopNav from "../../components/TopNav";
 import { FAQModal } from "../../components/FAQModal";
 import { SupportModal } from "../../components/SupportModal";
+import { useAuth } from "../../context/AuthContext"; // 👈 importamos el contexto
+
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // 👈 usamos login del contexto
+  const queryParams = new URLSearchParams(location.search);
+  const step = queryParams.get("step");
+
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
 
+  
+
   const [currentStep, setCurrentStep] = React.useState<
     "initial" | "patient-login" | "therapist-login"
-  >("initial");
+  >(step === "patient" ? "patient-login" : step === "therapist"? "therapist-login": "initial");
+
 
   const handlePatientLogin = () => {
     setCurrentStep("patient-login");
@@ -111,7 +121,6 @@ export const Login = (): JSX.Element => {
                         <button
                           className="text-sm text-[#1B4332] hover:underline font-inter"
                           onClick={() => navigate("/password-recovery?role=patient")}
-
                         >
                           ¿Olvidaste tu contraseña?
                         </button>
@@ -127,7 +136,14 @@ export const Login = (): JSX.Element => {
                         </button>
                         <button
                           className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter"
-                          onClick={() => navigate("/patient-dashboard")}
+                          onClick={() => {
+                            login({
+                              role: "patient",
+                              name: "Paciente Demo",
+                              email: "paciente@demo.com",
+                            });
+                            navigate("/patient-dashboard");
+                          }}
                         >
                           Iniciar sesión
                         </button>
@@ -181,7 +197,14 @@ export const Login = (): JSX.Element => {
                         </button>
                         <button
                           className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter"
-                          onClick={() => navigate("/therapist-dashboard")}
+                          onClick={() => {
+                            login({
+                              role: "therapist",
+                              name: "Acupunturista Demo",
+                              email: "acupunturista@demo.com",
+                            });
+                            navigate("/therapist-dashboard");
+                          }}
                         >
                           Iniciar sesión
                         </button>
@@ -196,7 +219,7 @@ export const Login = (): JSX.Element => {
           {/* Right side - Image */}
           <div className="flex-1 relative">
             <img
-              src="/loginimg.jpg" // 👈 asegúrate de que este archivo esté dentro de /public
+              src="/loginimg.jpg"
               alt="Acupuncture treatment"
               className="w-full h-full object-cover"
             />

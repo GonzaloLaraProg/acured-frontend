@@ -295,3 +295,27 @@ input[type="range"]::-moz-range-thumb {
   0% { transform: translateY(0); }
   to { transform: translateY(calc(-100% - var(--gap))); }
 }
+/* Scrollbar super fina */
+::-webkit-scrollbar {
+  width: 4px;   /* ancho vertical */
+  height: 4px;  /* ancho horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9ca3af; /* gris */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* gris más oscuro al pasar el mouse */
+}
+/* en globals.css */
+.custom-shadow {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
