@@ -46,9 +46,9 @@ export const ContactTerapeuta = (): JSX.Element => {
   return (
     <section className="flex flex-col items-center justify-center gap-2.5 relative w-full bg-primary-50">
         <TopNavTerapeuta/>
-      <div className="flex flex-col items-center justify-center gap-8 pt-[148px] pb-24 px-6 relative w-full rounded-lg shadow-shadow-sm">
+      <div className="flex flex-col items-center justify-center gap-8 pt-[148px] pb-24 px-6 relative w-full rounded-lg ">
         <div className="inline-flex flex-col items-start gap-2.5 relative">
-          <Card className="w-full max-w-[642px] bg-white rounded-xl overflow-hidden">
+          <Card className="w-[700px] bg-white rounded-xl overflow-hidden">
             <CardContent className="flex flex-col items-start gap-8 p-16">
               <header className="flex flex-col items-start gap-3 relative w-full">
                 <h1 className="relative w-fit mt-[-1.00px] font-heading-h3 font-[number:var(--heading-h3-font-weight)] text-primary-900 text-[length:var(--heading-h3-font-size)] text-center tracking-[var(--heading-h3-letter-spacing)] leading-[var(--heading-h3-line-height)] whitespace-nowrap [font-style:var(--heading-h3-font-style)]">
@@ -143,7 +143,7 @@ export const ContactTerapeuta = (): JSX.Element => {
                     className="h-14 bg-primary-50 border-[#dcdce2] font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-800 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
                   />
 
-                  <p className="relative w-full font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-500 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
+                  <p className="relative w-full font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-shadow-600 text-[length:var(--paragraph-p1-semi-bold-font-size)] tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
                     Máximo 500 caracteres.
                   </p>
                 </div>

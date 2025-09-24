@@ -31,20 +31,25 @@ export default function TopNavDefault(): JSX.Element {
     <>
       {/* Fondo blanco con animación fade */}
       <AnimatePresence>
-        {scrolled && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed left-0 top-0 w-full h-[90px] bg-white shadow-sm z-40"
-          />
-        )}
-      </AnimatePresence>
+  {scrolled && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed left-0 top-0 w-full h-[90px] bg-white/45 backdrop-blur-sm shadow-sm z-40"
+    />
+  )}
+</AnimatePresence>
+
 
       {/* Navbar centrado */}
-      <NavigationMenu className="fixed top-[29px] left-1/2 -translate-x-1/2 bg-primary-50 rounded-[32px] border border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] z-50 h-[45px] flex items-center">
-
+<NavigationMenu
+  className="fixed top-[29px] left-1/2 -translate-x-1/2 
+             bg-white/80 backdrop-blur-[5.85px] 
+             rounded-[32px] border border-[#d3e0d7] 
+             shadow-shadow-sm z-50"
+>
         <NavigationMenuList className="flex items-center gap-1 pl-3 pr-0 py-0">
           {/* Logo */}
           <NavigationMenuItem>

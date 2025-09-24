@@ -17,6 +17,7 @@ import TopNav from "../../components/TopNav";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
+import { useLocation } from "react-router-dom";
 
 export const VistaRecuperarTu = (): JSX.Element => {
   const navigate = useNavigate();
@@ -31,6 +32,10 @@ export const VistaRecuperarTu = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const [isComplete, setIsComplete] = useState(false);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const [role, setRole] = React.useState<"patient" | "therapist">("patient");
+
 
   // 👇 Aquí agregamos el estado del scroll
   const [scrolled, setScrolled] = React.useState(false);
@@ -97,6 +102,16 @@ export const VistaRecuperarTu = (): JSX.Element => {
       inputsRef.current[index - 1]?.focus();
     }
   };
+
+  useEffect(() => {
+    const urlRole = params.get("role");
+    if (urlRole === "therapist") {
+      setRole("therapist");
+    } else {
+      setRole("patient");
+    }
+  }, [location.search]);
+
 
   // ✅ Validación al confirmar
   const handleConfirm = () => {
@@ -227,6 +242,15 @@ export const VistaRecuperarTu = (): JSX.Element => {
                                 placeholder="Crea una contraseña"
                                 className="h-[50px] bg-primary-50 border-0 font-text-text-sm-text-sm-font-normal font-[number:var(--text-text-sm-text-sm-font-normal-font-weight)] text-primary-900 text-[length:var(--text-text-sm-text-sm-font-normal-font-size)] tracking-[var(--text-text-sm-text-sm-font-normal-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-normal-line-height)] [font-style:var(--text-text-sm-text-sm-font-normal-font-style)]"
                               />
+                              <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                                  <li className="text-green-600">
+                                    ✓ Mínimo 8 caracteres
+                                  </li>
+                                  <li>Al menos una letra mayúscula</li>
+                                  <li>Al menos una letra minúscula</li>
+                                  <li>Al menos un número</li>
+                                  <li>Al menos un carácter especial (!@#$%^&amp;*./)</li>
+                                </ul>
 
                               <Input
                                 type="password"
@@ -251,46 +275,76 @@ export const VistaRecuperarTu = (): JSX.Element => {
                 </Card>
               </div>
             ) : currentStep === 'success' ? (
-              /* Success Step */
-              <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
-                <Card className="w-96 shadow-shadow-md">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-terciary-50 rounded-[8px_8px_0px_0px]">
-                    <CheckCircleIcon className="w-7 h-7 text-terciary-600" />
-                    <div className="flex-1 font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-terciary-600 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
-                      Éxito
+              role === "therapist" ? (
+                // 🎯 Mensaje de éxito para TERAPEUTA (con mismos estilos que PACIENTE)
+                <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
+                  <Card className="w-96 shadow-shadow-md">
+                    {/* Header */}
+                    <div className="flex items-center gap-2 px-4 py-2 bg-terciary-50 rounded-t-md">
+                      <CheckCircleIcon className="w-7 h-7 text-terciary-600" />
+                      <span className="flex-1 text-terciary-600 font-semibold">Éxito</span>
+                      <XIcon
+                        className="w-4 h-4 cursor-pointer"
+                        onClick={() => navigate('/login')}
+                      />
                     </div>
-                    <XIcon className="w-4 h-4" />
-                  </div>
-                  <CardContent className="flex flex-col items-center justify-center gap-4 p-6 bg-otherswhite rounded-[0px_0px_8px_8px]">
-                    <div className="self-stretch mt-[-1.00px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-gray-600 text-[length:var(--paragraph-p2-regular-font-size)] tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
-                      Tu nueva contraseña ha sido creada con éxito
-                    </div>
-                    <div className="flex flex-col items-start gap-2 pt-3 pb-0 px-0 self-stretch w-full border-t border-solid border-[#d4d4d8]">
-                      <div className="flex items-center justify-end gap-2.5 self-stretch w-full">
-                        <div className="inline-flex items-start gap-2">
-                          <Button 
-                            className="h-auto px-4 py-2 bg-primary-800 rounded-3xl shadow-shadow-md"
-                            onClick={() => navigate('/')}
-                          >
-                            <div className="mt-[-1.00px] font-text-text-sm-text-sm-font-medium font-[number:var(--text-text-sm-text-sm-font-medium-font-weight)] text-neutralswhite text-[length:var(--text-text-sm-text-sm-font-medium-font-size)] tracking-[var(--text-text-sm-text-sm-font-medium-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-medium-line-height)] whitespace-nowrap text-right [font-style:var(--text-text-sm-text-sm-font-medium-font-style)]">
-                              Agenda una cita
-                            </div>
-                          </Button>
-                          <Button
-                            variant="outline"
-                            className="h-auto px-4 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs"
-                            onClick={() => navigate('/patient-dashboard')}
-                          >
-                            <div className="w-fit mt-[-1.00px] font-text-text-sm-text-sm-font-medium font-[number:var(--text-text-sm-text-sm-font-medium-font-weight)] text-primary-800 text-[length:var(--text-text-sm-text-sm-font-medium-font-size)] text-right tracking-[var(--text-text-sm-text-sm-font-medium-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-medium-line-height)] whitespace-nowrap [font-style:var(--text-text-sm-text-sm-font-medium-font-style)]">
-                              Ir a mi perfil
-                            </div>
-                          </Button>
-                        </div>
+
+                    {/* Body */}
+                    <CardContent className="flex flex-col items-center gap-4 p-6 bg-otherswhite rounded-b-md">
+                      <p className="text-gray-600 text-center">
+                        Tu nueva contraseña ha sido creada con éxito
+                      </p>
+
+                      <div className="flex gap-3 pt-3 w-full border-t border-gray-200 justify-end">
+                        <Button
+                          className="px-4 py-2 bg-primary-800 text-white rounded-3xl"
+                          onClick={() => navigate('/login')}
+                        >
+                          Iniciar sesión
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="px-4 py-2 bg-white border border-gray-300 rounded-3xl text-primary-800"
+                          onClick={() => navigate('/therapist-dashboard')}
+                        >
+                          Volver al inicio
+                        </Button>
                       </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : (
+                // ✅ Mensaje de éxito para PACIENTE
+                <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 flex-1">
+                  <Card className="w-96 shadow-shadow-md">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-terciary-50 rounded-t-md">
+                      <CheckCircleIcon className="w-7 h-7 text-terciary-600" />
+                      <span className="flex-1 text-terciary-600 font-semibold">Éxito</span>
+                      <XIcon className="w-4 h-4 cursor-pointer" />
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    <CardContent className="flex flex-col items-center gap-4 p-6 bg-otherswhite rounded-b-md">
+                      <p className="text-gray-600 text-center">
+                        Tu nueva contraseña ha sido creada con éxito
+                      </p>
+                      <div className="flex gap-3 pt-3 w-full border-t border-gray-200 justify-end">
+                        <Button
+                          className="px-4 py-2 bg-primary-800 text-white rounded-3xl"
+                          onClick={() => navigate('/')}
+                        >
+                          Agenda una cita
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="px-4 py-2 bg-white border border-gray-300 rounded-3xl text-primary-800"
+                          onClick={() => navigate('/patient-dashboard')}
+                        >
+                          Ir a mi perfil
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )
             ) : (
               /* Verification Code Step */
               <div className="flex flex-col items-center justify-center gap-2.5 px-16 py-0 relative flex-1 self-stretch grow">

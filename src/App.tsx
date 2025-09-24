@@ -21,6 +21,7 @@ import { CenterPayment } from "./screens/CenterPayment";
 
 import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
 import { Registration } from "./screens/Registration";
+import { RegistrationAcupunturist } from "./screens/RegistrationAcupunturist";
 import WithTopNavTerapeuta from "./components/WithTopNavTerapeuta";
 import { ContactTerapeuta } from "./screens/ContactTerapeuta";
 import { SuccessPage } from "./screens/SuccessPage";
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
       { path: "/SupportModalTerapeuta", element: <SupportModalTerapeuta/> },
       { path: "/ContactTerapeuta", element: <ContactTerapeuta/> },
       { path: "/SuccessPage", element: <SuccessPage/> },
+      { path: "/registration-acupunturist", element: <RegistrationAcupunturist /> },
 ],    
 },
 ]);

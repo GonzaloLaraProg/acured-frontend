@@ -41,13 +41,20 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed left-0 top-0 w-full h-[90px] bg-white shadow-sm z-40"
+            className="fixed left-0 top-0 w-full h-[90px] bg-white/80 backdrop-blur-sm shadow-sm z-40"
           />
+
+
         )}
       </AnimatePresence>
 
       {/* Navbar centrado */}
-      <NavigationMenu className="fixed top-[29px] left-1/2 -translate-x-1/2 bg-primary-50 rounded-[32px] border border-[#d3e0d7] shadow-shadow-sm backdrop-blur-[5.85px] z-50">
+      <NavigationMenu
+  className="fixed top-[29px] left-1/2 -translate-x-1/2 
+             bg-white/80 backdrop-blur-[5.85px] 
+             rounded-[32px] border border-[#d3e0d7] 
+             shadow-shadow-sm z-50"
+>
         <NavigationMenuList className="flex items-center gap-2.5 pl-3 pr-0 py-0">
           <NavigationMenuItem>
             <Link
@@ -59,9 +66,9 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
           <NavigationMenuItem className="inline-flex items-center gap-2 pl-0.5 pr-1 py-0.5 rounded-[40px]">
             <div className="inline-flex items-center">
               <Button
-                variant="ghost"
-                className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50"
-              >
+  variant="ghost"
+  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-[25px] bg-primary-50/80"
+>
                 {isPrefilledView ? (
                   <Link to="/search-results" className="text-decoration-none">
                     <span className="font-normal text-lg text-primary-900">

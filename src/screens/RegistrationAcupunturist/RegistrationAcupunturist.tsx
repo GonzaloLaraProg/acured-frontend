@@ -33,14 +33,14 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "../../components/ui/input-otp";
-import { Footer } from "../../components/Footer";
-import TopNav from "../../components/TopNav";
+import { FooterTerapeuta } from "../../components/FooterTerapeuta";
+import TopNavTerapeuta from "../../components/TopNavTerapeuta";
 
 interface Registration {
   onGenderChange?: (gender: string) => void;
 }
 
-export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
+export const RegistrationAcupunturist = ({ onGenderChange }: Registration): JSX.Element => {
   const navigate = useNavigate();
   const [isLanguageModalOpen, setIsLanguageModalOpen] = React.useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = React.useState(false);
@@ -71,7 +71,6 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
     }, [code]);
 
     const [currentStep, setCurrentStep] = React.useState<
-    | "choose-role"
     | "create-account"
     | "name-form"
     | "basic-info"
@@ -91,20 +90,20 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
     | "verification-code-terapeuta"
     | "sms-verification-terapeuta"
     | "success-confirmation-terapeuta"
-  >("choose-role");
+  >("centro-flow");
 
-  //TIMER PARA PACIENTE
+  //TIMER PARA CENTRO
   
         // Reinicia el contador SOLO cuando entras en sms-verification
     useEffect(() => {
-      if (currentStep === "sms-verification") {
+      if (currentStep === "sms-verification-centro") {
         setTimeLeft(30); // reinicia a 30 segundos
       }
     }, [currentStep]);
 
     // Temporizador
     useEffect(() => {
-      if (currentStep !== "sms-verification") return; // 👈 solo corre en sms-verification
+      if (currentStep !== "sms-verification-centro") return; // 👈 solo corre en sms-verification
       if (timeLeft <= 0) return;
 
       const timer = setInterval(() => {
@@ -116,7 +115,38 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
     // 🔹 Cuando entras en sms-verification, limpia los inputs
     useEffect(() => {
-      if (currentStep === "sms-verification") {
+      if (currentStep === "sms-verification-centro") {
+        setCode(Array(6).fill(""));   // 👈 limpia los 6 dígitos
+        setError(null);               // limpia errores previos
+        setIsComplete(false);         // reinicia validación
+      }
+    }, [currentStep]);
+
+
+    
+    //TIMER PARA TERAPEUTA
+         // Reinicia el contador SOLO cuando entras en sms-verification
+    useEffect(() => {
+      if (currentStep === "sms-verification-terapeuta") {
+        setTimeLeft(30); // reinicia a 30 segundos
+      }
+    }, [currentStep]);
+
+    // Temporizador
+    useEffect(() => {
+      if (currentStep !== "sms-verification-terapeuta") return; // 👈 solo corre en sms-verification
+      if (timeLeft <= 0) return;
+
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }, [currentStep, timeLeft]);
+
+    // 🔹 Cuando entras en sms-verification, limpia los inputs
+    useEffect(() => {
+      if (currentStep === "sms-verification-terapeuta") {
         setCode(Array(6).fill(""));   // 👈 limpia los 6 dígitos
         setError(null);               // limpia errores previos
         setIsComplete(false);         // reinicia validación
@@ -233,6 +263,16 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
     setCurrentStep("sms-verification");
   };
 
+  const handleVerificationOptionSelectCentro = (optionId: string) => {
+    setSelectedOption(optionId);
+    setCurrentStep("sms-verification-centro");
+  };
+
+  const handleVerificationOptionSelectTerapeuta = (optionId: string) => {
+    setSelectedOption(optionId);
+    setCurrentStep("sms-verification-terapeuta");
+  };
+
   const verificationOptions = [
     {
       id: "email",
@@ -259,6 +299,17 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
   const handleBasicInfo = () => setCurrentStep("basic-info");
   const handleVerificationCode = () => setCurrentStep("verification-code");
 
+  const handleChooseTherapist = () => setCurrentStep("centro-flow");
+  const handleChooseStep1 = () => setCurrentStep("create-account-centro");
+  const handleNameFormCentro = () => setCurrentStep("name-form-centro");
+  const handleBasicInfoCentro = () => setCurrentStep("basic-info-centro");
+  const handleVerificationCodeCentro = () => setCurrentStep("verification-code-centro");
+
+  const handleChooseStep2 = () => setCurrentStep("create-account-terapeuta");
+  const handleNameFormTerapeuta = () => setCurrentStep("name-form-terapeuta");
+  const handleBasicInfoTerapeuta = () => setCurrentStep("basic-info-terapeuta");
+  const handleVerificationCodeTerapeuta = () => setCurrentStep("verification-code-terapeuta");
+
   const verificationMessages: Record<string, string> = {
     email: "acu***@gmail.com",
     sms: "+569 **** 8823",
@@ -266,32 +317,52 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
   };
 
 
-  // const handleBack = () => {
+  // };
+
+  // const handleBackCentro = () => {
   //   switch (currentStep) {
-  //     case "name-form":
-  //       setCurrentStep("create-account");
+  //     case "name-form-centro":
+  //       setCurrentStep("centro-flow");
   //       break;
-  //     case "basic-info":
-  //       setCurrentStep("name-form");
+  //     case "basic-info-centro":
+  //       setCurrentStep("name-form-centro");
   //       break;
-  //     case "verification-code":
-  //       setCurrentStep("basic-info");
+  //     case "verification-code-centro":
+  //       setCurrentStep("basic-info-centro");
   //       break;
-  //     case "sms-verification":
-  //       setCurrentStep("verification-code");
+  //     case "sms-verification-centro":
+  //       setCurrentStep("verification-code-centro");
   //       break;
   //     default:
   //       navigate("/login");
   //   }
   // };
 
+  // const handleBackTerapeuta = () => {
+  //   switch (currentStep) {
+  //     case "name-form-terapeuta":
+  //       setCurrentStep("centro-flow");
+  //       break;
+  //     case "basic-info-terapeuta":
+  //       setCurrentStep("name-form-terapeuta");
+  //       break;
+  //     case "verification-code-terapeuta":
+  //       setCurrentStep("basic-info-terapeuta");
+  //       break;
+  //     case "sms-verification-terapeuta":
+  //       setCurrentStep("verification-code-terapeuta");
+  //       break;
+  //     default:
+  //       navigate("/login");
+  //   }
+  // };
 
   return (
     <>
       
 <div className="relative w-full bg-[#F8FAF9] overflow-hidden min-h-screen">
         {/* Navigation */}
-      <TopNav />
+      <TopNavTerapeuta />
 
         {/* Main Content */}
         <div className="flex min-h-screen">
@@ -338,57 +409,53 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
                   <div className="flex-1 flex justify-center px-8">
                   {/* Step: choose-role */}
-                  
-              
-                  {currentStep === "choose-role" && (
-                    <>
-                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
-                    <CardContent className="p-8">
-                      <div className="space-y-4">
-                        {/* Opción Pacientes */}
-                        {/* Título principal */}
-                        
-                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
-                      ¡Regístrate!
-                    </h1>
-                        <div
-                          className="p-5 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
-                          onClick={handleChoosePatient}
-                        >
-                          <div>
-                            <p className="font-haas text-gray-900 font-semibold text-lg">
-                              Acured para pacientes
-                            </p>
-                            <p className="font-inter text-gray-600 text-sm">
-                              Soy paciente y quiero registrarme
-                            </p>
-                          </div>
-                          <ChevronRightIcon className="w-5 h-5 text-gray-500" />
+            
+
+
+
+                  {/* StepCentro: centroflow */}
+                  {currentStep === "centro-flow" && (
+                    <Card className="w-[500px] bg-white rounded-2xl shadow-lg">
+                      <CardContent className="p-8">
+                        {/* Encabezado */}
+                        <div className="text-center w-full">
+                          <h1 className="font-haas text-3xl text-gray-900 mb-2 leading-snug">
+                            Para comenzar tu registro
+                          </h1>
+                          <p className="font-inter font-bold text-[15px] ">
+                            Indícanos el tipo de usuario que eres
+                          </p>
                         </div>
 
-                        {/* Opción Acupunturistas */}
-                        <div
-                          className="p-5 rounded-lg bg-white hover:bg-gray-50 cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
-                          onClick={() => navigate("/registration-acupunturist")} 
-                        >
-                          <div>
-                            <p className="font-haas text-gray-900 font-semibold text-lg">
-                              Acured para acupunturistas
-                            </p>
-                            <p className="font-inter text-gray-600 text-sm">
-                              Soy acupunturista y me interesa administrar mis pacientes
-                            </p>
+                        {/* Opciones */}
+                        <div className="space-y-4 mt-6">
+                          <div
+                            className="p-5 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
+                            onClick={handleChooseStep2}
+                          >
+                            <span className="font-haas text-gray-900 font-semibold text-lg">
+                              Acupunturista individual
+                            </span>
+                            <ChevronRightIcon className="w-5 h-5 text-gray-500" />
                           </div>
-                          <ChevronRightIcon className="w-5 h-5 text-gray-500" />
+
+                          <div
+                            className="p-5 rounded-lg bg-white hover:bg-gray-50 cursor-pointer shadow-sm border border-gray-200 flex items-center justify-between transition"
+                            onClick={handleChooseStep1}
+                          >
+                            <span className="font-haas text-gray-900 font-semibold text-lg">
+                              Centro clínico de acupuntura
+                            </span>
+                            <ChevronRightIcon className="w-5 h-5 text-gray-500" />
+                          </div>
                         </div>
-                      </div>
                       </CardContent>
-                      </Card>
-                    </>
+                    </Card>
+
                   )}
 
-                  {/* Step: create-account */}
-                  {currentStep === "create-account" && (
+                  {/* StepCentro: create-account-centro */}
+                  {currentStep === "create-account-centro" && (
                     
                     <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
@@ -403,7 +470,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                       <div className="space-y-4">
                         {/* Botón Crear cuenta */}
                         <button
-                          onClick={handleNameForm}
+                          onClick={handleNameFormCentro}
                           className="w-full p-3 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] 
                                     border border-gray-200 shadow-sm text-primary-900 font-haas font-semibold 
                                     transition"
@@ -426,20 +493,396 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                     
                   )}
 
-                  {/* Step: name-form */}
-                  {currentStep === "name-form" && (
+                  {/* StepCentro: name-form-centro */}
+                  {currentStep === "name-form-centro" && (
+                    <Card className=" w-[550px] bg-white rounded-xl shadow-lg">
+                    <CardContent className="p-8">
+                      <div className="space-y-4">
+                        {/* Título principal */}
+                        <h1 className="font-haas text-center text-3xl text-gray-900 mb-4 leading-snug">
+                          Crea una cuenta en Acured
+                        </h1>
+
+                        {/* Subtítulo */}
+                        <p className="font-inter text-center text-base text-gray-900 font-semibold mb-6">
+                          Ingresa el nombre de tu centro o institución
+                        </p>
+                        <br />
+
+                        {/* Inputs */}
+                        <div className="space-y-4 mb-6">
+                          <input
+                            type="text"
+                            placeholder="Nombres"
+                            className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332]"
+                          />
+                        
+                        </div>
+                        <br />
+
+                        {/* Botón */}
+                        <div className="flex justify-between w-full">
+                          <button
+                            onClick={() => setCurrentStep("create-account-centro")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
+                          <button
+                            className="px-6 py-2 bg-[#1B4332] text-white rounded-full shadow-md hover:bg-[#163828] transition"
+                            onClick={handleBasicInfoCentro}
+                          >
+                            Siguiente
+                          </button>
+                        </div>
+                      </div>
+                      </CardContent>
+                      </Card>
+
+                  )}
+
+                  {/* StepCentro: basic-info-centro */}
+                  {currentStep === "basic-info-centro" && (
+                    <Card className="w-full bg-white rounded-2xl shadow-lg my-40">
+
+                    <CardContent className="p-8 space-y-4 ">
+
+                    <div className="flex flex-col items-center justify-center w-full px-6  ">
+
+                      <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
+                        <div className="flex flex-col items-center gap-6 w-full">
+                          <h1 className="font-haas text-center text-2xl text-gray-900 mb-4 leading-snug">
+                                Información Básica
+                              </h1>
+                          <div className="flex flex-col items-start gap-6 pb-4 w-full">
+                            
+                          
+                              
+
+                            <div className="flex flex-col items-start gap-4 w-full">
+                              <div className="inline-flex items-center">
+                                <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
+                                  Información de contacto
+                                </h3>
+                              </div>
+
+                              <div className="flex flex-col items-start gap-6 w-full">
+                                <div className="flex items-start gap-2 w-full">
+                                  <Select defaultValue="+569">
+                                    <SelectTrigger className="w-[87px] px-3 py-1.5 bg-primary-50 rounded border-0 justify-between">
+                                      <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {countryCodeOptions.map((code) => (
+                                        <SelectItem key={code.value} value={code.value}>
+                                          {code.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+
+                                  <Input
+                                    className="flex-1 p-2 bg-primary-50 rounded border-0"
+                                    placeholder="Numero de teléfono"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col items-start gap-2 w-full">
+                              <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
+                                Email que utilizará tu centro para iniciar sesión
+                              </h3>
+
+                              <div className="flex flex-col items-start gap-3 w-full">
+                                <p className="font-inter font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
+                                  Recibirás un email con un código de confirmación
+                                </p>
+
+                                <Input
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Email"
+                                />
+
+                                
+
+
+                                <Input
+                                  type="password"
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Crea una contraseña"
+                                />
+                                <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                                  <li className="text-green-600">
+                                    ✓ Mínimo 8 caracteres
+                                  </li>
+                                  <li>Al menos una letra mayúscula</li>
+                                  <li>Al menos una letra minúscula</li>
+                                  <li>Al menos un número</li>
+                                  <li>Al menos un carácter especial (!@#$%^&amp;*./)</li>
+                                </ul>
+
+                                
+
+                                <Input
+                                  type="password"
+                                  className="h-[33px] p-2 bg-primary-50 rounded border-0"
+                                  placeholder="Confirma tu contraseña aquí"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex justify-between w-full">
+                        <button
+                            onClick={() => setCurrentStep("name-form-centro")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
+                        <Button
+                          className="inline-flex px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center"
+                          onClick={handleVerificationCodeCentro}
+                        >
+                          <span className="font-semibold text-neutralswhite text-sm leading-5">
+                            Confirmar
+                          </span>
+                          <ChevronRightIcon className="w-5 h-5 text-gray-100" />
+                        </Button>
+                      
+                          </div>
+                      </div>
+                    </div>
+                    </CardContent>
+                    </Card>
+                    
+                  )}
+
+                  {/* StepCentro: verification-code-centro */}
+                  {currentStep === "verification-code-centro" && (
+                    <Card className="max-w-lg bg-white rounded-2xl shadow-md">
+                      <CardContent className="p-8 space-y-6">
+                        {/* Encabezado */}
+                        <header className="text-center space-y-2">
+                          <h1 className="font-haas text-[30px] font-haas text-gray-900">
+                            Código de verificación
+                          </h1>
+                          <p className="font-inter text-[16px] font-bold text-gray-800">
+                            Elige cómo quieres recibir tu código de verificación.
+                          </p>
+                        </header>
+
+                        {/* Opciones */}
+                        <div className="space-y-4">
+                          {verificationOptions.map((option) => (
+                            <button
+                              key={option.id}
+                              onClick={() => handleVerificationOptionSelectCentro(option.id)}
+                              className={`flex items-center justify-between w-full p-5 text-left rounded-lg border shadow-sm transition ${
+                                selectedOption === option.id
+                                  ? "bg-[#F2F7F4] border-[#d3e0d7]"
+                                  : "bg-white border-gray-200 hover:bg-gray-50"
+                              }`}
+                            >
+                              <div>
+                                <h3 className="font-inter font-bold text-gray-800 text-[20px]">
+                                  {option.title}
+                                </h3>
+                                <p className="mt-1 font-inter text-[13px] font-semibold text-gray-600">{option.description}</p>
+                              </div>
+                              <ChevronRightIcon className="w-5 h-5 text-gray-500" />
+                            </button>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* StepCentro: sms-verification-centro */}
+                  {currentStep === "sms-verification-centro" && (
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
+                      <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
+                        <div className="flex flex-col items-center gap-2 w-full">
+                          {/* Título */}
+                          <header className="flex flex-col items-center gap-2 w-full">
+                            <h1 className="text-center text-[30px] font-haas text-primary-900">
+                              Código de verificación
+                            </h1>
+                            <p className="text-center text-md text-gray-700">
+                              Ingrese el código de verificación de 6 dígitos 
+                              <br />
+                              enviado a{" "}
+                              <span className="font-bold">
+                                {verificationMessages[selectedOption] || "+569 **** 8823"}
+                              </span>.
+                            </p>
+
+                          </header>
+
+                          {/* Inputs */}
+                          <div className="flex justify-center gap-3 mb-2">
+                            {code.map((digit: string, index: number) => (
+                              <input
+                                key={index}
+                                type="text"
+                                maxLength={1}
+                                value={digit}
+                                onChange={(e) => handleChange(e.target.value, index)}
+                                onKeyDown={(e) => handleKeyDown(e, index)}
+                                ref={(el) => (inputsRef.current[index] = el)}
+                                className={`w-12 h-12 text-center rounded-md border text-lg font-medium ${
+                                  error
+                                    ? "border-red-500 bg-red-50 text-red-600"
+                                    : "border-gray-300 bg-gray-100 text-gray-900"
+                                }`}
+                              />
+                            ))}
+                          </div>
+
+                          {/* Error */}
+                        {error && (
+                          <p className="text-red-600 text-sm font-medium text-left w-full">
+                            &nbsp; &nbsp; &nbsp; {error}
+                          </p>
+                        )}
+
+
+                          {/* Timer */}
+                          <div className="text-center text-sm text-gray-600">
+                            {`00:${timeLeft.toString().padStart(2, "0")}`}
+                          </div>
+                          {/* Reenviar (siempre visible) */}
+                          <div className="text-center">
+                            <button
+                              className="text-primary-900 underline text-[14px]"
+                              onClick={() => setCurrentStep("verification-code-centro")} // 👈 vuelve al paso de selección
+                            >
+                              Si no recibiste ningun código,
+                              <br />
+                              selecciona otro método de envío 
+                            </button>
+                          </div>
+
+                        </div>
+
+                        {/* Botones */}
+                        <div className="flex justify-between w-full">
+                          <button
+                            onClick={() => setCurrentStep("verification-code-centro")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
+                          <button
+                            onClick={() => {
+                              const enteredCode = code.join("");
+                              if (enteredCode === "111111") {
+                                setError("Código de verificación incorrecto");
+                              } else if (!code.includes("")) {
+                                setError(null);
+                                setCurrentStep("success-confirmation-centro"); // 👉 pasa al paso de nueva contraseña
+                              }
+                            }}
+                            disabled={code.includes("")}
+                            className={`px-6 py-2 rounded-3xl flex items-center gap-2 ${
+                              code.includes("")
+                                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                : "bg-primary-900 text-white hover:bg-primary-800"
+                            }`}
+                          >
+                            Confirmar <ChevronRightIcon className="w-5 h-5 " />
+                          </button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                  )}
+
+                   {/* StepCentro: success-confirmation-centro */}
+                  {currentStep === "success-confirmation-centro" && (
+                    <Card className="w-[368px] bg-neutralswhite rounded-lg shadow-shadow-sm">
+                      <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
+                        <div className="flex flex-col items-center gap-6 relative self-stretch w-full flex-[0_0_auto]">
+                          <div className="flex flex-col items-center gap-3 relative self-stretch w-full flex-[0_0_auto]">
+                            <h1 className="font-haas relative w-fit mt-[-1.00px] [font-family:'Neue_Haas_Grotesk_Display_Pro-55Rg',Helvetica] font-normal text-[#2e3d33] text-[27px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
+                              ¡Ya estás registrado!
+                            </h1>
+
+                            <p className="font-inter font-bold relative self-stretch font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-black text-[length:var(--heading-h7-font-size)] text-center tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
+                              A continuación selecciona tu plan y comienza tu semana
+                              de prueba gratis.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start justify-around gap-2.5 relative self-stretch w-full flex-[0_0_auto]">
+                          <Button className="h-auto bg-primary-900 hover:bg-primary-800 text-neutralswhite px-4 py-2 rounded-3xl">
+                            <span className="inline-flex items-center gap-1">
+                              <span className="mt-[-1.00px] [font-family:'Inter',Helvetica]  leading-5 whitespace-nowrap text-sm">
+                                Seleccionar plan 
+                              </span> 
+                              <ChevronRightIcon className="w-5 h-5 " />
+                              
+                            </span>
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                  )}
+
+                  {/* StepTerapeuta: create-account-terapeuta*/}
+                  {currentStep === "create-account-terapeuta" && (
+                    
+                    <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
+                    <CardContent className="p-8">
+                    {/* Título principal */}
+                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                      Crea una cuenta o regístrate a
+                      <br />
+                      través de Google
+                    </h1>
+
+
+                      <div className="space-y-4">
+                        {/* Botón Crear cuenta */}
+                        <button
+                          onClick={handleNameFormTerapeuta}
+                          className="w-full p-3 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] 
+                                    border border-gray-200 shadow-sm text-primary-900 font-haas font-semibold 
+                                    transition"
+                        >
+                          Crear cuenta
+                        </button>
+
+                        {/* Botón Google */}
+                        <button
+                          className="w-full p-3 rounded-lg bg-white hover:bg-gray-50 
+                                    border border-gray-200 shadow-sm flex items-center justify-center gap-2 
+                                    text-primary-900 font-haas font-semibold transition"
+                        >
+                          <span className="text-lg">G</span>
+                          <span>Continuar con Google</span>
+                        </button>
+                      </div>
+                      </CardContent>
+                      </Card>
+                    
+                  )}
+
+                  {/* Step: name-form-terapeuta */}
+                  {currentStep === "name-form-terapeuta" && (
                     <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
                       <div className="space-y-4">
                         {/* Título principal */}
                         <h1 className="font-haas text-center text-3xl text-gray-900 mb-4 leading-snug">
-                          Crea una cuenta para
-                          <br />
-                          pacientes en Acured
+                          Crea una cuenta en Acured
+                     
                         </h1>
 
                         {/* Subtítulo */}
-                        <p className="font-inter text-center text-base text-gray-900 font-semibold mb-6">
+                        <p className="font-inter text-center text-base text-gray-900 font-bold mb-6">
                           Ingresa tu nombre y apellido
                         </p>
 
@@ -458,10 +901,16 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         </div>
 
                         {/* Botón */}
-                        <div className="flex justify-end">
+                        <div className="flex justify-between w-full">
+                          <button
+                            onClick={() => setCurrentStep("create-account-terapeuta")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
                           <button
                             className="px-6 py-2 bg-[#1B4332] text-white rounded-full shadow-md hover:bg-[#163828] transition"
-                            onClick={handleBasicInfo}
+                            onClick={handleBasicInfoTerapeuta}
                           >
                             Siguiente
                           </button>
@@ -472,9 +921,9 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
                   )}
 
-                  {/* Step: basic-info */}
-                  {currentStep === "basic-info" && (
-                    <Card className="w-full bg-white rounded-2xl shadow-lg my-8">
+                  {/* Step: basic-info-terapeuta */}
+                  {currentStep === "basic-info-terapeuta" && (
+                    <Card className="w-full bg-white rounded-2xl shadow-lg my-20">
 
                     <CardContent className="p-8 space-y-4 ">
 
@@ -671,10 +1120,16 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex w-full justify-end">
+                        <div className="flex justify-between w-full">
+                          <button
+                            onClick={() => setCurrentStep("name-form-terapeuta")}
+                            className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
+                          >
+                            Atrás
+                          </button>
                         <Button
                           className="inline-flex px-4 py-2 bg-primary-900 rounded-3xl items-center justify-center"
-                          onClick={handleVerificationCode}
+                          onClick={handleVerificationCodeTerapeuta}
                         >
                           <span className="font-semibold text-neutralswhite text-sm leading-5">
                             Confirmar
@@ -690,8 +1145,8 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                     
                   )}
 
-                  {/* Step: verification-code */}
-                  {currentStep === "verification-code" && (
+                  {/* Step: verification-code-terapeuta */}
+                  {currentStep === "verification-code-terapeuta" && (
                     <Card className="max-w-lg bg-white rounded-2xl shadow-md">
                       <CardContent className="p-8 space-y-6">
                         {/* Encabezado */}
@@ -709,7 +1164,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                           {verificationOptions.map((option) => (
                             <button
                               key={option.id}
-                              onClick={() => handleVerificationOptionSelect(option.id)}
+                              onClick={() => handleVerificationOptionSelectTerapeuta(option.id)}
                               className={`flex items-center justify-between w-full p-5 text-left rounded-lg border shadow-sm transition ${
                                 selectedOption === option.id
                                   ? "bg-[#F2F7F4] border-[#d3e0d7]"
@@ -730,8 +1185,8 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                     </Card>
                   )}
 
-                  {/* Step: sms-verification */}
-                  {currentStep === "sms-verification" && (
+                  {/* Step: sms-verification-terapeuta */}
+                  {currentStep === "sms-verification-terapeuta" && (
                     <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                       <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
                         <div className="flex flex-col items-center gap-2 w-full">
@@ -787,7 +1242,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                           <div className="text-center">
                             <button
                               className="text-primary-900 underline text-[14px]"
-                              onClick={() => setCurrentStep("verification-code")} // 👈 vuelve al paso de selección
+                              onClick={() => setCurrentStep("verification-code-terapeuta")} // 👈 vuelve al paso de selección
                             >
                               Si no recibiste ningun código,
                               <br />
@@ -800,7 +1255,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         {/* Botones */}
                         <div className="flex justify-between w-full">
                           <button
-                            onClick={() => setCurrentStep("verification-code")}
+                            onClick={() => setCurrentStep("verification-code-terapeuta")}
                             className="px-6 py-2 bg-gray-100 rounded-3xl shadow text-primary-900"
                           >
                             Atrás
@@ -812,7 +1267,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                                 setError("Código de verificación incorrecto");
                               } else if (!code.includes("")) {
                                 setError(null);
-                                setCurrentStep("success-confirmation"); // 👉 pasa al paso de nueva contraseña
+                                setCurrentStep("success-confirmation-terapeuta"); // 👉 pasa al paso de nueva contraseña
                               }
                             }}
                             disabled={code.includes("")}
@@ -822,8 +1277,41 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                                 : "bg-primary-900 text-white hover:bg-primary-800"
                             }`}
                           >
-                            Confirmar <ChevronRightIcon className="w-5 h-5" />
+                            Confirmar <ChevronRightIcon className="w-5 h-5 " />
                           </button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                  )}
+
+                  {/* StepCentro: success-confirmation-terapeuta */}
+                  {currentStep === "success-confirmation-terapeuta" && (
+                    <Card className="w-[368px] bg-neutralswhite rounded-lg shadow-shadow-sm">
+                      <CardContent className="flex flex-col items-end justify-center gap-8 p-8">
+                        <div className="flex flex-col items-center gap-6 relative self-stretch w-full flex-[0_0_auto]">
+                          <div className="flex flex-col items-center gap-3 relative self-stretch w-full flex-[0_0_auto]">
+                            <h1 className="font-haas relative w-fit mt-[-1.00px] [font-family:'Neue_Haas_Grotesk_Display_Pro-55Rg',Helvetica] font-normal text-[#2e3d33] text-[27px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
+                              ¡Ya estás registrado!
+                            </h1>
+
+                            <p className="font-inter font-bold relative self-stretch font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-black text-[length:var(--heading-h7-font-size)] text-center tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
+                              A continuación selecciona tu plan y comienza tu semana
+                              de prueba gratis.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start justify-around gap-2.5 relative self-stretch w-full flex-[0_0_auto]">
+                          <Button className="h-auto bg-primary-900 hover:bg-primary-800 text-neutralswhite px-4 py-2 rounded-3xl">
+                            <span className="inline-flex items-center gap-1">
+                              <span className="mt-[-1.00px] [font-family:'Inter',Helvetica]  leading-5 whitespace-nowrap text-sm">
+                                Seleccionar plan 
+                              </span> 
+                              <ChevronRightIcon className="w-5 h-5 " />
+                              
+                            </span>
+                          </Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -848,7 +1336,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
         {/* Footer */}
         
-        <Footer
+        <FooterTerapeuta
           onFAQClick={() => setIsFAQModalOpen(true)}
           onSupportClick={() => setIsSupportModalOpen(true)}
         />
@@ -864,14 +1352,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
         onClose={() => setIsMenuDropdownOpen(false)}
         buttonRef={menuButtonRef}
       />
-      <FAQModal
-        isOpen={isFAQModalOpen}
-        onClose={() => setIsFAQModalOpen(false)}
-      />
-      <SupportModal
-        isOpen={isSupportModalOpen}
-        onClose={() => setIsSupportModalOpen(false)}
-      />
+      
     </>
   );
 };
