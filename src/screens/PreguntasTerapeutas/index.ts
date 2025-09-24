@@ -1,0 +1,1 @@
+export { PreguntasTerapeutas } from "./PreguntasTerapeuta";

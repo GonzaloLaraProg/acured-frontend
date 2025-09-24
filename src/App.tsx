@@ -8,6 +8,8 @@ import { ConfirmationPayment } from "./screens/ConfirmationPayment";
 import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado"; 
 import { TherapistDashboard } from "./screens/TherapistDashboard";
 import { SearchResults } from "./screens/SearchResults";
+import { PreguntasTerapeutas } from "./screens/PreguntasTerapeutas";
+import { SupportModalTerapeuta } from "./screens/SupportModalTerapeuta";
 import { Login } from "./screens/Login";
 import { ServiceDetails } from "./screens/ServiceDetails";
 import { PatientDashboard } from "./screens/PatientDashboard";
@@ -17,6 +19,10 @@ import { LoginRegistration } from "./screens/LoginRegistration";
 import { CenterSchedule } from "./screens/CenterSchedule";
 import { CenterPayment } from "./screens/CenterPayment";
 
+import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
+import { Registration } from "./screens/Registration";
+import WithTopNavTerapeuta from "./components/WithTopNavTerapeuta";
+
 // Component to scroll to top on route change
 const ScrollToTop = () => {
   useEffect(() => {
@@ -25,8 +31,7 @@ const ScrollToTop = () => {
   return null;
 };
 
-import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
-import { Registration } from "./screens/Registration";
+
 
 const router = createBrowserRouter([
   {
@@ -42,7 +47,6 @@ const router = createBrowserRouter([
       { path: "/schedule-selection", element: <ScheduleSelection /> },
       { path: "/confirmation-payment", element: <ConfirmationPayment /> },
       { path: "/VistaPrellenado", element: <VistaPrellenado /> },
-      { path: "/therapist-dashboard", element: <TherapistDashboard /> },
       { path: "/search-results", element: <SearchResults /> },
       { path: "/login", element: <Login /> },
       { path: "/service-details/:serviceId?", element: <ServiceDetails /> },
@@ -55,6 +59,19 @@ const router = createBrowserRouter([
       { path: "/registration", element: <Registration /> },
     ],
   },
+  {
+  element: (
+      <>
+        <ScrollToTop />
+        <WithTopNavTerapeuta />   {/* 👈 Navbar para páginas de terapeuta */}
+      </>
+    ),
+    children: [
+      { path: "/therapist-dashboard", element: <TherapistDashboard /> },
+      { path: "/preguntas-terapeutas", element: <PreguntasTerapeutas/> },
+      { path: "/SupportModalTerapeuta", element: <SupportModalTerapeuta/> },
+],
+},
 ]);
 
 export const App = () => {

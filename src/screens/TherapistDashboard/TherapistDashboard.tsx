@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
-import { Footer } from "../../components/Footer";
+import { FooterTerapeuta } from "../../components/FooterTerapeuta";
 import TopNav from "../../components/TopNav";
+import { Link } from "react-router-dom";
+import TopNavTerapeuta from "../../components/TopNavTerapeuta";
 
 export const TherapistDashboard = (): JSX.Element => {
   const navigate = useNavigate();
@@ -119,7 +121,7 @@ export const TherapistDashboard = (): JSX.Element => {
 
   return (
     <>
-      <TopNav />
+      <TopNavTerapeuta />
       <div className="relative w-full bg-primary-50 overflow-hidden min-h-screen">
 
       {/* Background image positioned behind hero section */}
@@ -133,21 +135,38 @@ export const TherapistDashboard = (): JSX.Element => {
         {/* Hero Section */}
         <Card className="flex flex-col items-center justify-center gap-8 px-16 py-16 relative bg-primary-100 rounded-3xl overflow-hidden shadow-shadow-sm w-full max-w-[1384px] mx-auto mb-8">
           <CardContent className="flex flex-col items-center gap-8 p-0">
-            <div className="flex flex-col items-center justify-center gap-4">
-              <h1 className="w-full max-w-[740px] [font-family:'Neue_Haas_Grotesk_Display_Pro-55Rg',Helvetica] font-normal text-primary-900 text-[52px] text-center tracking-[0] leading-[57.2px]">
-                Sistema de Agendamiento y Asistencia Clínica de Acupuntura
-              </h1>
 
-              <h2 className="font-subtitle-1 font-[number:var(--subtitle-1-font-weight)] text-primary-900 text-[length:var(--subtitle-1-font-size)] text-center tracking-[var(--subtitle-1-letter-spacing)] leading-[var(--subtitle-1-line-height)] whitespace-nowrap [font-style:var(--subtitle-1-font-style)]">
-                Acu-red Gestión y Tecnología para la Medicina China
-              </h2>
-            </div>
+
+<div className="flex flex-col items-center justify-center gap-4">
+  <h1 className="font-hass w-full max-w-[780px] [font-family:'Neue_Haas_Grotesk_Display_Pro-55Rg',Helvetica] font-normal text-primary-900 text-[52px] text-center tracking-[0] leading-[57.2px]">
+    Sistema de Agendamiento y Asistencia Clínica de Acupuntura
+  </h1>
+
+  <h2 className="font-inter font-[number:var(--subtitle-1-font-weight)] text-primary-900 text-[length:var(--subtitle-1-font-size)] text-center tracking-[var(--subtitle-1-letter-spacing)] leading-[var(--subtitle-1-line-height)] whitespace-nowrap [font-style:var(--subtitle-1-font-style)]">
+    Acured Gestión y Tecnología para la Medicina China
+  </h2>
+
+  {/* Botones */}
+  <div className="flex items-center justify-center gap-6 mt-4">
+    <Link
+      to="/registration"
+      className="bg-primary-900 text-white px-6 py-2 rounded-full font-semibold shadow hover:bg-primary-800 transition"
+    >
+      ¡Regístrate aquí!
+    </Link>
+
+    <button className="text-primary-900 underline hover:text-primary-700 transition">
+      Obtén una demo gratis aquí
+    </button>
+  </div>
+</div>
+
 
             {/* Management System Image */}
             <Card className="w-full max-w-[1000px] bg-white rounded-2xl shadow-lg overflow-hidden">
               <CardContent className="p-0">
                 <img 
-                  src="/sistema.png" 
+                  src="/terapeuta1.png" 
                   alt="Sistema de Gestión de Pacientes" 
                   className="w-full h-auto object-cover"
                 />
@@ -556,7 +575,7 @@ export const TherapistDashboard = (): JSX.Element => {
         </section>
 
       {/* Footer */}
-      <Footer />
+      <FooterTerapeuta />
 
       </div>
     </>

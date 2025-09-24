@@ -81,7 +81,7 @@ export const servicesContent: Record<string, { title: string; content: JSX.Eleme
         <p className="font-bold">
          Un poco de historia…
         </p>
-        <p>
+        <p >
         Los orígenes de la acupuntura se remontan a la antigüedad, aunque es difícil precisar exactamente cuándo surgió como práctica médica estructurada. Evidencias arqueológicas indican que durante el período Neolítico (alrededor del 5.000 a.C.) ya se utilizaban herramientas de piedra afiladas, conocidas como bian shi, empleadas probablemente con fines terapéuticos. Sin embargo, estas prácticas deben entenderse como antecedentes rudimentarios, y no como acupuntura en el sentido moderno del término.
         </p>
         <p>
