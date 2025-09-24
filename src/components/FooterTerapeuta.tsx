@@ -2,7 +2,7 @@ import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 import React from "react";
 import { FAQModal } from "./FAQModal";
 import { SupportModal } from "./SupportModal";
-import { ContactFormSection } from "./ContactFormSection"; // 👈 importa el modal de contacto
+import { ContactTerapeuta } from "./ContactTerapeuta"; // 👈 importa el modal de contacto
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ export const FooterTerapeuta = ({ }: FooterProps): JSX.Element => {
   };
 
   const handleContactClick = () => {
-    setIsContactModalOpen(true); // 👈 abre modal contacto
+    navigate("/ContactTerapeuta");
   };
 
   // Footer links data
@@ -121,8 +121,7 @@ export const FooterTerapeuta = ({ }: FooterProps): JSX.Element => {
 
       {/* Modals */}
       
-      <SupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
-      <ContactFormSection isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
+      
     </>
   );
 };

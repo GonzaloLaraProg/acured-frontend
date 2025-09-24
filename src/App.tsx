@@ -22,6 +22,8 @@ import { CenterPayment } from "./screens/CenterPayment";
 import { VistaRecuperarTu } from "./screens/VistaRecuperarTu";
 import { Registration } from "./screens/Registration";
 import WithTopNavTerapeuta from "./components/WithTopNavTerapeuta";
+import { ContactTerapeuta } from "./screens/ContactTerapeuta";
+import { SuccessPage } from "./screens/SuccessPage";
 
 // Component to scroll to top on route change
 const ScrollToTop = () => {
@@ -70,7 +72,9 @@ const router = createBrowserRouter([
       { path: "/therapist-dashboard", element: <TherapistDashboard /> },
       { path: "/preguntas-terapeutas", element: <PreguntasTerapeutas/> },
       { path: "/SupportModalTerapeuta", element: <SupportModalTerapeuta/> },
-],
+      { path: "/ContactTerapeuta", element: <ContactTerapeuta/> },
+      { path: "/SuccessPage", element: <SuccessPage/> },
+],    
 },
 ]);
 
