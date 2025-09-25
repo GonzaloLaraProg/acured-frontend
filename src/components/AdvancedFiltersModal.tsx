@@ -102,10 +102,11 @@ export const AdvancedFiltersModal: React.FC<AdvancedFiltersModalProps> = ({
 
       {/* Modal */}
       <div
-        className="relative bg-white rounded-2xl shadow-lg 
+        className="relative bg-white rounded-xl shadow-lg 
         w-full max-w-[700px] mx-4 mt-[90px] 
         max-h-[85vh] flex flex-col overflow-hidden"
       >
+        <br />
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <h2 className="text-lg font-medium text-gray-900">Filtros avanzados</h2>
