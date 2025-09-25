@@ -8,6 +8,9 @@ import { ServiceSelection } from "./screens/ServiceSelection";
 import { ConfirmationPayment } from "./screens/ConfirmationPayment";
 import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado"; 
 import { TherapistDashboard } from "./screens/TherapistDashboard";
+import { TerapeutaDashboard } from "./screens/TerapeutaDashboard/TerapeutaDashboard";
+import { CentroDashboard } from "./screens/CentroDashboard/CentroDashboard";
+import { AdminDashboard } from "./screens/AdminDashboard/AdminDashboard";
 import { SearchResults } from "./screens/SearchResults";
 import { PreguntasTerapeutas } from "./screens/PreguntasTerapeutas";
 import { SupportModalTerapeuta } from "./screens/SupportModalTerapeuta";
@@ -72,6 +75,9 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "/therapist-dashboard", element: <TherapistDashboard /> },
+      { path: "/terapeuta-dashboard", element: <TerapeutaDashboard /> },
+      { path: "/centro-dashboard", element: <CentroDashboard /> },
+      { path: "/admin-dashboard", element: <AdminDashboard /> },
       { path: "/preguntas-terapeutas", element: <PreguntasTerapeutas/> },
       { path: "/SupportModalTerapeuta", element: <SupportModalTerapeuta/> },
       { path: "/ContactTerapeuta", element: <ContactTerapeuta/> },

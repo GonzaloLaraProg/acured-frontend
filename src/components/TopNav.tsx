@@ -186,7 +186,10 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
                 variant="ghost"
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#d3e0d7] hover:bg-[#c5d4cc]"
                 onClick={() => setIsMenuDropdownOpen((v) => !v)}
-              > Sofía Castro
+              >
+                <span className="text-sm text-gray-700 font-medium">
+                  {user?.name}
+                </span>
                 <UserIcon className="w-4 h-4 text-gray-600" />
               </Button>
             </div>

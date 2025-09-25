@@ -167,7 +167,9 @@ export default function TopNavDefault(): JSX.Element {
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#d3e0d7] hover:bg-[#c5d4cc]"
                 onClick={() => setIsMenuDropdownOpen((v) => !v)}
               >
-                <span className="text-[16px] text-gray-700 font-medium">Hospital Félix Bulnes</span>
+                <span className="text-[16px] text-gray-700 font-medium">
+                  {user?.name}
+                </span>
                 <UserIcon className="w-4 h-4 text-gray-600" />
               </Button>
             </div>

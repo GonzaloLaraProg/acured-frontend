@@ -7,19 +7,22 @@ import { Footer } from "../../components/Footer";
 import TopNav from "../../components/TopNav";
 import { FAQModal } from "../../components/FAQModal";
 import { SupportModal } from "../../components/SupportModal";
-import { useAuth } from "../../context/AuthContext"; // 👈 importamos el contexto
-
+import { useAuth, PREDEFINED_USERS } from "../../context/AuthContext";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // 👈 usamos login del contexto
+  const { login } = useAuth();
   const queryParams = new URLSearchParams(location.search);
   const step = queryParams.get("step");
 
   const [isFAQModalOpen, setIsFAQModalOpen] = React.useState(false);
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
-
-  
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [currentStep, setCurrentStep] = React.useState<
     "initial" | "patient-login" | "therapist-login"
@@ -36,6 +39,52 @@ export const Login = (): JSX.Element => {
 
   const handleCreateAccount = () => {
     navigate("/registration");
+  };
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError("Por favor, completa todos los campos");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+
+    try {
+      // Buscar el usuario por email y contraseña
+      const user = PREDEFINED_USERS.find(u => u.email === email && u.password === password);
+      
+      if (!user) {
+        setError("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
+        setIsLoading(false);
+        return;
+      }
+
+      // Validar que el tipo de usuario coincida con el paso actual
+      if (currentStep === "patient-login" && user.role !== "patient") {
+        setError("Este usuario no es un paciente. Por favor, usa las credenciales de paciente o selecciona 'Acupunturista'.");
+        setIsLoading(false);
+        return;
+      }
+
+      if (currentStep === "therapist-login" && user.role === "patient") {
+        setError("Este usuario es un paciente. Por favor, usa las credenciales de acupunturista o selecciona 'Paciente'.");
+        setIsLoading(false);
+        return;
+      }
+
+      // Si todo está correcto, hacer login
+      const success = await login(email, password);
+      if (success) {
+        navigate(user.dashboardRoute);
+      } else {
+        setError("Error al iniciar sesión. Por favor, intenta de nuevo.");
+      }
+    } catch (err) {
+      setError("Error al iniciar sesión. Por favor, intenta de nuevo.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -95,20 +144,30 @@ export const Login = (): JSX.Element => {
                 {currentStep === "patient-login" && (
                   <>
                     <h1 className="font-haas text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
-                      Ingresa tu correo electrónico y contraseña (Paciente).
+                      Ingresa tu correo electrónico y contraseña
                     </h1>
 
                     <div className="space-y-3">
                       <input
                         type="email"
                         placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
                       />
                       <input
                         type="password"
                         placeholder="Contraseña"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
                       />
+
+                      {error && (
+                        <div className="text-red-600 text-sm text-center bg-red-50 p-2 rounded">
+                          {error}
+                        </div>
+                      )}
 
                       {/* Google button */}
                       <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-inter">
@@ -135,17 +194,11 @@ export const Login = (): JSX.Element => {
                           Crear cuenta
                         </button>
                         <button
-                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter"
-                          onClick={() => {
-                            login({
-                              role: "patient",
-                              name: "Paciente Demo",
-                              email: "paciente@demo.com",
-                            });
-                            navigate("/patient-dashboard");
-                          }}
+                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter disabled:opacity-50"
+                          onClick={handleLogin}
+                          disabled={isLoading}
                         >
-                          Iniciar sesión
+                          {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
                         </button>
                       </div>
                     </div>
@@ -156,20 +209,30 @@ export const Login = (): JSX.Element => {
                 {currentStep === "therapist-login" && (
                   <>
                     <h1 className="font-haas text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
-                      Ingresa tu correo electrónico y contraseña (Acupunturista).
+                      Ingresa tu correo electrónico y contraseña
                     </h1>
 
                     <div className="space-y-3">
                       <input
                         type="email"
                         placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
                       />
                       <input
                         type="password"
                         placeholder="Contraseña"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
                       />
+
+                      {error && (
+                        <div className="text-red-600 text-sm text-center bg-red-50 p-2 rounded">
+                          {error}
+                        </div>
+                      )}
 
                       {/* Google button */}
                       <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-inter">
@@ -196,17 +259,11 @@ export const Login = (): JSX.Element => {
                           Crear cuenta
                         </button>
                         <button
-                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter"
-                          onClick={() => {
-                            login({
-                              role: "therapist",
-                              name: "Acupunturista Demo",
-                              email: "acupunturista@demo.com",
-                            });
-                            navigate("/therapist-dashboard");
-                          }}
+                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter disabled:opacity-50"
+                          onClick={handleLogin}
+                          disabled={isLoading}
                         >
-                          Iniciar sesión
+                          {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
                         </button>
                       </div>
                     </div>
