@@ -115,7 +115,7 @@ export const MenuDropdownTerapeuta: React.FC<MenuDropdownProps> = ({
           <button
             onClick={() => {
               logout(); // 👈 cierra sesión
-              navigate("/");
+              navigate("/therapist-dashboard");
               onClose();
             }}
             className="w-full text-left text-primary-900 font-semibold underline text-sm hover:text-primary-700"
