@@ -35,7 +35,7 @@ const PREDEFINED_USERS: User[] = [
     name: "Acupunturista Individual",
     email: "acupunturista@demo.com",
     password: "acupunturista123",
-    dashboardRoute: "/therapist-dashboard"
+    dashboardRoute: "/terapeuta/calendario"
   },
   {
     id: "3",

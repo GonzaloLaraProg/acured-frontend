@@ -1,0 +1,1 @@
+export { PatientInfoModal } from "./PatientInfoModal";
