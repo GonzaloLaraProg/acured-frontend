@@ -71,6 +71,7 @@ export const NavigationSection = ({
             { icon: "credit-card", text: "Pagos y facturación", path: "/terapeuta/pagos" },
             { icon: "/icon-person-outline.svg", text: "Perfil", path: "/terapeuta/perfil" },
             { icon: "/icon-document-text-outline.svg", text: "Formularios", path: "/terapeuta/formularios" },
+            { icon: "credit-card", text: "Subscripción", path: "/terapeuta/formularios" },
           ],
         },
       ];
@@ -120,7 +121,7 @@ export const NavigationSection = ({
       case "clinica":
         return "Administrador";
       case "terapeuta":
-        return "Terapeuta";
+        return "Terapeuta Individual";
       case "paciente":
         return "Paciente";
       default:
@@ -166,16 +167,17 @@ export const NavigationSection = ({
         <div className="flex flex-col h-full lg:min-h-screen">
           <div className="flex flex-col h-full lg:h-auto overflow-y-auto lg:overflow-visible">
             {/* Logo */}
-            <div className="spacing-6 flex-shrink-0">
+            <div className="spacing-6 flex-shrink-0 ml-6">
               <img
                 className="h-8 w-auto"
                 alt="Acured LOGO"
                 src="/acured-logo-1.png"
               />
             </div>
+            <br />
 
             {/* Usuario */}
-            <div className="spacing-6 flex-shrink-0">
+            <div className="spacing-6 flex-shrink-0 ml-6">
               <div className="flex items-center gap-3">
                 <Avatar className="w-10 h-10">
                   <AvatarImage src="/ava.svg" alt="User avatar" />
@@ -184,7 +186,7 @@ export const NavigationSection = ({
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <div className="text-body-md font-semibold text-primary-600">
+                  <div className="text-body-md font-semibold ">
                     Nombre
                   </div>
                   <div className="text-body-sm text-shadow-500">
@@ -194,12 +196,14 @@ export const NavigationSection = ({
               </div>
             </div>
 
+            <br />
+
             {/* Navegación */}
-            <nav className="flex-1 spacing-4 lg:flex-none">
+            <nav className="flex-1 spacing-4 lg:flex-none ml-6">
               {navigationSections.map((section, sectionIndex) => (
                 <div key={`section-${sectionIndex}`} className="mb-6">
-                  <div className="px-3 mb-2">
-                    <h3 className="text-body-xs text-shadow-300 uppercase tracking-wider font-bold">
+                  <div className="mb-2">
+                    <h3 className="font-inter text-[12px] text-shadow-600 uppercase ">
                       {section.title}
                     </h3>
                   </div>
@@ -209,16 +213,25 @@ export const NavigationSection = ({
                       <Link
                         key={`item-${sectionIndex}-${itemIndex}`}
                         to={item.path}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
+                        className={`relative flex items-center gap-3 px-1 py-2 rounded-lg transition-all duration-200 ${
                           item.active
-                            ? "bg-primary-100 text-primary-600 shadow-xs"
+                            ? " shadow-xs"
                             : "text-shadow-700 hover:bg-primary-100/50 hover:text-primary-600"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
+                        {/* Fondo activo controlado */}
+                        {item.active && (
+                          <span
+                            aria-hidden
+                            className="absolute inset-y-0 left-[-12px] right-6 rounded-lg bg-primary-100 shadow-xs -z-10"
+                          />
+                        )}
+
                         {item.icon}
-                        <span className="text-body-md">{item.label}</span>
+                        <span className="text-body-md relative z-10">{item.label}</span>
                       </Link>
+
                     ))}
                   </div>
                 </div>
@@ -227,7 +240,7 @@ export const NavigationSection = ({
           </div>
 
           {/* Logout */}
-          <div className="spacing-4 mt-auto lg:pb-6 flex-shrink-0">
+          <div className="spacing-4 mt-auto lg:pb-6 flex-shrink-0 ml-6">
             <Button
               variant="ghost"
               className="w-full justify-start text-shadow-700 hover:text-primary-600 hover:bg-primary-100/50 text-body-sm underline"
