@@ -1,25 +1,28 @@
-import {
+import { 
   AlertTriangleIcon,
   ArrowRightIcon,
+  ChevronRightIcon,
   MapPinIcon,
   PhoneIcon,
   XIcon,
 } from "lucide-react";
 import React from "react";
-import { FeedbackSubsection } from "./FeedbackSubsection";
+import { DatosParaRembolso} from "./DatosParaRembolso";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import { useNavigate } from "react-router-dom";
+
 
 interface FrameWrapperSubsectionProps {
   onClose?: () => void;
   onConfirmCancellation?: () => void;
 }
 
-
 export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: FrameWrapperSubsectionProps): JSX.Element => {
 
   const [showFeedback, setShowFeedback] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleConfirmCancellation = () => {
     setShowFeedback(true);
@@ -30,45 +33,36 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
     onClose?.();
   };
 
-
   if (showFeedback) {
     return (
       <div className="flex items-center justify-center">
-        <FeedbackSubsection onClose={handleFeedbackClose} />
+        <DatosParaRembolso onClose={handleFeedbackClose} />
       </div>
     );
   }
 
   return (
-
     <div className="flex flex-col items-center gap-12 w-full">
-      <Card className="w-full max-w-[612px] bg-neutralswhite rounded-lg">
+      <Card className="relative w-full max-w-[612px] bg-neutralswhite rounded-lg">
+        {/* Botón de cerrar arriba a la derecha */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full hover:bg-gray-100"
+        >
+          <span className="text-sm font-normal text-zinc-900">Cerrar</span>
+          <XIcon className="w-[18px] h-[18px] text-zinc-900" />
+        </button>
+
+
         <CardContent className="flex flex-col items-center pt-8 pb-0 px-8">
-          <div className="flex flex-col items-end w-full mb-6">
-            <Button
-              variant="ghost"
-              className="inline-flex items-center justify-center gap-1.5 rounded-[37.5px] h-auto p-0"
-              onClick={onClose}
-            >
-              <span className="[font-family:'Inter',Helvetica] font-normal text-zinc-900 text-sm">
-                Cerrar
-              </span>
-
-              <XIcon className="w-[18px] h-[18px]" />
-            </Button>
-          </div>
-
-
           <div className="flex flex-col items-center gap-6 py-6 w-full">
             <h2 className="w-[336px] font-heading-h5 font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)] text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
-
               Cancelación de cita
             </h2>
 
             <Alert className="w-full max-w-[530px] bg-yellow-100 border-yellow-200 shadow-shadow-base">
               <AlertTriangleIcon className="w-6 h-6 text-orange-700" />
               <div className="flex flex-col gap-2 flex-1">
-
                 <AlertDescription className="font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-orange-700 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
                   Advertencia
                 </AlertDescription>
@@ -88,14 +82,11 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
                   </Button>
                 </div>
               </div>
-              <Button variant="ghost" size="sm" className="h-auto p-0">
-                <XIcon className="w-4 h-4" />
-              </Button>
             </Alert>
 
             <div className="flex flex-col items-start gap-3 w-full">
               <Card className="w-full bg-neutralswhite rounded-lg border border-[#dcdce2] shadow-shadow-xs overflow-hidden">
-                <div className="h-[156px] bg-[#bbcac0]" />
+                <div className="h-[100px] bg-[#bbcac0]" />
                 <CardContent className="flex flex-col items-end gap-6 pt-3 pb-6 px-4">
                   <div className="flex items-start justify-between w-full">
                     <div className="flex flex-col items-start gap-3">
@@ -145,6 +136,7 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
               </Card>
             </div>
 
+            {/* Botón Anular cita */}
             <div className="flex items-start justify-end gap-2.5 w-full">
               <Button 
                 className="inline-flex justify-center px-4 py-2 bg-primary-900 rounded-3xl h-auto"
@@ -154,7 +146,7 @@ export const FrameWrapperSubsection = ({ onClose, onConfirmCancellation }: Frame
                   <span className="[font-family:'Inter',Helvetica] font-semibold text-neutralswhite text-sm leading-5">
                     Anular cita
                   </span>
-                  <ArrowRightIcon className="w-5 h-5" />
+                  <ChevronRightIcon className="w-4 h-4" />
                 </div>
               </Button>
             </div>
