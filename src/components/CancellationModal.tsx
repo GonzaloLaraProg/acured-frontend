@@ -1,13 +1,14 @@
-import { X, AlertTriangle, MapPinIcon, PhoneIcon } from "lucide-react";
 import React from "react";
+import { X, AlertTriangle, MapPinIcon, PhoneIcon } from "lucide-react";
+
 import { Button } from "./ui/button";
 import { CancellationPolicyModal } from "./CancellationPolicyModal";
-import { CancellationSuccessModal } from "./CancellationSuccessModal";
+import { DatosParaRembolsoVista } from "./DatosParaRembolsoVista";
 
 interface CancellationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  cancellationType: 'full-refund' | 'partial-refund' | 'no-refund';
+  cancellationType: "full-refund" | "partial-refund" | "no-refund";
   appointment?: {
     professional: string;
     treatment: string;
@@ -22,48 +23,49 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
   appointment = {
     professional: "Profesional",
     treatment: "Especialidad",
-    price: 0
-  }
+    price: 0,
+  },
 }) => {
   const [isPolicyModalOpen, setIsPolicyModalOpen] = React.useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = React.useState(false);
+  const [isRefundOpen, setIsRefundOpen] = React.useState(false);
 
   if (!isOpen) return null;
 
   const getWarningMessage = () => {
     switch (cancellationType) {
-      case 'full-refund':
+      case "full-refund":
         return "Si cancelas ahora, recibirás un reembolso completo a tu medio de pago. El tiempo de procesamiento dependerá de tu entidad bancaria (generalmente de 3 a 7 días hábiles).";
-      case 'partial-refund':
+      case "partial-refund":
         return "Si cancelas ahora, recibirás un reembolso parcial según la política de cancelación de tu terapeuta. El tiempo de procesamiento dependerá de tu entidad bancaria (generalmente de 3 a 7 días hábiles).";
-      case 'no-refund':
+      case "no-refund":
         return "Esta cancelación no incluye reembolso debido a que ya superaste el plazo permitido por tu terapeuta.";
     }
   };
 
   const handleCancelAppointment = () => {
-    setIsSuccessModalOpen(true);
+    setIsRefundOpen(true);
   };
 
   const handlePolicyClick = () => {
     setIsPolicyModalOpen(true);
   };
 
-  const handleSuccessClose = () => {
-    setIsSuccessModalOpen(false);
+  const handleRefundClose = () => {
+    setIsRefundOpen(false);
     onClose();
   };
 
   return (
     <>
+      {/* Modal principal de cancelación */}
       <div className="fixed inset-0 z-[40] flex items-center justify-center">
         {/* Backdrop */}
-        <div 
+        <div
           className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={onClose}
         />
-        
-        {/* Modal */}
+
+        {/* Contenido */}
         <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-[500px] mx-4 p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -82,12 +84,14 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
             </Button>
           </div>
 
-          {/* Warning Message */}
+          {/* Warning */}
           <div className="flex items-start gap-3 p-4 bg-orange-50 border border-orange-200 rounded-lg mb-6">
             <AlertTriangle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium text-orange-700">Advertencia</span>
+                <span className="text-sm font-medium text-orange-700">
+                  Advertencia
+                </span>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -99,7 +103,7 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
               <p className="text-sm text-orange-700 mb-2">
                 {getWarningMessage()}
               </p>
-              <button 
+              <button
                 onClick={handlePolicyClick}
                 className="text-sm text-orange-700 underline hover:no-underline"
               >
@@ -108,30 +112,28 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
             </div>
           </div>
 
-          {/* Appointment Details */}
+          {/* Detalle de cita */}
           <div className="mb-6">
-            {/* Professional Image Placeholder */}
-            <div className="w-full h-32 bg-primary-200 rounded-lg mb-4"></div>
-            
-            {/* Appointment Info */}
+            <div className="w-full h-32 bg-primary-200 rounded-lg mb-4" />
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <p className="text-sm text-gray-600 mb-1">01/08/2025, 15:30 PM</p>
+                <p className="text-sm text-gray-600 mb-1">
+                  01/08/2025, 15:30 PM
+                </p>
                 <h3 className="font-semibold text-primary-900 text-lg mb-1">
                   {appointment.professional}
                 </h3>
-                <p className="text-primary-900 mb-2">
-                  {appointment.treatment}
-                </p>
+                <p className="text-primary-900 mb-2">{appointment.treatment}</p>
                 <button className="text-primary-900 text-sm underline hover:no-underline">
                   Ver perfil profesional
                 </button>
               </div>
-              
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <MapPinIcon className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-700">Príncipe de gales, la reina 33333</span>
+                  <span className="text-sm text-gray-700">
+                    Príncipe de gales, la reina 33333
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <PhoneIcon className="w-4 h-4 text-gray-500" />
@@ -141,30 +143,42 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
             </div>
           </div>
 
-          {/* Cancel Button */}
+          {/* Botón Anular */}
           <div className="flex justify-end">
-            <Button 
+            <Button
               className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800 flex items-center gap-2"
               onClick={handleCancelAppointment}
             >
-              <span className="font-medium text-sm">
-                Anular cita
-              </span>
+              <span className="font-medium text-sm">Anular cita</span>
               <span className="text-lg">→</span>
             </Button>
           </div>
         </div>
       </div>
 
+      {/* Modal de política */}
       <CancellationPolicyModal
         isOpen={isPolicyModalOpen}
         onClose={() => setIsPolicyModalOpen(false)}
       />
 
-      <CancellationSuccessModal
-        isOpen={isSuccessModalOpen}
-        onClose={handleSuccessClose}
-      />
+      {/* Modal DatosParaRembolso */}
+      {isRefundOpen && (
+        <div className="fixed inset-0 z-[50] flex items-center justify-center">
+          {/* Backdrop del modal de reembolso */}
+          <div
+            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            onClick={handleRefundClose}
+          />
+          {/* Contenedor centrado */}
+          <div className="relative">
+            <DatosParaRembolsoVista
+              onClose={handleRefundClose}
+              onConfirmCancellation={handleRefundClose}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
