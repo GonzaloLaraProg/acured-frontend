@@ -55,10 +55,11 @@ export const Footer = ({ onFAQClick, onSupportClick }: FooterProps): JSX.Element
 
   // Social media data
   const socialMedia = [
-    { name: "Instagram", icon: <InstagramIcon className="w-5 h-5" /> },
-    { name: "Facebook", icon: <FacebookIcon className="w-5 h-5" /> },
-    { name: "Linkedin", icon: <LinkedinIcon className="w-5 h-5" /> },
+    { name: "Instagram", icon: <img src="/icon--logo-instagram.svg" alt="Instagram" className="w-5 h-5" /> },
+    { name: "Facebook", icon: <img src="/icon--logo-facebook.svg" alt="Facebook" className="w-5 h-5" /> },
+    { name: "LinkedIn", icon: <img src="/icon-logo-linkedin.svg" alt="LinkedIn" className="w-5 h-5" /> },
   ];
+
 
   return (
     <>

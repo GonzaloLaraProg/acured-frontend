@@ -65,7 +65,7 @@ export const ServiceDetails = (): JSX.Element => {
 
             
             {/* Scroll interno */}
-            <div className="overflow-y-auto max-h-[calc(400vh-250px)] pr-4">
+            <div className="overflow-y-auto max-h-[calc(150vh-250px)] pr-4">
               <h1 className="text-2xl font-bold text-primary-900 mb-6">
                 {currentService?.title || "Servicio"}
               </h1>

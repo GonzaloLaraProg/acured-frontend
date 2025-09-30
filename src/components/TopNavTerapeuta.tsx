@@ -103,7 +103,7 @@ export default function TopNavDefault(): JSX.Element {
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <span className="text-[16px] text-gray-700 font-medium">Idioma</span>
-              <GlobeIcon className="w-4 h-4 text-gray-600" />
+              <img src="/icon-earth-sharp.svg" alt="Idioma" className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2 px-1 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
               <Button
@@ -157,7 +157,7 @@ export default function TopNavDefault(): JSX.Element {
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <span className="text-[16px] text-gray-700 font-medium">Idioma</span>
-              <GlobeIcon className="w-4 h-4 text-gray-600" />
+              <img src="/icon-earth-sharp.svg" alt="Idioma" className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2 px-1 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
 
@@ -170,7 +170,7 @@ export default function TopNavDefault(): JSX.Element {
                 <span className="text-[16px] text-gray-700 font-medium">
                   {user?.name}
                 </span>
-                <UserIcon className="w-4 h-4 text-gray-600" />
+                <img src="/icon-person-outline.svg" alt="User" className="w-5 h-5" />
               </Button>
             </div>
           </div>

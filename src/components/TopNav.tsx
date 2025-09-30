@@ -100,8 +100,9 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <span className="text-sm text-gray-700 font-medium">Idioma</span>
-              <GlobeIcon className="w-4 h-4 text-gray-600" />
+              <img src="/icon-earth-sharp.svg" alt="Idioma" className="w-5 h-5" />
             </Button>
+
             <div className="flex items-center gap-2 px-1 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
               <Button
                 ref={menuButtonRef}
@@ -118,7 +119,7 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#d3e0d7] hover:bg-[#c5d4cc]"
                 onClick={() => navigate("/login?step=patient")}
               >
-                <UserIcon className="w-4 h-4 text-gray-600" />
+                <img src="/icon-person-outline.svg" alt="User" className="w-5 h-5" />
               </Button>
 
             </div>
@@ -176,7 +177,7 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <span className="text-sm text-gray-700 font-medium">Idioma</span>
-              <GlobeIcon className="w-4 h-4 text-gray-600" />
+              <img src="/icon-earth-sharp.svg" alt="Idioma" className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2 px-1 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
              
@@ -190,7 +191,7 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
                 <span className="text-sm text-gray-700 font-medium">
                   {user?.name}
                 </span>
-                <UserIcon className="w-4 h-4 text-gray-600" />
+                <img src="/icon-person-outline.svg" alt="User" className="w-5 h-5" />
               </Button>
             </div>
 
