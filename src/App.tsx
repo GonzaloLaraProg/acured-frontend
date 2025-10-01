@@ -12,7 +12,7 @@ import { Home } from "./screens/Home";
 import { ScheduleSelection } from "./screens/ScheduleSelection";
 import { ServiceSelection } from "./screens/ServiceSelection";
 import { ConfirmationPayment } from "./screens/ConfirmationPayment";
-import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado"; 
+import { VistaPrellenado } from "./screens/VistaPrellenado/VistaPrellenado";
 import { SearchResults } from "./screens/SearchResults";
 import { Login } from "./screens/Login";
 import { ServiceDetails } from "./screens/ServiceDetails";
@@ -39,11 +39,28 @@ import { SupportModalTerapeuta } from "./screens/SupportModalTerapeuta";
 import { Foro, Dashboard as ComunidadDashboard } from "./modules/comunidad";
 
 // Terapeuta módulos
-import { Formularios as TerapeutaFormularios, Perfil as TerapeutaPerfil, PagosFacturacion as TerapeutaPagosFacturacion, Ajustes as TerapeutaAjustes, GestionPacientes as TerapeutaGestionPacientes, DetallePaciente as TerapeutaDetallePaciente, HistorialMedico as TerapeutaHistorialMedico, Calendario as TerapeutaCalendario } from "./modules/terapeuta";
+import {
+  Formularios as TerapeutaFormularios,
+  Perfil as TerapeutaPerfil,
+  PagosFacturacion as TerapeutaPagosFacturacion,
+  Ajustes as TerapeutaAjustes,
+  GestionPacientes as TerapeutaGestionPacientes,
+  DetallePaciente as TerapeutaDetallePaciente,
+  HistorialMedico as TerapeutaHistorialMedico,
+  Calendario as TerapeutaCalendario,
+} from "./modules/terapeuta";
 
 // Clínica módulos
-import { Formularios as ClinicaFormularios, Perfil as ClinicaPerfil, PagosFacturacion as ClinicaPagosFacturacion, Ajustes as ClinicaAjustes, GestionPacientes as ClinicaGestionPacientes, DetallePaciente as ClinicaDetallePaciente, HistorialMedico as ClinicaHistorialMedico, Calendario as ClinicaCalendario } from "./modules/clinica";
-
+import {
+  Formularios as ClinicaFormularios,
+  Perfil as ClinicaPerfil,
+  PagosFacturacion as ClinicaPagosFacturacion,
+  Ajustes as ClinicaAjustes,
+  GestionPacientes as ClinicaGestionPacientes,
+  DetallePaciente as ClinicaDetallePaciente,
+  HistorialMedico as ClinicaHistorialMedico,
+  Calendario as ClinicaCalendario,
+} from "./modules/clinica";
 
 // 👉 Scroll to top
 const ScrollToTop = () => {
@@ -66,10 +83,8 @@ const PrivateRoute = ({ children, allowed }: { children: JSX.Element; allowed: U
   return <Navigate to="/" />;
 };
 
-
-// 👉 Router principal
-const router = createBrowserRouter([
-  // Páginas generales con navbar estándar
+// 👉 Definición de rutas
+const routes = [
   {
     element: (
       <>
@@ -96,24 +111,6 @@ const router = createBrowserRouter([
     ],
   },
 
-  // Comunidad (pacientes, terapeutas y clínicas)
-  // {
-  //   path: "/comunidad",
-  //   element: (
-  //     <PrivateRoute allowed={["patient", "individual-therapist", "terapeuta", "centro", "administrador"]}>
-  //       <ComunidadDashboard onPageChange={() => {}} onLogout={() => {}} userType={"paciente"} />
-  //     </PrivateRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/foro",
-  //   element: (
-  //     <PrivateRoute allowed={["patient", "individual-therapist", "terapeuta", "centro", "administrador"]}>
-  //       <Foro onPageChange={() => {}} onLogout={() => {}} userType={"paciente"} />
-  //     </PrivateRoute>
-  //   ),
-  // },
-
   // Terapeuta
   {
     element: (
@@ -123,28 +120,24 @@ const router = createBrowserRouter([
       </>
     ),
     children: [
-      {
-        path: "/therapist-dashboard",
-        element: <TherapistDashboard />,
-      },
-
+      { path: "/therapist-dashboard", element: <TherapistDashboard /> },
       { path: "/terapeuta-dashboard", element: <TerapeutaDashboard /> },
       { path: "/preguntas-terapeutas", element: <PreguntasTerapeutas /> },
       { path: "/SupportModalTerapeuta", element: <SupportModalTerapeuta /> },
       { path: "/ContactTerapeuta", element: <ContactTerapeuta /> },
       { path: "/SuccessPage", element: <SuccessPage /> },
       { path: "/registration-acupunturist", element: <RegistrationAcupunturist /> },
-      
     ],
   },
+
   { path: "/terapeuta/perfil", element: <TerapeutaPerfil onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/formularios", element: <TerapeutaFormularios onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/pagos", element: <TerapeutaPagosFacturacion onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/ajustes", element: <TerapeutaAjustes onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/gestion-pacientes", element: <TerapeutaGestionPacientes onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/detalle-paciente", element: <TerapeutaDetallePaciente onPageChange={() => {}} onLogout={() => {}} initialTab="personal" /> },
-      { path: "/terapeuta/historial-medico", element: <TerapeutaHistorialMedico onPageChange={() => {}} onLogout={() => {}} /> },
-      { path: "/terapeuta/calendario", element: <TerapeutaCalendario onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/formularios", element: <TerapeutaFormularios onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/pagos", element: <TerapeutaPagosFacturacion onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/ajustes", element: <TerapeutaAjustes onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/gestion-pacientes", element: <TerapeutaGestionPacientes onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/detalle-paciente", element: <TerapeutaDetallePaciente onPageChange={() => {}} onLogout={() => {}} initialTab="personal" /> },
+  { path: "/terapeuta/historial-medico", element: <TerapeutaHistorialMedico onPageChange={() => {}} onLogout={() => {}} /> },
+  { path: "/terapeuta/calendario", element: <TerapeutaCalendario onPageChange={() => {}} onLogout={() => {}} /> },
 
   // Clínica
   {
@@ -183,8 +176,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
-]);
+];
 
+// 👉 Router principal con basename para subcarpeta
+const router = createBrowserRouter(routes, { basename: "/acured" });
 
 // 👉 App principal
 export const App = () => {
