@@ -454,7 +454,7 @@ export const PatientDashboard = (): JSX.Element => {
                   >
                     {/* Ícono cuadrado oscuro con el lápiz */}
                     <div className="w-5 h-5 bg-primary-900 rounded-sm flex items-center justify-center">
-                      <span className="text-white text-xs">✎</span>
+                      <img src="/icon-create-sharp.svg" alt="Editar" className="w-4 h-4" />
                     </div>
                     <span className="text-sm font-medium text-primary-900">
                       {isEditingProfile ? "Cancelar" : "Editar"}

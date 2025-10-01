@@ -5,15 +5,19 @@ export const ServicesSection = (): JSX.Element => {
   const policyContent = [
     {
       title: "1. Flexibilidad en las Políticas Individuales",
-      
       content: [
         {
-          type: "bold",
-          text: "Cada terapeuta o centro médico establece sus propias políticas",
-        },
-        {
-          type: "normal",
-          text: " de cancelación y reprogramación. Te recomendamos revisar las condiciones específicas de tu profesional al momento de agendar tu cita. Esta información suele estar disponible en su perfil o durante el proceso de reserva.",
+          type: "list",
+          items: [
+            <>
+              <span className="font-semibold">
+                Cada terapeuta o centro médico establece sus propias políticas
+              </span>
+              {
+                " de cancelación y reprogramación. Te recomendamos revisar las condiciones específicas de tu profesional al momento de agendar tu cita. Esta información suele estar disponible en su perfil o durante el proceso de reserva."
+              }
+            </>,
+          ],
         },
       ],
     },
@@ -42,12 +46,11 @@ export const ServicesSection = (): JSX.Element => {
       title: "3. Reembolsos por Cancelación",
       content: [
         {
-          type: "normal",
-          text: "La posibilidad de reembolso parcial o total dependerá directamente de la política establecida por el terapeuta o centro médico, así como del motivo y la antelación con la que se realice la cancelación.",
-        },
-        {
-          type: "normal",
-          text: "En casos de emergencias o situaciones justificadas, algunos profesionales o centros podrían considerar reembolsos, incluso si la cancelación se produce con poca antelación. Esto será evaluado caso por caso por el profesional.",
+          type: "list",
+          items: [
+            "La posibilidad de reembolso parcial o total dependerá directamente de la política establecida por el terapeuta o centro médico, así como del motivo y la antelación con la que se realice la cancelación.",
+            "En casos de emergencias o situaciones justificadas, algunos profesionales o centros podrían considerar reembolsos, incluso si la cancelación se produce con poca antelación. Esto será evaluado caso por caso por el profesional.",
+          ],
         },
       ],
     },
@@ -55,8 +58,10 @@ export const ServicesSection = (): JSX.Element => {
       title: "4. No Presentación (No-Show)",
       content: [
         {
-          type: "normal",
-          text: "Si un paciente no se presenta a su cita sin previo aviso, la decisión de otorgar o no algún tipo de reembolso queda a criterio exclusivo del terapeuta o centro médico. Generalmente, las citas no asistidas sin notificación previa no son elegibles para reembolso.",
+          type: "list",
+          items: [
+            "Si un paciente no se presenta a su cita sin previo aviso, la decisión de otorgar o no algún tipo de reembolso queda a criterio exclusivo del terapeuta o centro médico. Generalmente, las citas no asistidas sin notificación previa no son elegibles para reembolso.",
+          ],
         },
       ],
     },
@@ -77,7 +82,9 @@ export const ServicesSection = (): JSX.Element => {
       ],
     },
   ];
-
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <section className="flex flex-col w-full items-center gap-6 relative">
       {/* Título */}
@@ -85,7 +92,7 @@ export const ServicesSection = (): JSX.Element => {
         Política de cancelación, reembolsos y reprogramación de citas
       </header>
 
-      <Card className="w-full bg-white rounded-3xl shadow-shadow-sm border-0">
+      <Card className="w-[1300px] bg-white rounded-3xl shadow-shadow-sm border-0">
         <CardContent className="flex flex-col items-start gap-3 p-8">
           <div className="relative w-full [font-family:'Inter',Helvetica] font-normal text-black text-sm tracking-[0] leading-[14px]">
             <p className="[font-family:'Inter',Helvetica] font-normal text-black text-sm tracking-[0] mb-4">
@@ -112,7 +119,7 @@ export const ServicesSection = (): JSX.Element => {
                       </span>
                     )}
                     {item.type === "list" && (
-                      <ul className="ml-4 mt-2 mb-2">
+                      <ul className="ml-4 mt-2 mb-2 list-disc">
                         {item.items?.map((listItem, listIndex) => (
                           <li
                             key={listIndex}

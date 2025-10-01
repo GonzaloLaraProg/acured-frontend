@@ -1,9 +1,9 @@
 import React from "react";
-import { X, AlertTriangle, MapPinIcon, PhoneIcon } from "lucide-react";
+import { X, AlertTriangle, MapPinIcon, PhoneIcon, ChevronRightIcon } from "lucide-react";
 
 import { Button } from "./ui/button";
 import { CancellationPolicyModal } from "./CancellationPolicyModal";
-import { DatosParaRembolsoVista } from "./DatosParaRembolsoVista";
+import { DatosParaRembolso } from "./DatosParaRembolso";
 
 interface CancellationModalProps {
   isOpen: boolean;
@@ -27,6 +27,7 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
   },
 }) => {
   const [isPolicyModalOpen, setIsPolicyModalOpen] = React.useState(false);
+  const [isDatosModalOpen, setIsDatosyModalOpen] = React.useState(false);
   const [isRefundOpen, setIsRefundOpen] = React.useState(false);
 
   if (!isOpen) return null;
@@ -48,6 +49,10 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
 
   const handlePolicyClick = () => {
     setIsPolicyModalOpen(true);
+  };
+
+  const handleDatosClick = () => {
+    setIsDatosyModalOpen(true);
   };
 
   const handleRefundClose = () => {
@@ -147,10 +152,10 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
           <div className="flex justify-end">
             <Button
               className="px-6 py-2 bg-primary-900 text-white rounded-3xl hover:bg-primary-800 flex items-center gap-2"
-              onClick={handleCancelAppointment}
+              onClick={handleDatosClick}
             >
               <span className="font-medium text-sm">Anular cita</span>
-              <span className="text-lg">→</span>
+              <ChevronRightIcon className="w-4 h-4" />
             </Button>
           </div>
         </div>
@@ -161,24 +166,19 @@ export const CancellationModal: React.FC<CancellationModalProps> = ({
         isOpen={isPolicyModalOpen}
         onClose={() => setIsPolicyModalOpen(false)}
       />
+      
+      <DatosParaRembolso 
+        isOpen={isDatosModalOpen}
+        onClose={() => {
+          setIsDatosyModalOpen(false);   // cerrar Datos
+          onClose();                     // cerrar todo si corresponde
+        }}
+        onBack={() => setIsDatosyModalOpen(false)} // volver atrás solo
+      />
 
-      {/* Modal DatosParaRembolso */}
-      {isRefundOpen && (
-        <div className="fixed inset-0 z-[50] flex items-center justify-center">
-          {/* Backdrop del modal de reembolso */}
-          <div
-            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-            onClick={handleRefundClose}
-          />
-          {/* Contenedor centrado */}
-          <div className="relative">
-            <DatosParaRembolsoVista
-              onClose={handleRefundClose}
-              onConfirmCancellation={handleRefundClose}
-            />
-          </div>
-        </div>
-      )}
+  
+      
+      
     </>
   );
 };

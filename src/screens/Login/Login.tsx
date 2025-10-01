@@ -28,6 +28,10 @@ export const Login = (): JSX.Element => {
     "initial" | "patient-login" | "therapist-login"
   >(step === "patient" ? "patient-login" : step === "therapist"? "therapist-login": "initial");
 
+    React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
 
   const handlePatientLogin = () => {
     setCurrentStep("patient-login");

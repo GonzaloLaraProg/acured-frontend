@@ -55,6 +55,9 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
   
 // 👇 Aquí agregamos el estado del scroll
   const [scrolled, setScrolled] = React.useState(false);
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   React.useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0);

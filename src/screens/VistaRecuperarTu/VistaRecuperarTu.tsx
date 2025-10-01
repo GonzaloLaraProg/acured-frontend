@@ -35,6 +35,9 @@ export const VistaRecuperarTu = (): JSX.Element => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const [role, setRole] = React.useState<"patient" | "therapist">("patient");
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
 
   // 👇 Aquí agregamos el estado del scroll

@@ -25,7 +25,7 @@ export const AboutUsSection = (): JSX.Element => {
           <div className="flex flex-col gap-6 mb-8">
             {/* Paga seguro */}
             <div className="flex items-start gap-3">
-              <CreditCard className="w-7 h-7 text-green-900 flex-shrink-0 mt-1" />
+              <img src="/icon-card-outline.svg" alt="Pagar" className="w-10 h-10" />
               <p className="font-inter text-[20px] leading-[30px] text-black">
                 Paga en línea con total seguridad.
               </p>
@@ -33,7 +33,7 @@ export const AboutUsSection = (): JSX.Element => {
 
             {/* Salud en tres líneas */}
             <div className="flex items-start gap-3">
-              <Heart className="w-7 h-7 text-green-900 flex-shrink-0 mt-1" />
+              <img src="/icon-heart.svg" alt="Heart" className="w-10 h-10" />
               <p className="font-inter text-[20px] leading-[30px] text-black">
                 Aprovecha cada minuto de tu <br />
                 sesión enfocándote en lo <br />

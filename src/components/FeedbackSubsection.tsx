@@ -9,44 +9,50 @@ interface FeedbackSubsectionProps {
 
 export const FeedbackSubsection: React.FC<FeedbackSubsectionProps> = ({ onClose }): JSX.Element => {
   return (
-    <Card className="w-96 shadow-shadow-md">
-      <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-[8px_8px_0px_0px]">
-        <CheckCircleIcon className="w-7 h-7 text-green-600" />
+    <div className="fixed inset-0 z-[70] flex items-center justify-center">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
-        <div className="flex-1 font-heading-h7 font-[number:var(--heading-h7-font-weight)] text-green-600 text-[length:var(--heading-h7-font-size)] tracking-[var(--heading-h7-letter-spacing)] leading-[var(--heading-h7-line-height)] [font-style:var(--heading-h7-font-style)]">
-          Éxito
-        </div>
+      {/* Modal */}
+      <Card className="relative w-96 shadow-shadow-md z-[71]">
+        {/* Header */}
+        <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-t-lg">
+          <CheckCircleIcon className="w-7 h-7 text-green-600" />
 
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onClose}
-          className="p-1 hover:bg-green-100"
-        >
-          <XIcon className="w-4 h-4 text-green-600" />
-        </Button>
-      </div>
-
-      <CardContent className="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-[0px_0px_8px_8px]">
-        <div className="self-stretch mt-[-1.00px] font-paragraph-p2-regular font-[number:var(--paragraph-p2-regular-font-weight)] text-gray-600 text-[length:var(--paragraph-p2-regular-font-size)] tracking-[var(--paragraph-p2-regular-letter-spacing)] leading-[var(--paragraph-p2-regular-line-height)] [font-style:var(--paragraph-p2-regular-font-style)]">
-          ¡Cita cancelada con éxito!
-        </div>
-
-        <div className="flex flex-col items-start gap-2 pt-3 pb-0 px-0 self-stretch w-full border-t [border-top-style:solid] border-[#d4d4d8]">
-          <div className="flex items-center justify-end gap-2.5 self-stretch w-full">
-            <div className="inline-flex items-start gap-2">
-              <Button 
-                className="h-auto px-4 py-2 bg-primary-800 rounded-3xl shadow-shadow-md hover:bg-primary-700"
-                onClick={onClose}
-              >
-                <div className="mt-[-1.00px] font-text-text-sm-text-sm-font-medium font-[number:var(--text-text-sm-text-sm-font-medium-font-weight)] text-neutralswhite text-[length:var(--text-text-sm-text-sm-font-medium-font-size)] tracking-[var(--text-text-sm-text-sm-font-medium-letter-spacing)] leading-[var(--text-text-sm-text-sm-font-medium-line-height)] whitespace-nowrap [font-style:var(--text-text-sm-text-sm-font-medium-font-style)]">
-                  Cerrar
-                </div>
-              </Button>
-            </div>
+          <div className="flex-1 font-heading-h7 text-green-600">
+            Éxito
           </div>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="p-1 hover:bg-green-100"
+          >
+            <XIcon className="w-4 h-4 text-green-600" />
+          </Button>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Content */}
+        <CardContent className="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-b-lg">
+          <div className="self-stretch text-sm text-gray-600">
+            ¡Cita cancelada con éxito!
+          </div>
+
+          {/* Footer */}
+          <div className="flex justify-end w-full border-t pt-4">
+            <Button
+              className="h-auto px-4 py-2 bg-primary-800 rounded-3xl shadow-md hover:bg-primary-700"
+              onClick={onClose}
+            >
+              <span className="text-white text-sm font-medium">Cerrar</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };

@@ -4,6 +4,7 @@ import { FrameWrapperSubsection } from "./FrameWrapperSubsection";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
+import { DatosParaRembolso } from "./DatosParaRembolso";
 
 interface AppointmentDetailsModalProps {
   isOpen: boolean;
@@ -42,9 +43,14 @@ export const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = (
   onClose,
 }) => {
   const [showCancellationConfirmation, setShowCancellationConfirmation] = React.useState(false);
+  const [isDatosModalOpen, setIsDatosyModalOpen] = React.useState(false);
 
   const handleAnularCitaClick = () => {
     setShowCancellationConfirmation(true);
+  };
+
+  const handleAnularrCitaClick = () => {
+    setIsDatosyModalOpen(true);
   };
 
   const handleCancellationClose = () => {
@@ -173,7 +179,7 @@ export const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = (
                                 <Button
                                   variant="ghost"
                                   className="inline-flex flex-col justify-center gap-4 px-4 py-2 flex-[0_0_auto] bg-primary-100 rounded-3xl items-center relative h-auto hover:bg-primary-100"
-                                  onClick={handleAnularCitaClick}
+                                  onClick={handleAnularrCitaClick}
                                 >
                                   <div className="relative w-fit font-paragraph-p1-semi-bold font-[number:var(--paragraph-p1-semi-bold-font-weight)] text-primary-800 text-[length:var(--paragraph-p1-semi-bold-font-size)] text-right tracking-[var(--paragraph-p1-semi-bold-letter-spacing)] leading-[var(--paragraph-p1-semi-bold-line-height)] [font-style:var(--paragraph-p1-semi-bold-font-style)]">
                                     Anular cita
@@ -192,6 +198,19 @@ export const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = (
           </div>
         </CardContent>
       </Card>
+      <div>
+     
+        <DatosParaRembolso 
+                isOpen={isDatosModalOpen}
+                onClose={() => {
+                  setIsDatosyModalOpen(false);   // cerrar Datos
+                  onClose();                     // cerrar todo si corresponde
+                }}
+                onBack={() => setIsDatosyModalOpen(false)} // volver atrás solo
+              />
+      </div>
     </div>
+    
   );
+  
 };

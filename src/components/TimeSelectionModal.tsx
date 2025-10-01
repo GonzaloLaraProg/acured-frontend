@@ -128,10 +128,17 @@ export const TimeSelectionModal: React.FC<TimeSelectionModalProps> = ({
                   </SelectItem>
                 ))}
               </SelectContent>
+              
             </Select>
+            
           </div>
+
+          
         </div>
+        
       </div>
+      
     </div>
+    
   );
 };
