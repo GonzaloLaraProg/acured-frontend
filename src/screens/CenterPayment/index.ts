@@ -1,1 +1,0 @@
-export { CenterPayment } from "./CenterPayment";

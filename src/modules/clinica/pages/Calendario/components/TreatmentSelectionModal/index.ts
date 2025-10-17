@@ -1,1 +1,0 @@
-export { TreatmentSelectionModal } from "./TreatmentSelectionModal";

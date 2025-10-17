@@ -1,1 +1,0 @@
-export { GestionPacientes } from "./GestionPacientes";

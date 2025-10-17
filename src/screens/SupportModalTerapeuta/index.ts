@@ -1,1 +1,0 @@
-export { SupportModalTerapeuta } from "./SupportModalTerapeuta";

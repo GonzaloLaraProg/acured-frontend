@@ -1,1 +1,0 @@
-export { ConfirmationPayment } from "./ConfirmationPayment";

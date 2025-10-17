@@ -1,1 +1,0 @@
-export { ContactTerapeuta } from "./ContactTerapeuta";

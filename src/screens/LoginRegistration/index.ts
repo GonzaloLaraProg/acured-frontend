@@ -1,1 +1,0 @@
-export { LoginRegistration } from "./LoginRegistration";

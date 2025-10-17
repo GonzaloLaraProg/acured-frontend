@@ -1,1 +1,0 @@
-export { PolicySection } from "./PolicySection";

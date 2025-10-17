@@ -1,1 +1,0 @@
-export { RegistrationAcupunturist  } from "./RegistrationAcupunturist";

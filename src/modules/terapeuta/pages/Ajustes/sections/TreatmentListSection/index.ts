@@ -1,1 +1,0 @@
-export { TreatmentListSection } from "./TreatmentListSection";
