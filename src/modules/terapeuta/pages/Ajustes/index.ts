@@ -1,0 +1,1 @@
+export { Ajustes } from "./Ajustes";

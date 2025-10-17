@@ -1,0 +1,1 @@
+export { HistorialMedico } from "./HistorialMedico";

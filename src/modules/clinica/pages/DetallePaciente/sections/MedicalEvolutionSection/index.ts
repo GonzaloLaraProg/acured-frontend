@@ -1,0 +1,1 @@
+export { MedicalEvolutionSection } from "./MedicalEvolutionSection";

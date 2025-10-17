@@ -1,0 +1,1 @@
+export { Foro } from "./Foro";

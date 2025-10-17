@@ -1,0 +1,1 @@
+export { RegistrationAcupunturist  } from "./RegistrationAcupunturist";
