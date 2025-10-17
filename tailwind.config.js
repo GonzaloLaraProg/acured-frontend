@@ -75,15 +75,36 @@ module.exports = {
         },
       },
       fontFamily: {
+        // Neue Haas Grotesk Display Pro - Regular
         "heading-h3": "var(--heading-h3-font-family)",
+        "heading-h5": "var(--heading-h5-font-family)",
         "heading-h6": "var(--heading-h6-font-family)",
         "heading-h7": "var(--heading-h7-font-family)",
-        "paragraph-p2-semi-bold": "var(--paragraph-p2-semi-bold-font-family)",
-        "paragraph-p3": "var(--paragraph-p3-font-family)",
         "subtitle-1": "var(--subtitle-1-font-family)",
-        "text-text-sm-text-sm-font-normal":
-          "var(--text-text-sm-text-sm-font-normal-font-family)",
-        haas: ['"Neue Haas Grotesk Text Pro"', "sans-serif"],
+        
+        // Neue Haas Grotesk Display Pro - Medium
+        "heading-h3-medium": "var(--heading-h3-medium-font-family)",
+        "heading-h5-medium": "var(--heading-h5-medium-font-family)",
+        "heading-h6-medium": "var(--heading-h6-medium-font-family)",
+        "heading-h7-medium": "var(--heading-h7-medium-font-family)",
+        "subtitle-1-medium": "var(--subtitle-1-medium-font-family)",
+        
+        // Inter - Regular
+        "paragraph-p1": "var(--paragraph-p1-font-family)",
+        "paragraph-p2-regular": "var(--paragraph-p2-regular-font-family)",
+        "paragraph-p3": "var(--paragraph-p3-font-family)",
+        "text-text-sm-text-sm-font-normal": "var(--text-text-sm-text-sm-font-normal-font-family)",
+        
+        // Inter - Semibold
+        "paragraph-p1-semibold": "var(--paragraph-p1-semibold-font-family)",
+        "paragraph-p2-semibold": "var(--paragraph-p2-semibold-font-family)",
+        "paragraph-p3-semibold": "var(--paragraph-p3-semibold-font-family)",
+        
+        // Legacy support
+        "paragraph-p2-semi-bold": "var(--paragraph-p2-semibold-font-family)",
+        
+        // Font families
+        haas: ['"Neue Haas Grotesk Display Pro"', "sans-serif"],
         inter: ["Inter", "sans-serif"],
         sans: [
           "ui-sans-serif",

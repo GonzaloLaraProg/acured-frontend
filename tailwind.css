@@ -24,66 +24,101 @@
   --heading-h3-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h3-font-size: 39px;
   --heading-h3-font-style: normal;
-  --heading-h3-font-weight: 400;
+  --heading-h3-font-weight: 400; /* Regular */
   --heading-h3-letter-spacing: 0px;
   --heading-h3-line-height: normal;
+
+  --heading-h3-medium-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --heading-h3-medium-font-size: 39px;
+  --heading-h3-medium-font-style: normal;
+  --heading-h3-medium-font-weight: 500; /* Medium */
+  --heading-h3-medium-letter-spacing: 0px;
+  --heading-h3-medium-line-height: normal;
 
   --heading-h5-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h5-font-size: 25px;
   --heading-h5-font-style: normal;
-  --heading-h5-font-weight: 400;
+  --heading-h5-font-weight: 400; /* Regular */
   --heading-h5-letter-spacing: 0px;
   --heading-h5-line-height: normal;
+
+  --heading-h5-medium-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --heading-h5-medium-font-size: 25px;
+  --heading-h5-medium-font-style: normal;
+  --heading-h5-medium-font-weight: 500; /* Medium */
+  --heading-h5-medium-letter-spacing: 0px;
+  --heading-h5-medium-line-height: normal;
 
   --heading-h6-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h6-font-size: 20px;
   --heading-h6-font-style: normal;
-  --heading-h6-font-weight: 400;
+  --heading-h6-font-weight: 400; /* Regular */
   --heading-h6-letter-spacing: 0px;
   --heading-h6-line-height: normal;
+
+  --heading-h6-medium-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --heading-h6-medium-font-size: 20px;
+  --heading-h6-medium-font-style: normal;
+  --heading-h6-medium-font-weight: 500; /* Medium */
+  --heading-h6-medium-letter-spacing: 0px;
+  --heading-h6-medium-line-height: normal;
 
   --heading-h7-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --heading-h7-font-size: 16px;
   --heading-h7-font-style: normal;
-  --heading-h7-font-weight: 400;
+  --heading-h7-font-weight: 400; /* Regular */
   --heading-h7-letter-spacing: 0px;
   --heading-h7-line-height: normal;
+
+  --heading-h7-medium-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --heading-h7-medium-font-size: 16px;
+  --heading-h7-medium-font-style: normal;
+  --heading-h7-medium-font-weight: 500; /* Medium */
+  --heading-h7-medium-letter-spacing: 0px;
+  --heading-h7-medium-line-height: normal;
 
   /* ==== PARAGRAPHS ==== */
   --paragraph-p1-font-family: "Inter", Helvetica;
   --paragraph-p1-font-size: 12px;
   --paragraph-p1-font-style: normal;
-  --paragraph-p1-font-weight: 400;
+  --paragraph-p1-font-weight: 400; /* Regular */
   --paragraph-p1-letter-spacing: 0px;
   --paragraph-p1-line-height: normal;
 
-  --paragraph-p1-semi-bold-font-family: "Inter", Helvetica;
-  --paragraph-p1-semi-bold-font-size: 12px;
-  --paragraph-p1-semi-bold-font-style: normal;
-  --paragraph-p1-semi-bold-font-weight: 600;
-  --paragraph-p1-semi-bold-letter-spacing: 0px;
-  --paragraph-p1-semi-bold-line-height: normal;
+  --paragraph-p1-semibold-font-family: "Inter", Helvetica;
+  --paragraph-p1-semibold-font-size: 12px;
+  --paragraph-p1-semibold-font-style: normal;
+  --paragraph-p1-semibold-font-weight: 600; /* Semibold */
+  --paragraph-p1-semibold-letter-spacing: 0px;
+  --paragraph-p1-semibold-line-height: normal;
 
   --paragraph-p2-regular-font-family: "Inter", Helvetica;
   --paragraph-p2-regular-font-size: 14px;
   --paragraph-p2-regular-font-style: normal;
-  --paragraph-p2-regular-font-weight: 400;
+  --paragraph-p2-regular-font-weight: 400; /* Regular */
   --paragraph-p2-regular-letter-spacing: 0px;
   --paragraph-p2-regular-line-height: normal;
 
-  --paragraph-p2-semi-bold-font-family: "Inter", Helvetica;
-  --paragraph-p2-semi-bold-font-size: 14px;
-  --paragraph-p2-semi-bold-font-style: normal;
-  --paragraph-p2-semi-bold-font-weight: 600;
-  --paragraph-p2-semi-bold-letter-spacing: 0px;
-  --paragraph-p2-semi-bold-line-height: normal;
+  --paragraph-p2-semibold-font-family: "Inter", Helvetica;
+  --paragraph-p2-semibold-font-size: 14px;
+  --paragraph-p2-semibold-font-style: normal;
+  --paragraph-p2-semibold-font-weight: 600; /* Semibold */
+  --paragraph-p2-semibold-letter-spacing: 0px;
+  --paragraph-p2-semibold-line-height: normal;
 
   --paragraph-p3-font-family: "Inter", Helvetica;
   --paragraph-p3-font-size: 16px;
   --paragraph-p3-font-style: normal;
-  --paragraph-p3-font-weight: 400;
+  --paragraph-p3-font-weight: 400; /* Regular */
   --paragraph-p3-letter-spacing: 0px;
   --paragraph-p3-line-height: normal;
+
+  --paragraph-p3-semibold-font-family: "Inter", Helvetica;
+  --paragraph-p3-semibold-font-size: 16px;
+  --paragraph-p3-semibold-font-style: normal;
+  --paragraph-p3-semibold-font-weight: 600; /* Semibold */
+  --paragraph-p3-semibold-letter-spacing: 0px;
+  --paragraph-p3-semibold-line-height: normal;
 
   /* ==== TEXT TOKENS ==== */
   --text-text-sm-text-sm-font-normal-font-family: "Inter", Helvetica;
@@ -155,9 +190,16 @@
   --subtitle-1-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
   --subtitle-1-font-size: 25px;
   --subtitle-1-font-style: normal;
-  --subtitle-1-font-weight: 400;
+  --subtitle-1-font-weight: 400; /* Regular */
   --subtitle-1-letter-spacing: 0px;
   --subtitle-1-line-height: normal;
+
+  --subtitle-1-medium-font-family: "Neue Haas Grotesk Display Pro", Helvetica;
+  --subtitle-1-medium-font-size: 25px;
+  --subtitle-1-medium-font-style: normal;
+  --subtitle-1-medium-font-weight: 500; /* Medium */
+  --subtitle-1-medium-letter-spacing: 0px;
+  --subtitle-1-medium-line-height: normal;
 
   /* ==== Tailwind base tokens ==== */
   --background: 0 0% 100%;
