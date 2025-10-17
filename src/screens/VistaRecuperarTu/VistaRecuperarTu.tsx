@@ -171,13 +171,13 @@ export const VistaRecuperarTu = (): JSX.Element => {
               <Card className="w-full max-w-[460px] bg-white rounded-2xl shadow-lg">
                 <CardContent className="p-8">
                  {/* Título */}
-                  <h1 className="font-haas text-center text-[30px] leading-snug text-primary-900 mb-6">
+                  <h1 className="font-heading-h5 text-center text-[30px] leading-snug text-primary-900 mb-6">
                     Ingresa tu correo electrónico
                     <br />
                     para recuperar tu contraseña
                   </h1>
                   {/* Subtítulo */}
-                  <p className="font-inter text-center text-[15px] text-gray-700 mb-8">
+                  <p className="font-paragraph-p3 text-center text-[15px] text-gray-700 mb-8">
                     Recibirás un email con un código de verificación
                   </p>
 
@@ -200,7 +200,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
                   <div className="flex items-center justify-between">
                     <button
                       className="px-6 py-2 bg-white border border-gray-200 text-gray-900 
-                                rounded-full shadow-md hover:bg-gray-50 font-inter"
+                                rounded-full shadow-md hover:bg-gray-50 font-paragraph-p3"
                       onClick={handleBack}
                     >
                       Atrás
@@ -208,7 +208,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
 
                     <button
                       className="px-6 py-2 bg-[#1B4332] text-white rounded-full shadow-md 
-                                hover:bg-[#163828] font-inter"
+                                hover:bg-[#163828] font-paragraph-p3"
                       onClick={handleContinue}
                     >
                       Continuar
@@ -225,7 +225,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
                     <div className="flex flex-col items-start gap-6 w-full">
                       <div className="flex flex-col items-center gap-8 w-full">
                         <div className="flex flex-col items-center gap-3 w-full">
-                          <h1 className="font-haas text-[30px]  text-primary-900 text-center">
+                          <h1 className="font-heading-h5 text-[30px]  text-primary-900 text-center">
                             Ingresa tu contraseña nueva
                           </h1>
                         </div>
@@ -235,7 +235,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
                         <div className="flex flex-col items-start gap-6 pt-0 pb-4 px-0 w-full">
                           <div className="flex flex-col items-start gap-2 w-full">
                             <div className="flex flex-col items-start gap-3 w-full">
-                              <p className="font-inter font-semibold text-gray-600 text-[14px]">
+                              <p className="font-paragraph-p3 font-semibold text-gray-600 text-[14px]">
                                 Tu contraseña debe tener mínimo 8 caracteres
                               </p>
 
@@ -356,7 +356,7 @@ export const VistaRecuperarTu = (): JSX.Element => {
                     <div className="flex flex-col items-center gap-2 w-full">
                       {/* Título */}
                       <header className="flex flex-col items-center gap-2 w-full">
-                        <h1 className="text-center text-[30px] font-haas text-primary-900">
+                        <h1 className="text-center text-[30px] font-heading-h5 text-primary-900">
                           Código de verificación
                         </h1>
                         <p className="text-center text-md text-gray-700">

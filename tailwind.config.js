@@ -103,10 +103,11 @@ module.exports = {
         // Legacy support
         "paragraph-p2-semi-bold": "var(--paragraph-p2-semibold-font-family)",
         
-        // Font families
-        haas: ['"Neue Haas Grotesk Display Pro"', "sans-serif"],
-        inter: ["Inter", "sans-serif"],
+        // Font families principales
+        haas: ['"Neue Haas Grotesk Display Pro"', "Helvetica", "Arial", "sans-serif"],
+        inter: ["Inter", "system-ui", "sans-serif"],
         sans: [
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
@@ -115,6 +116,17 @@ module.exports = {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
+      },
+      fontWeight: {
+        thin: '100',
+        extralight: '200',
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+        black: '900',
       },
       boxShadow: {
         "shadow-base": "var(--shadow-base)",

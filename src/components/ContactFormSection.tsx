@@ -61,13 +61,12 @@ export const ContactFormSection = ({
             {/* Contenido */}
             <div className="inline-flex flex-col items-center gap-6 pt-6 pb-12 px-0">
               {/* Título */}
-              <h2 className="w-[500px] font-haas text-[40px] font-[number:var(--heading-h5-font-weight)] text-primary-900 text-center tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
+              <h2 className="w-[500px] font-heading-h5 text-primary-900 text-center">
                 ¡Contáctanos!
               </h2>
 
-
-              <p className="w-[500px] font-inter text-[70px]  font-[number:var(--heading-h5-font-weight)] text-primary-900 text-[length:var(--heading-h5-font-size)]  tracking-[var(--heading-h5-letter-spacing)] leading-[var(--heading-h5-line-height)] [font-style:var(--heading-h5-font-style)]">
-               &nbsp; &nbsp;  Te contactaremos lo antes posible
+              <p className="w-[500px] font-paragraph-p3 text-primary-900 text-center">
+                Te contactaremos lo antes posible
               </p>
 
               {/* Campos */}

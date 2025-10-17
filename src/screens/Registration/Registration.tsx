@@ -351,7 +351,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         {/* Opción Pacientes */}
                         {/* Título principal */}
                         
-                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-heading-h5 text-center text-3xl text-gray-900 mb-6 leading-snug">
                       ¡Regístrate!
                     </h1>
                         <div
@@ -359,10 +359,10 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                           onClick={handleChoosePatient}
                         >
                           <div>
-                            <p className="font-haas text-gray-900 font-semibold text-lg">
+                            <p className="font-heading-h5 text-gray-900 font-semibold text-lg">
                               Acured para pacientes
                             </p>
-                            <p className="font-inter text-gray-600 text-sm">
+                            <p className="font-paragraph-p3 text-gray-600 text-sm">
                               Soy paciente y quiero registrarme
                             </p>
                           </div>
@@ -375,10 +375,10 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                           onClick={() => navigate("/registration-acupunturist")} 
                         >
                           <div>
-                            <p className="font-haas text-gray-900 font-semibold text-lg">
+                            <p className="font-heading-h5 text-gray-900 font-semibold text-lg">
                               Acured para acupunturistas
                             </p>
-                            <p className="font-inter text-gray-600 text-sm">
+                            <p className="font-paragraph-p3 text-gray-600 text-sm">
                               Soy acupunturista y me interesa administrar mis pacientes
                             </p>
                           </div>
@@ -396,7 +396,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                     <Card className=" max-w-[500px] bg-white rounded-2xl shadow-lg">
                     <CardContent className="p-8">
                     {/* Título principal */}
-                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-heading-h5 text-center text-3xl text-gray-900 mb-6 leading-snug">
                       Crea una cuenta o regístrate a
                       <br />
                       través de Google
@@ -408,7 +408,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         <button
                           onClick={handleNameForm}
                           className="w-full p-3 rounded-lg bg-[#F2F7F4] hover:bg-[#E9F2EC] 
-                                    border border-gray-200 shadow-sm text-primary-900 font-haas font-semibold 
+                                    border border-gray-200 shadow-sm text-primary-900 font-heading-h5 font-semibold 
                                     transition"
                         >
                           Crear cuenta
@@ -418,7 +418,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         <button
                           className="w-full p-3 rounded-lg bg-white hover:bg-gray-50 
                                     border border-gray-200 shadow-sm flex items-center justify-center gap-2 
-                                    text-primary-900 font-haas font-semibold transition"
+                                    text-primary-900 font-heading-h5 font-semibold transition"
                         >
                           <span className="text-lg">G</span>
                           <span>Continuar con Google</span>
@@ -435,14 +435,14 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                     <CardContent className="p-8">
                       <div className="space-y-4">
                         {/* Título principal */}
-                        <h1 className="font-haas text-center text-3xl text-gray-900 mb-4 leading-snug">
+                        <h1 className="font-heading-h5 text-center text-3xl text-gray-900 mb-4 leading-snug">
                           Crea una cuenta para
                           <br />
                           pacientes en Acured
                         </h1>
 
                         {/* Subtítulo */}
-                        <p className="font-inter text-center text-base text-gray-900 font-semibold mb-6">
+                        <p className="font-paragraph-p3 text-center text-base text-gray-900 font-semibold mb-6">
                           Ingresa tu nombre y apellido
                         </p>
 
@@ -485,13 +485,13 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
                       <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
                         <div className="flex flex-col items-center gap-6 w-full">
-                          <h1 className="font-haas text-center text-2xl text-gray-900 mb-4 leading-snug">
+                          <h1 className="font-heading-h5 text-center text-2xl text-gray-900 mb-4 leading-snug">
                                 Información Básica
                               </h1>
                           <div className="flex flex-col items-start gap-6 pb-4 w-full">
                             
                             <div className="flex flex-col items-start gap-4 w-full">
-                              <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
+                              <h3 className="font-paragraph-p3 font-bold font-heading-h7 text-shadow-900">
                                 Información personal
                               </h3>
 
@@ -600,7 +600,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
 
                             <div className="flex flex-col items-start gap-4 w-full">
                               <div className="inline-flex items-center">
-                                <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
+                                <h3 className="font-paragraph-p3 font-bold font-heading-h7 text-shadow-900">
                                   Información de contacto
                                 </h3>
                               </div>
@@ -629,12 +629,12 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                             </div>
 
                             <div className="flex flex-col items-start gap-2 w-full">
-                              <h3 className="font-inter font-bold font-heading-h7 text-shadow-900">
+                              <h3 className="font-paragraph-p3 font-bold font-heading-h7 text-shadow-900">
                                 Email y contraseña
                               </h3>
 
                               <div className="flex flex-col items-start gap-3 w-full">
-                                <p className="font-inter font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
+                                <p className="font-paragraph-p3 font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
                                   Recibirás un email con un código de confirmación
                                 </p>
 
@@ -643,7 +643,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                                   placeholder="Email"
                                 />
 
-                                <p className="font-inter font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
+                                <p className="font-paragraph-p3 font-paragraph-p1-semi-bold text-shadow-600 text-[14px]">
                                   Tu contraseña debe tener mínimo 8 números o caracteres 
                                 </p>
 
@@ -699,10 +699,10 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                       <CardContent className="p-8 space-y-6">
                         {/* Encabezado */}
                         <header className="text-center space-y-2">
-                          <h1 className="font-haas text-[30px] font-haas text-gray-900">
+                          <h1 className="font-heading-h5 text-[30px] font-heading-h5 text-gray-900">
                             Código de verificación
                           </h1>
-                          <p className="font-inter text-[16px] font-bold text-gray-800">
+                          <p className="font-paragraph-p3 text-[16px] font-bold text-gray-800">
                             Elige cómo quieres recibir tu código de verificación.
                           </p>
                         </header>
@@ -720,10 +720,10 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                               }`}
                             >
                               <div>
-                                <h3 className="font-inter font-bold text-gray-800 text-[20px]">
+                                <h3 className="font-paragraph-p3 font-bold text-gray-800 text-[20px]">
                                   {option.title}
                                 </h3>
-                                <p className="mt-1 font-inter text-[13px] font-semibold text-gray-600">{option.description}</p>
+                                <p className="mt-1 font-paragraph-p3 text-[13px] font-semibold text-gray-600">{option.description}</p>
                               </div>
                               <ChevronRightIcon className="w-5 h-5 text-gray-500" />
                             </button>
@@ -740,7 +740,7 @@ export const Registration = ({ onGenderChange }: Registration): JSX.Element => {
                         <div className="flex flex-col items-center gap-2 w-full">
                           {/* Título */}
                           <header className="flex flex-col items-center gap-2 w-full">
-                            <h1 className="text-center text-[30px] font-haas text-primary-900">
+                            <h1 className="text-center text-[30px] font-heading-h5 text-primary-900">
                               Código de verificación
                             </h1>
                             <p className="text-center text-md text-gray-700">

@@ -134,7 +134,7 @@ export const ProfileDetailsSection = (): JSX.Element => {
                     variant="outline"
                     className="bg-neutralswhite shadow-shadow-xs rounded-3xl px-4 py-2 h-auto"
                   >
-                    <span className="text-zinc-900 font-inter-text-xs-medium text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)] [font-style:var(--inter-text-xs-medium-font-style)]">
+                    <span className="text-zinc-900 font-paragraph-p3-text-xs-medium text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)] [font-style:var(--inter-text-xs-medium-font-style)]">
                       Cancelar
                     </span>
                   </Button>

@@ -140,7 +140,7 @@ export const AppointmentModal = ({ isOpen, onClose }: AppointmentModalProps): JS
             className="px-6 py-2 bg-neutralswhite rounded-3xl shadow-shadow-xs border-gray-300"
             onClick={onClose}
           >
-            <span className="font-inter-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] leading-[var(--inter-text-xs-medium-line-height)] tracking-[var(--inter-text-xs-medium-letter-spacing)] [font-style:var(--inter-text-xs-medium-font-style)]">
+            <span className="font-paragraph-p3-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] leading-[var(--inter-text-xs-medium-line-height)] tracking-[var(--inter-text-xs-medium-letter-spacing)] [font-style:var(--inter-text-xs-medium-font-style)]">
               Cancelar
             </span>
           </Button>

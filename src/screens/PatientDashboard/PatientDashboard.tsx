@@ -268,14 +268,14 @@ export const PatientDashboard = (): JSX.Element => {
                             {/* Detalles de la cita */}
                             <div className="flex-1 p-6">
                               <div className="mb-4">
-                                <p className="text-sm text-gray-600 mb-1 font-bold font-inter ">{appointment.date}</p>
+                                <p className="text-sm text-gray-600 mb-1 font-bold font-paragraph-p3 ">{appointment.date}</p>
                                 <h3 className="font-hass font-bold text-primary-900 text-lg mb-1 ">
                                   {appointment.professional}
                                 </h3>
                                 <p className="font-hass font-bold text-primary-900 mb-1 ">
                                   {appointment.professional2}
                                 </p>
-                                <p className="font-inter text-primary-900 ">{appointment.treatment}</p>
+                                <p className="font-paragraph-p3 text-primary-900 ">{appointment.treatment}</p>
                               </div>
                            
 
@@ -368,12 +368,12 @@ export const PatientDashboard = (): JSX.Element => {
                             {/* Detalles de la cita */}
                             <div className="flex-1 p-6">
                               <div className="mb-4">
-                                <p className="text-sm text-gray-600 mb-1 font-bold font-inter ">{appointment.date}</p>
+                                <p className="text-sm text-gray-600 mb-1 font-bold font-paragraph-p3 ">{appointment.date}</p>
                                 <h3 className="font-hass font-bold text-primary-900 text-lg mb-1 ">
                                   {appointment.professional}
                                 </h3>
                                 
-                                <p className="font-inter text-primary-900 ">{appointment.treatment}</p>
+                                <p className="font-paragraph-p3 text-primary-900 ">{appointment.treatment}</p>
                               </div>
                            
 
@@ -465,7 +465,7 @@ export const PatientDashboard = (): JSX.Element => {
                 <>
                   {/* Header */}
                   <div className="mb-8">
-                    <h2 className="text-[18px] font-inter font-bold text-primary-900">
+                    <h2 className="text-[18px] font-paragraph-p3 font-bold text-primary-900">
                       Información General
                     </h2>
                   </div>
@@ -612,35 +612,35 @@ export const PatientDashboard = (): JSX.Element => {
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               NOMBRE
                             </label>
-                            <p className="text-[17px] text-primary-900 font-inter font-semibold">Isidora Carrasco Zapata</p>
+                            <p className="text-[17px] text-primary-900 font-paragraph-p3 font-semibold">Isidora Carrasco Zapata</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               EDAD
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">27</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">27</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               GÉNERO
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">Mujer</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">Mujer</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               TELÉFONO DE CONTACTO
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">+569</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">+569</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               RUT
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">19.605.454-5</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">19.605.454-5</p>
                           </div>
                         </div>
 
@@ -650,28 +650,28 @@ export const PatientDashboard = (): JSX.Element => {
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               EMAIL
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">@</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">@</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               DIRECCIÓN
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">....</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">....</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               OCUPACIÓN
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">...</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">...</p>
                           </div>
 
                           <div>
                             <label className="block  text-[14px] font-medium text-primary-400 uppercase tracking-wider mb-2">
                               TELÉFONO EN CASO DE EMERGENCIA
                             </label>
-                            <p className="text-base text-primary-900  font-inter font-semibold">+569</p>
+                            <p className="text-base text-primary-900  font-paragraph-p3 font-semibold">+569</p>
                           </div>
                         </div>
                       </div>

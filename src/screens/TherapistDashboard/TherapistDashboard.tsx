@@ -142,7 +142,7 @@ export const TherapistDashboard = (): JSX.Element => {
     Sistema de Agendamiento y Asistencia Clínica de Acupuntura
   </h1>
 
-  <h2 className="font-inter font-[number:var(--subtitle-1-font-weight)] text-primary-900 text-[length:var(--subtitle-1-font-size)] text-center tracking-[var(--subtitle-1-letter-spacing)] leading-[var(--subtitle-1-line-height)] whitespace-nowrap [font-style:var(--subtitle-1-font-style)]">
+  <h2 className="font-paragraph-p3 font-[number:var(--subtitle-1-font-weight)] text-primary-900 text-[length:var(--subtitle-1-font-size)] text-center tracking-[var(--subtitle-1-letter-spacing)] leading-[var(--subtitle-1-line-height)] whitespace-nowrap [font-style:var(--subtitle-1-font-style)]">
     Acured Gestión y Tecnología para la Medicina China
   </h2>
 

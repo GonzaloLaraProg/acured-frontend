@@ -95,7 +95,7 @@ export const PolicySection = ({ onTabChange }: PolicySectionProps): JSX.Element 
                     variant="outline"
                     className="bg-neutralswhite rounded-3xl shadow-shadow-xs"
                   >
-                    <span className="font-inter-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)]">
+                    <span className="font-paragraph-p3-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)]">
                       Cancelar
                     </span>
                   </Button>
@@ -132,7 +132,7 @@ export const PolicySection = ({ onTabChange }: PolicySectionProps): JSX.Element 
                     variant="outline"
                     className="bg-neutralswhite rounded-3xl shadow-shadow-xs"
                   >
-                    <span className="font-inter-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)]">
+                    <span className="font-paragraph-p3-text-xs-medium text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] tracking-[var(--inter-text-xs-medium-letter-spacing)] leading-[var(--inter-text-xs-medium-line-height)]">
                       Cancelar
                     </span>
                   </Button>

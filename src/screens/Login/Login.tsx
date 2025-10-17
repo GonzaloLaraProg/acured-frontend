@@ -104,7 +104,7 @@ export const Login = (): JSX.Element => {
                 {/* Paso inicial */}
                 {currentStep === "initial" && (
                   <>
-                    <h1 className="font-haas text-center text-3xl text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-heading-h5 text-center text-3xl text-gray-900 mb-6 leading-snug">
                       ¡Inicia sesión!
                     </h1>
 
@@ -115,10 +115,10 @@ export const Login = (): JSX.Element => {
                         onClick={handlePatientLogin}
                       >
                         <div>
-                          <p className="font-haas text-gray-900 font-semibold text-lg">
+                          <p className="font-heading-h5 text-gray-900 font-semibold text-lg">
                             Acured para pacientes
                           </p>
-                          <p className="font-inter text-gray-600 text-sm">
+                          <p className="font-paragraph-p3 text-gray-600 text-sm">
                             Soy paciente y quiero iniciar sesión
                           </p>
                         </div>
@@ -131,10 +131,10 @@ export const Login = (): JSX.Element => {
                         onClick={handleTherapistLogin}
                       >
                         <div>
-                          <p className="font-haas text-gray-900 font-semibold text-lg">
+                          <p className="font-heading-h5 text-gray-900 font-semibold text-lg">
                             Acured para acupunturistas
                           </p>
-                          <p className="font-inter text-gray-600 text-sm">
+                          <p className="font-paragraph-p3 text-gray-600 text-sm">
                             Soy acupunturista y me interesa administrar mis pacientes
                           </p>
                         </div>
@@ -147,7 +147,7 @@ export const Login = (): JSX.Element => {
                 {/* Paso login paciente */}
                 {currentStep === "patient-login" && (
                   <>
-                    <h1 className="font-haas text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-heading-h5 text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
                       Ingresa tu correo electrónico y contraseña
                     </h1>
 
@@ -157,14 +157,14 @@ export const Login = (): JSX.Element => {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
+                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-paragraph-p3"
                       />
                       <input
                         type="password"
                         placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
+                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-paragraph-p3"
                       />
 
                       {error && (
@@ -174,7 +174,7 @@ export const Login = (): JSX.Element => {
                       )}
 
                       {/* Google button */}
-                      <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-inter">
+                      <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-paragraph-p3">
                         <span className="text-lg">G</span>
                         <span className="font-medium">Continuar con Google</span>
                       </button>
@@ -182,7 +182,7 @@ export const Login = (): JSX.Element => {
                       {/* Forgot password */}
                       <div className="text-left">
                         <button
-                          className="text-sm text-[#1B4332] hover:underline font-inter"
+                          className="text-sm text-[#1B4332] hover:underline font-paragraph-p3"
                           onClick={() => navigate("/password-recovery?role=patient")}
                         >
                           ¿Olvidaste tu contraseña?
@@ -192,13 +192,13 @@ export const Login = (): JSX.Element => {
                       {/* Bottom buttons */}
                       <div className="flex items-center justify-between pt-4 gap-4">
                         <button
-                          className="px-6 py-2 bg-white border border-gray-300 text-gray-900 rounded-full shadow-sm hover:bg-gray-50 font-inter"
+                          className="px-6 py-2 bg-white border border-gray-300 text-gray-900 rounded-full shadow-sm hover:bg-gray-50 font-paragraph-p3"
                           onClick={handleCreateAccount}
                         >
                           Crear cuenta
                         </button>
                         <button
-                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter disabled:opacity-50"
+                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-paragraph-p3 disabled:opacity-50"
                           onClick={handleLogin}
                           disabled={isLoading}
                         >
@@ -212,7 +212,7 @@ export const Login = (): JSX.Element => {
                 {/* Paso login terapeuta */}
                 {currentStep === "therapist-login" && (
                   <>
-                    <h1 className="font-haas text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
+                    <h1 className="font-heading-h5 text-center text-3xl font-medium text-gray-900 mb-6 leading-snug">
                       Ingresa tu correo electrónico y contraseña
                     </h1>
 
@@ -222,14 +222,14 @@ export const Login = (): JSX.Element => {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
+                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-paragraph-p3"
                       />
                       <input
                         type="password"
                         placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-inter"
+                        className="w-full px-4 py-3 bg-[#F2F7F4] border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1B4332] font-paragraph-p3"
                       />
 
                       {error && (
@@ -239,7 +239,7 @@ export const Login = (): JSX.Element => {
                       )}
 
                       {/* Google button */}
-                      <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-inter">
+                      <button className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-50 transition flex items-center justify-center gap-2 font-paragraph-p3">
                         <span className="text-lg">G</span>
                         <span className="font-medium">Continuar con Google</span>
                       </button>
@@ -247,7 +247,7 @@ export const Login = (): JSX.Element => {
                       {/* Forgot password */}
                       <div className="text-left">
                         <button
-                          className="text-sm text-[#1B4332] hover:underline font-inter"
+                          className="text-sm text-[#1B4332] hover:underline font-paragraph-p3"
                           onClick={() => navigate("/password-recovery?role=therapist")}
                         >
                           ¿Olvidaste tu contraseña?
@@ -257,13 +257,13 @@ export const Login = (): JSX.Element => {
                       {/* Bottom buttons */}
                       <div className="flex items-center justify-between pt-4 gap-4">
                         <button
-                          className="px-6 py-2 bg-white border border-gray-300 text-gray-900 rounded-full shadow-sm hover:bg-gray-50 font-inter"
+                          className="px-6 py-2 bg-white border border-gray-300 text-gray-900 rounded-full shadow-sm hover:bg-gray-50 font-paragraph-p3"
                           onClick={handleCreateAccount}
                         >
                           Crear cuenta
                         </button>
                         <button
-                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-inter disabled:opacity-50"
+                          className="px-6 py-2 bg-[#1B4332] text-white rounded-full hover:bg-[#163828] font-paragraph-p3 disabled:opacity-50"
                           onClick={handleLogin}
                           disabled={isLoading}
                         >

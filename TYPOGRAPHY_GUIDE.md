@@ -5,6 +5,7 @@
 ### 1. Neue Haas Grotesk Display Pro
 **Uso**: Títulos y subtítulos principales
 **Pesos disponibles**: Regular (400) y Medium (500)
+**Fuente**: Archivos locales + fallback a Helvetica/Arial
 
 #### Clases CSS disponibles:
 - `font-heading-h3` - Títulos H3 (39px, Regular)
@@ -21,6 +22,7 @@
 ### 2. Inter
 **Uso**: Párrafos, subtítulos secundarios y texto general
 **Pesos disponibles**: Regular (400) y Semibold (600)
+**Fuente**: Google Fonts + fallback a system-ui
 
 #### Clases CSS disponibles:
 - `font-paragraph-p1` - Párrafos pequeños (12px, Regular)
@@ -29,6 +31,11 @@
 - `font-paragraph-p2-semibold` - Párrafos medianos (14px, Semibold)
 - `font-paragraph-p3` - Párrafos grandes (16px, Regular)
 - `font-paragraph-p3-semibold` - Párrafos grandes (16px, Semibold)
+
+### 3. Clases de Familia de Fuente (Alternativas)
+- `font-haas` - Nueva Haas Grotesk Display Pro
+- `font-inter` - Inter
+- `font-sans` - Inter como fuente principal del sistema
 
 ## Ejemplos de Uso
 
@@ -77,3 +84,26 @@
 - Los pesos Medium (500) de Neue Haas Grotesk se usan para énfasis en títulos
 - Los pesos Semibold (600) de Inter se usan para texto importante o destacado
 - Mantén la consistencia en toda la aplicación usando estas clases
+
+## Configuración Técnica
+
+### Fuentes Cargadas
+1. **Inter**: Cargada desde Google Fonts con todos los pesos (100-900)
+2. **Neue Haas Grotesk Display Pro**: Configurada para cargar archivos locales desde `/public/fonts/`
+
+### Archivos de Fuente Requeridos
+Para que Neue Haas Grotesk funcione completamente, necesitas colocar estos archivos en `/public/fonts/`:
+- `NeueHaasGroteskDisplayPro-Roman.woff2` (peso 400)
+- `NeueHaasGroteskDisplayPro-Medium.woff2` (peso 500)
+
+### Fallbacks Configurados
+- **Neue Haas Grotesk**: Helvetica → Arial → sans-serif
+- **Inter**: system-ui → sans-serif
+
+## Migración Completada
+✅ Todos los archivos han sido actualizados para usar las clases de tipografía correctas
+✅ Reemplazadas las clases `font-haas` y `font-inter` por las clases específicas del sistema
+✅ Configuradas las fuentes con fallbacks apropiados
+✅ Actualizada la configuración de Tailwind CSS
+
+

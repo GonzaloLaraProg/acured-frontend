@@ -207,7 +207,7 @@ export const ServiceSelectionModal = ({ isOpen, onClose, onSave }: ServiceSelect
             className="bg-neutralswhite shadow-shadow-xs px-4 py-2 rounded-3xl"
             onClick={onClose}
           >
-            <span className="font-[number:var(--inter-text-xs-medium-font-weight)] text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] leading-[var(--inter-text-xs-medium-line-height)] font-inter-text-xs-medium text-right tracking-[var(--inter-text-xs-medium-letter-spacing)] [font-style:var(--inter-text-xs-medium-font-style)]">
+            <span className="font-[number:var(--inter-text-xs-medium-font-weight)] text-zinc-900 text-[length:var(--inter-text-xs-medium-font-size)] leading-[var(--inter-text-xs-medium-line-height)] font-paragraph-p3-text-xs-medium text-right tracking-[var(--inter-text-xs-medium-letter-spacing)] [font-style:var(--inter-text-xs-medium-font-style)]">
               Cancelar
             </span>
           </Button>

@@ -203,7 +203,7 @@ export const NavigationSection = ({
               {navigationSections.map((section, sectionIndex) => (
                 <div key={`section-${sectionIndex}`} className="mb-6">
                   <div className="mb-2">
-                    <h3 className="font-inter text-[12px] text-shadow-600 uppercase ">
+                    <h3 className="font-paragraph-p3 text-[12px] text-shadow-600 uppercase ">
                       {section.title}
                     </h3>
                   </div>

@@ -16,7 +16,7 @@ export const AboutUsSection = (): JSX.Element => {
         {/* Contenido derecho */}
         <div className="flex-1 flex flex-col justify-between h-[653px]">
           {/* Título */}
-          <h2 className="font-haas text-primary-900 text-[40px] leading-[48px]  mb-8">
+          <h2 className="font-heading-h5-medium text-primary-900 mb-8">
             Somos el mayor directorio de <br /> acupunturistas de Chile y
             Latinoamérica.
           </h2>
@@ -26,7 +26,7 @@ export const AboutUsSection = (): JSX.Element => {
             {/* Paga seguro */}
             <div className="flex items-start gap-3">
               <img src="/icon-card-outline.svg" alt="Pagar" className="w-10 h-10" />
-              <p className="font-inter text-[20px] leading-[40px] text-black">
+              <p className="font-paragraph-p3 text-black">
                 Paga en línea con total seguridad.
               </p>
             </div>
@@ -34,23 +34,23 @@ export const AboutUsSection = (): JSX.Element => {
             {/* Salud en tres líneas */}
             <div className="flex items-start gap-3">
               <img src="/icon-heart.svg" alt="Heart" className="w-10 h-10" />
-              <p className="font-inter text-[20px] leading-[30px] text-black tracking-[0.01em] py-2">
-  Aprovecha cada minuto de tu <br />
-  sesión enfocándote en lo <br />
-  que más importa:{" "}
-  <span className="font-semibold">tu salud</span>
-</p>
+              <p className="font-paragraph-p3 text-black py-2">
+                Aprovecha cada minuto de tu <br />
+                sesión enfocándote en lo <br />
+                que más importa:{" "}
+                <span className="font-semibold">tu salud</span>
+              </p>
 
             </div>
           </div>
 
           {/* Párrafos inferiores */}
-          <div className="flex gap-4 text-[18px] leading-[28px] text-black">
-            <p className="font-inter flex-1">
+          <div className="flex gap-4 text-black">
+            <p className="font-paragraph-p3 flex-1">
               Agenda tu hora de forma rápida, segura, 100% en línea y encuentra
               al profesional que mejor se adapte a tus necesidades.
             </p>
-            <p className="font-inter flex-1">
+            <p className="font-paragraph-p3 flex-1">
               Conoce sus especialidades, experiencia y enfoque terapéutico.
               Infórmate sobre los distintos tipos de tratamiento y elige con
               confianza.
