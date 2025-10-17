@@ -5,7 +5,7 @@ import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 
 export const ServicesSection = (): JSX.Element => {
-  const [currentIndex, setCurrentIndex] = React.useState(0); // Medicina China será la primera
+  const [currentIndex, setCurrentIndex] = React.useState(0);
   const cardsPerView = 5;
 
   const services = [
@@ -24,7 +24,7 @@ export const ServicesSection = (): JSX.Element => {
   ];
 
   const totalCards = services.length;
-  const cardWidth = 275; // 260px + 15px gap
+  const cardWidth = 275;
 
   const handleNavigation = (direction: "left" | "right") => {
     if (direction === "left") {
@@ -35,27 +35,25 @@ export const ServicesSection = (): JSX.Element => {
   };
 
   const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .normalize("NFD")               // separa letras de acentos
-    .replace(/[\u0300-\u036f]/g, "") // quita acentos
-    .replace(/\s+/g, "-")            // espacios → guiones
-    .replace(/[^a-z0-9-]/g, "");     // elimina todo lo raro
+    text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
 
-  // Función para obtener el servicio en cualquier índice (loop infinito)
   const getServiceAtIndex = (index: number) => {
     const normalizedIndex = ((index % services.length) + services.length) % services.length;
     return services[normalizedIndex];
   };
 
-  // Generar un array grande para el renderizado
   const renderServices = [];
-  const totalRenderItems = 1000; // Suficiente para cualquier navegación
-  
+  const totalRenderItems = 1000;
+
   for (let i = 0; i < totalRenderItems; i++) {
     renderServices.push({
       ...getServiceAtIndex(i),
-      originalIndex: i
+      originalIndex: i,
     });
   }
 
@@ -79,30 +77,40 @@ export const ServicesSection = (): JSX.Element => {
         <ChevronRightIcon className="w-6 h-6 text-primary-900" />
       </Button>
 
-      {/* Contenedor de tarjetas con efecto de barrido */}
+      {/* Contenedor de tarjetas */}
       <div className="flex justify-center">
-        <div className="overflow-hidden w-[1375px]"> {/* 5 tarjetas * 275px cada una */}
-        <div 
-          className="flex gap-[15px] transition-transform duration-500 ease-in-out"
-          style={{
-            transform: `translateX(-${(504 + currentIndex) * cardWidth}px)`,
-            width: `${renderServices.length * cardWidth}px`
-          }}
-        >
-          {renderServices.map((service, index) => (
-            <Card
-              key={`${service.title}-${service.originalIndex}`}
-              className="shadow-shadow-base flex flex-col items-start gap-6 p-3 w-[260px] flex-shrink-0 bg-primary-50 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-300"
-            >
+        <div className="overflow-hidden w-[1375px]">
+          <div
+            className="flex gap-[15px] transition-transform duration-1000 ease-in-out"
+            style={{
+              transform: `translateX(-${(504 + currentIndex) * cardWidth}px)`,
+              width: `${renderServices.length * cardWidth}px`,
+            }}
+          >
+            {renderServices.map((service, index) => (
+              <Card
+                key={`${service.title}-${service.originalIndex}`}
+                className="
+                  group relative flex flex-col items-start gap-6 p-3 w-[260px] flex-shrink-0
+                  bg-white/80 backdrop-blur-sm
+                  rounded-2xl cursor-pointer 
+                  shadow-md hover:shadow-xl
+                  hover:-translate-y-1 hover:bg-white transition-all duration-300
+                  border border-gray-100
+                "
+              >
                 <CardContent className="flex flex-col items-start gap-6 w-full p-0">
-                  <div className="flex items-start gap-2.5 w-full h-[145px] bg-primary-200 rounded-lg overflow-hidden">
+                  
+                  {/* Imagen */}
+                  <div className="relative w-full h-[145px] rounded-xl overflow-hidden">
                     <img
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       alt={service.title}
                       src={service.image}
                     />
                   </div>
 
+                  {/* Título y descripción */}
                   <div className="flex flex-col items-start gap-3 w-full">
                     <h3 className="font-heading-h6 text-primary-900 text-lg">
                       {service.title}
@@ -112,22 +120,22 @@ export const ServicesSection = (): JSX.Element => {
                     </p>
                   </div>
 
+                  {/* Botón Ver más */}
                   <Button
                     variant="ghost"
-                    className="px-4 py-2 bg-primary-100 rounded-3xl text-primary-800 text-sm"
+                    className="px-4 py-2 bg-primary-100 rounded-3xl text-primary-800 text-sm hover:bg-primary-200 transition-all duration-300"
                   >
                     <Link to={`/service-details/${slugify(service.title)}`}>
                       Ver más
                     </Link>
                   </Button>
+
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </div>
-
-      
     </section>
   );
 };

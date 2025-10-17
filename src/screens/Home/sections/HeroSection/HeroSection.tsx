@@ -63,38 +63,35 @@ export const HeroSection = (): JSX.Element => {
 
         {/* Updated Search Bar */}
         <div className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-[200px] shadow-shadow-sm">
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-3xl border border-solid border-[#dcdce2] w-80">
-            <SearchIcon className="w-5 h-5 text-primary-900" />
-            <div 
-              className="relative flex-1 h-5 cursor-pointer"
-              onClick={handleSearchClick}
-            >
-              <div className="absolute w-[252px] -top-px left-0 font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
-                Profesional, centro o servicio
-              </div>
-            </div>
-          </div>
+          <div
+  className="flex items-center gap-2 px-4 py-2 bg-white rounded-3xl border border-solid border-[#dcdce2] w-80 cursor-pointer"
+  onClick={handleSearchClick}
+>
+  <SearchIcon className="w-5 h-5 text-primary-900 flex-shrink-0" />
+  <span className="font-paragraph-p2-semi-bold text-primary-900 leading-normal">
+    Profesional, centro o servicio
+  </span>
+</div>
+
 
           <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-3xl border border-solid border-[#dcdce2] w-60">
-            <MapPinIcon className="w-5 h-5 text-primary-900" />
-            <div className="relative flex-1 h-5">
-              <div className="absolute w-[252px] -top-px left-0 font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
-                Ubicación
-              </div>
-            </div>
+            <MapPinIcon className="w-5 h-5 text-primary-900 flex-shrink-0" />
+            <span className="font-paragraph-p2-semi-bold text-primary-900 leading-normal">
+              Ubicación
+            </span>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-3xl border border-solid border-[#dcdce2] w-40">
-            <CalendarIcon className="w-5 h-5 text-primary-900" />
-            <div 
-              className="relative flex-1 h-5 cursor-pointer"
-              onClick={() => setIsCalendarModalOpen(true)}
-            >
-              <div className="absolute w-[100px] -top-px left-0 font-paragraph-p2-semi-bold font-[number:var(--paragraph-p2-semi-bold-font-weight)] text-primary-900 text-[length:var(--paragraph-p2-semi-bold-font-size)] tracking-[var(--paragraph-p2-semi-bold-letter-spacing)] leading-[var(--paragraph-p2-semi-bold-line-height)] [font-style:var(--paragraph-p2-semi-bold-font-style)]">
-                {getDisplayDate()}
-              </div>
-            </div>
+
+          <div
+            className="flex items-center gap-2 px-4 py-2 bg-white rounded-3xl border border-solid border-[#dcdce2] w-40 cursor-pointer"
+            onClick={() => setIsCalendarModalOpen(true)}
+          >
+            <CalendarIcon className="w-5 h-5 text-primary-900 flex-shrink-0" />
+            <span className="font-paragraph-p2-semi-bold text-primary-900 leading-normal">
+              {getDisplayDate()}
+            </span>
           </div>
+
 
           <Button
             ref={timeButtonRef}
