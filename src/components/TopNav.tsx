@@ -45,7 +45,7 @@ export default function TopNav({ isPrefilledView = false }: TopNavProps): JSX.El
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed left-0 top-0 w-full h-[90px] bg-white/80 backdrop-blur-sm shadow-sm z-40"
+            className="fixed left-0 top-0 w-full h-[90px] bg-white/80 backdrop-blur-sm shadow-sm z-40 p-4"
           />
         )}
       </AnimatePresence>

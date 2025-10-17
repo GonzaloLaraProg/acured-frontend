@@ -5,14 +5,14 @@ import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 
 export const ServicesSection = (): JSX.Element => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = React.useState(0); // Medicina China será la primera
   const cardsPerView = 5;
 
   const services = [
     { title: "Medicina China", description: "La Medicina Tradicional China (MTC) es un sistema médico completo y holístico …", image: "/image-1.png" },
     { title: "Acupuntura", description: "Los orígenes de la acupuntura se remontan a la antigüedad, aunque es difícil precisar …", image: "/image-2.png" },
     { title: "Moxibustión", description: "La moxibustión es una técnica de la medicina tradicional china que utiliza el calor generado …", image: "/image-3.png" },
-    { title: "Ventosas", description: "La terapia de ventosas, conocida en chino como 'Bá Guàn' (拔罐) y en Occidente como “Cupping” …", image: "/image-4.png" },
+    { title: "Ventosas", description: "La terapia de ventosas, conocida en chino como 'Bá Guàn' (拔罐) y en Occidente como 'Cupping' …", image: "/image-4.png" },
     { title: "Masaje Tuina", description: "El Masaje Tuina es una rama de la Medicina Tradicional China que utiliza el masaje como medio …", image: "/image-5.png" },
     { title: "Auriculoterapia", description: "La auriculoterapia (耳针疗法 - ěr zhēn liáo fǎ) es una rama especializada de la acupuntura …", image: "/image-6.png" },
     { title: "Fitoterapia", description: "La fitoterapia es una de las ramas más importantes de la Medicina Tradicional China (MTC), con …", image: "/image-7.png" },
@@ -24,12 +24,13 @@ export const ServicesSection = (): JSX.Element => {
   ];
 
   const totalCards = services.length;
+  const cardWidth = 275; // 260px + 15px gap
 
   const handleNavigation = (direction: "left" | "right") => {
     if (direction === "left") {
-      setCurrentIndex((prev) => (prev - cardsPerView + totalCards) % totalCards);
+      setCurrentIndex((prev) => prev - cardsPerView);
     } else {
-      setCurrentIndex((prev) => (prev + cardsPerView) % totalCards);
+      setCurrentIndex((prev) => prev + cardsPerView);
     }
   };
 
@@ -41,12 +42,22 @@ export const ServicesSection = (): JSX.Element => {
     .replace(/\s+/g, "-")            // espacios → guiones
     .replace(/[^a-z0-9-]/g, "");     // elimina todo lo raro
 
+  // Función para obtener el servicio en cualquier índice (loop infinito)
+  const getServiceAtIndex = (index: number) => {
+    const normalizedIndex = ((index % services.length) + services.length) % services.length;
+    return services[normalizedIndex];
+  };
 
-  // Calcular las 5 visibles con módulo para loop infinito
-  const visibleCards = Array.from({ length: cardsPerView }).map((_, i) => {
-    const index = (currentIndex + i) % totalCards;
-    return services[index];
-  });
+  // Generar un array grande para el renderizado
+  const renderServices = [];
+  const totalRenderItems = 1000; // Suficiente para cualquier navegación
+  
+  for (let i = 0; i < totalRenderItems; i++) {
+    renderServices.push({
+      ...getServiceAtIndex(i),
+      originalIndex: i
+    });
+  }
 
   return (
     <section className="px-16 py-28 relative">
@@ -54,57 +65,66 @@ export const ServicesSection = (): JSX.Element => {
       <Button
         variant="ghost"
         onClick={() => handleNavigation("left")}
-        className="absolute left-[calc(50%-700px)] top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        className="absolute left-[calc(50%-720px)] top-1/2 transform -translate-y-1/2 z-10 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-200"
       >
-        <ChevronLeftIcon className="w-5 h-5 text-primary-900" />
+        <ChevronLeftIcon className="w-6 h-6 text-primary-900" />
       </Button>
 
       {/* Flecha derecha */}
       <Button
         variant="ghost"
         onClick={() => handleNavigation("right")}
-        className="absolute right-[calc(50%-700px)] top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200"
+        className="absolute right-[calc(50%-720px)] top-1/2 transform -translate-y-1/2 z-10 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-200"
       >
-        <ChevronRightIcon className="w-5 h-5 text-primary-900" />
+        <ChevronRightIcon className="w-6 h-6 text-primary-900" />
       </Button>
 
-      {/* Contenedor de tarjetas */}
-      <div className="flex gap-[15px] justify-center">
-        {visibleCards.map((service, index) => (
-          <Card
-            key={`${currentIndex}-${index}`}
-            className="shadow-shadow-base flex flex-col items-start gap-6 p-3 w-[260px] flex-shrink-0 bg-primary-50 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-300"
-          >
-            <CardContent className="flex flex-col items-start gap-6 w-full p-0">
-              <div className="flex items-start gap-2.5 w-full h-[145px] bg-primary-200 rounded-lg overflow-hidden">
-                <img
-                  className="w-full h-full object-cover"
-                  alt={service.title}
-                  src={service.image}
-                />
-              </div>
+      {/* Contenedor de tarjetas con efecto de barrido */}
+      <div className="flex justify-center">
+        <div className="overflow-hidden w-[1375px]"> {/* 5 tarjetas * 275px cada una */}
+        <div 
+          className="flex gap-[15px] transition-transform duration-500 ease-in-out"
+          style={{
+            transform: `translateX(-${(504 + currentIndex) * cardWidth}px)`,
+            width: `${renderServices.length * cardWidth}px`
+          }}
+        >
+          {renderServices.map((service, index) => (
+            <Card
+              key={`${service.title}-${service.originalIndex}`}
+              className="shadow-shadow-base flex flex-col items-start gap-6 p-3 w-[260px] flex-shrink-0 bg-primary-50 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-300"
+            >
+                <CardContent className="flex flex-col items-start gap-6 w-full p-0">
+                  <div className="flex items-start gap-2.5 w-full h-[145px] bg-primary-200 rounded-lg overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt={service.title}
+                      src={service.image}
+                    />
+                  </div>
 
-              <div className="flex flex-col items-start gap-3 w-full">
-                <h3 className="font-heading-h6 text-primary-900 text-lg">
-                  {service.title}
-                </h3>
-                <p className="text-primary-900 text-sm line-clamp-3">
-                  {service.description}
-                </p>
-              </div>
+                  <div className="flex flex-col items-start gap-3 w-full">
+                    <h3 className="font-heading-h6 text-primary-900 text-lg">
+                      {service.title}
+                    </h3>
+                    <p className="text-primary-900 text-sm line-clamp-3">
+                      {service.description}
+                    </p>
+                  </div>
 
-              <Button
-                variant="ghost"
-                className="px-4 py-2 bg-primary-100 rounded-3xl text-primary-800 text-sm"
-              >
-                <Link to={`/service-details/${slugify(service.title)}`}>
-                  Ver más
-                </Link>
-
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+                  <Button
+                    variant="ghost"
+                    className="px-4 py-2 bg-primary-100 rounded-3xl text-primary-800 text-sm"
+                  >
+                    <Link to={`/service-details/${slugify(service.title)}`}>
+                      Ver más
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
 
       
